@@ -64,6 +64,7 @@ namespace GITTest
             listBoxDates.DataSource = DatesFormatted;
 
             /*
+             * TODO: COULD POTENTIALLY BE USED TO PULL MULTIPLE FIELDS FROM A DATATABLE
             while (reader.Read())
             {
                 string datesList = "";
