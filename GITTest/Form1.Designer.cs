@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonGetDates = new System.Windows.Forms.Button();
+            this.listBoxDates = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -52,11 +54,31 @@
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // buttonGetDates
+            // 
+            this.buttonGetDates.Location = new System.Drawing.Point(16, 51);
+            this.buttonGetDates.Name = "buttonGetDates";
+            this.buttonGetDates.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetDates.TabIndex = 2;
+            this.buttonGetDates.Text = "GetDates";
+            this.buttonGetDates.UseVisualStyleBackColor = true;
+            this.buttonGetDates.Click += new System.EventHandler(this.buttonGetDates_Click);
+            // 
+            // listBoxDates
+            // 
+            this.listBoxDates.FormattingEnabled = true;
+            this.listBoxDates.Location = new System.Drawing.Point(16, 110);
+            this.listBoxDates.Name = "listBoxDates";
+            this.listBoxDates.Size = new System.Drawing.Size(120, 95);
+            this.listBoxDates.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.listBoxDates);
+            this.Controls.Add(this.buttonGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -70,6 +92,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonGetDates;
+        private System.Windows.Forms.ListBox listBoxDates;
     }
 }
 
