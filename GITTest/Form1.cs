@@ -45,8 +45,13 @@ namespace GITTest
                 OleDbCommand getDates = new OleDbCommand("SELECT [Order Date],[Ship Date] from Sheet1", connection);
 
                 reader = getDates.ExecuteReader();
-                //aaab
+                while (reader.Read())
+                {
+                    Dates.Add(reader[0].ToString());
+                    Dates.Add(reader[1].ToString());
+                }
             }
+            lstBoxDates.DataSource = Dates;
 
             
         }
