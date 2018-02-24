@@ -33,7 +33,7 @@
             this.btnGetDates = new System.Windows.Forms.Button();
             this.lstBoxDates = new System.Windows.Forms.ListBox();
             this.btnGetCustomer = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -83,22 +83,23 @@
             this.btnGetCustomer.TabIndex = 4;
             this.btnGetCustomer.Text = "GetCustomer";
             this.btnGetCustomer.UseVisualStyleBackColor = true;
+            this.btnGetCustomer.Click += new System.EventHandler(this.btnGetCustomer_Click_1);
             // 
-            // listBox1
+            // listBoxCustomer
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(166, 123);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 88);
-            this.listBox1.TabIndex = 5;
+            this.listBoxCustomer.FormattingEnabled = true;
+            this.listBoxCustomer.ItemHeight = 12;
+            this.listBoxCustomer.Location = new System.Drawing.Point(166, 123);
+            this.listBoxCustomer.Name = "listBoxCustomer";
+            this.listBoxCustomer.Size = new System.Drawing.Size(120, 88);
+            this.listBoxCustomer.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 241);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnGetCustomer);
             this.Controls.Add(this.lstBoxDates);
             this.Controls.Add(this.btnGetDates);
@@ -118,7 +119,7 @@
         private System.Windows.Forms.Button btnGetDates;
         private System.Windows.Forms.ListBox lstBoxDates;
         private System.Windows.Forms.Button btnGetCustomer;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxCustomer;
     }
 }
 
