@@ -97,30 +97,52 @@ namespace GITTest
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 connection.Open();
-                OleDbDataReader command = null;
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub - Category] from  Sheet1", connection);
-
-
+                OleDbDataReader reader = null;
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                
+                
                 //THIS IS WHERE THE PROGRAM BREAKS
                 //SEE IF YOU CAN FIX IT 
 
-                command = getProducts.ExecuteReader();
-                while (command.Read())
+                reader = getProducts.ExecuteReader();
+                while (reader.Read())
                 {
-                    Products.Add(command[0].ToString());
-                    Products.Add(command[1].ToString());
-                    Products.Add(command[2].ToString());
-                    Products.Add(command[3].ToString());
-                    Products.Add(command[4].ToString());
-                    Products.Add(command[5].ToString());
+                    string productList = "";
+                    foreach (var i in reader)
+                    {
+                        productList += i.ToString();
+                    }
+                    Products.Add(productList);
+
+
+
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
                 }
-                command.Close();
+
+                //use below while loop will work. sorry about that i still didn't not figure out what your while loop mean.
+                //Anyway, i found that if i try your while loop in the getDates, it will has error too.
+
+                //while (reader.Read())
+                //{
+                //    Products.Add(reader[0].ToString());
+                //    Products.Add(reader[1].ToString());
+                //    Products.Add(reader[2].ToString());
+                //    Products.Add(reader[3].ToString());
+                //    Products.Add(reader[4].ToString());
+                //    Products.Add(reader[5].ToString());
+                //}
             }
 
             
             //bind the listbox to the list
 
             listBoxProducts.DataSource = Products;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
