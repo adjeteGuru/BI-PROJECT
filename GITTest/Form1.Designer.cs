@@ -39,10 +39,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(227, 26);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Git clone and pull test!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -50,10 +49,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(102, 148);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(51, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 26);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -61,19 +59,16 @@
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
-            this.listBoxDates.ItemHeight = 25;
-            this.listBoxDates.Location = new System.Drawing.Point(10, 148);
-            this.listBoxDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.listBoxDates.Location = new System.Drawing.Point(5, 77);
             this.listBoxDates.Name = "listBoxDates";
-            this.listBoxDates.Size = new System.Drawing.Size(236, 179);
+            this.listBoxDates.Size = new System.Drawing.Size(120, 95);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(10, 75);
-            this.btnGetDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGetDates.Location = new System.Drawing.Point(5, 39);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(150, 44);
+            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -81,9 +76,10 @@
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(290, 75);
+            this.btnGetProducts.Location = new System.Drawing.Point(145, 39);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGetProducts.Name = "btnGetProducts";
-            this.btnGetProducts.Size = new System.Drawing.Size(203, 44);
+            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
@@ -92,26 +88,26 @@
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.ItemHeight = 25;
-            this.listBoxProducts.Location = new System.Drawing.Point(290, 148);
+            this.listBoxProducts.Location = new System.Drawing.Point(145, 77);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(252, 179);
+            this.listBoxProducts.Size = new System.Drawing.Size(128, 95);
             this.listBoxProducts.TabIndex = 5;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1044, 638);
+            this.ClientSize = new System.Drawing.Size(522, 332);
             this.Controls.Add(this.listBoxProducts);
             this.Controls.Add(this.btnGetProducts);
             this.Controls.Add(this.listBoxDates);
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
