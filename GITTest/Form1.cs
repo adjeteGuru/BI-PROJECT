@@ -83,18 +83,20 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getCustomers = new OleDbCommand("SELECT   [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+                //OleDbCommand getCustomers = new OleDbCommand("SELECT   [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
 
+                // RE-AJUST THE CUSTOMER CLASS IN A CONVENTIONAL ORDER. AND REMOVED STATE AND REGION OUT OF THE TABLE BECAUSE IT IS AMERICAN STYLE
+                OleDbCommand getCustomers = new OleDbCommand("SELECT   [Customer ID], [Customer Name], City, [Postal Code], Country, FROM Sheet1", connection);
                 reader = getCustomers.ExecuteReader();
                 while (reader.Read())
-                {
+                { //COMMENT OUT THE LAST TWO ARRAY FROM THE LIST
                     Customers.Add(reader[0].ToString());
                     Customers.Add(reader[1].ToString());
                     Customers.Add(reader[2].ToString());
                     Customers.Add(reader[3].ToString());
                     Customers.Add(reader[4].ToString());
-                    Customers.Add(reader[5].ToString());
-                    Customers.Add(reader[6].ToString());
+                    //Customers.Add(reader[5].ToString());
+                    //Customers.Add(reader[6].ToString());
                 }
             }
 

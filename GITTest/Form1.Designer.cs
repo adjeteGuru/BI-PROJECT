@@ -39,9 +39,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 12);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 12);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Git clone and pull test!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -49,18 +49,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 71);
+            this.label2.Location = new System.Drawing.Point(51, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 12);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(16, 47);
+            this.btnGetDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetDates.ForeColor = System.Drawing.Color.Red;
+            this.btnGetDates.Location = new System.Drawing.Point(16, 51);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(75, 21);
+            this.btnGetDates.Size = new System.Drawing.Size(120, 39);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -69,17 +71,18 @@
             // lstBoxDates
             // 
             this.lstBoxDates.FormattingEnabled = true;
-            this.lstBoxDates.ItemHeight = 12;
-            this.lstBoxDates.Location = new System.Drawing.Point(16, 123);
+            this.lstBoxDates.Location = new System.Drawing.Point(16, 133);
             this.lstBoxDates.Name = "lstBoxDates";
-            this.lstBoxDates.Size = new System.Drawing.Size(120, 88);
+            this.lstBoxDates.Size = new System.Drawing.Size(120, 95);
             this.lstBoxDates.TabIndex = 3;
             // 
             // btnGetCustomer
             // 
-            this.btnGetCustomer.Location = new System.Drawing.Point(166, 47);
+            this.btnGetCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCustomer.ForeColor = System.Drawing.Color.Red;
+            this.btnGetCustomer.Location = new System.Drawing.Point(166, 51);
             this.btnGetCustomer.Name = "btnGetCustomer";
-            this.btnGetCustomer.Size = new System.Drawing.Size(82, 23);
+            this.btnGetCustomer.Size = new System.Drawing.Size(120, 39);
             this.btnGetCustomer.TabIndex = 4;
             this.btnGetCustomer.Text = "GetCustomer";
             this.btnGetCustomer.UseVisualStyleBackColor = true;
@@ -88,17 +91,16 @@
             // listBoxCustomer
             // 
             this.listBoxCustomer.FormattingEnabled = true;
-            this.listBoxCustomer.ItemHeight = 12;
-            this.listBoxCustomer.Location = new System.Drawing.Point(166, 123);
+            this.listBoxCustomer.Location = new System.Drawing.Point(166, 133);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(120, 88);
+            this.listBoxCustomer.Size = new System.Drawing.Size(120, 95);
             this.listBoxCustomer.TabIndex = 5;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 241);
+            this.ClientSize = new System.Drawing.Size(473, 324);
             this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnGetCustomer);
             this.Controls.Add(this.lstBoxDates);
