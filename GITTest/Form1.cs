@@ -98,7 +98,7 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub - Category] from  Sheet1", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
                 
                 
                 //THIS IS WHERE THE PROGRAM BREAKS
@@ -117,8 +117,21 @@ namespace GITTest
 
 
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-                    
+
                 }
+
+                //use below while loop will work. sorry about that i still didn't not figure out what your while loop mean.
+                //Anyway, i found that if i try your while loop in the getDates, it will has error too.
+
+                //while (reader.Read())
+                //{
+                //    Products.Add(reader[0].ToString());
+                //    Products.Add(reader[1].ToString());
+                //    Products.Add(reader[2].ToString());
+                //    Products.Add(reader[3].ToString());
+                //    Products.Add(reader[4].ToString());
+                //    Products.Add(reader[5].ToString());
+                //}
             }
 
             
