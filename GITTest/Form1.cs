@@ -97,28 +97,24 @@ namespace GITTest
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 connection.Open();
-                OleDbDataReader reader = null;
+                OleDbDataReader command = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub - Category] from  Sheet1", connection);
-                
-                
+
+
                 //THIS IS WHERE THE PROGRAM BREAKS
                 //SEE IF YOU CAN FIX IT 
 
-                reader = getProducts.ExecuteReader();
-                while (reader.Read())
+                command = getProducts.ExecuteReader();
+                while (command.Read())
                 {
-                    string productList = "";
-                    foreach (var i in reader)
-                    {
-                        productList += i.ToString();
-                    }
-                    Products.Add(productList);
-
-
-
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-                    
+                    Products.Add(command[0].ToString());
+                    Products.Add(command[1].ToString());
+                    Products.Add(command[2].ToString());
+                    Products.Add(command[3].ToString());
+                    Products.Add(command[4].ToString());
+                    Products.Add(command[5].ToString());
                 }
+                command.Close();
             }
 
             
