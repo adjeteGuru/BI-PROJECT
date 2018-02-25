@@ -11,14 +11,16 @@ Date	11/10/16
 
 Programmers
 
-Name		  Programmer 1
-P Number	P1
+Name		  Igho
+P Number	P16223827
 
-Name		  Programmer 2
-P Number	P2
+Name		  Zhaofeng
+P Number	P16244825
 
 List all tasks completed this session by the above programmers. What went well, what problems did you face?
 
+Igho completed get product part tentatively and found that some error happened. Zhaofeng checked Igho's coding and thought that
+may be there are some logic problems occured in the while loop, so Zhaofeng tried another while loop and the program can work successfully.
 
 ### OPTION 2 - weekly ###
 
