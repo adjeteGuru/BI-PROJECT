@@ -163,7 +163,7 @@ namespace GITTest
         //}
     }
 
-
+    //
     //bind the listbox to the list
 
     //    listBoxProducts.DataSource = Products;
