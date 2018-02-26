@@ -32,6 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
             this.btnGetDates = new System.Windows.Forms.Button();
+            this.btnGetProducts = new System.Windows.Forms.Button();
+            this.listBoxProducts = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -72,17 +74,40 @@
             this.btnGetDates.UseVisualStyleBackColor = true;
             this.btnGetDates.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnGetProducts
+            // 
+            this.btnGetProducts.Location = new System.Drawing.Point(145, 39);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetProducts.Name = "btnGetProducts";
+            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
+            this.btnGetProducts.TabIndex = 4;
+            this.btnGetProducts.Text = "GetProducts";
+            this.btnGetProducts.UseVisualStyleBackColor = true;
+            //this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click);
+            // 
+            // listBoxProducts
+            // 
+            this.listBoxProducts.FormattingEnabled = true;
+            this.listBoxProducts.Location = new System.Drawing.Point(145, 77);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxProducts.Name = "listBoxProducts";
+            this.listBoxProducts.Size = new System.Drawing.Size(128, 95);
+            this.listBoxProducts.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(522, 332);
+            this.Controls.Add(this.listBoxProducts);
+            this.Controls.Add(this.btnGetProducts);
             this.Controls.Add(this.listBoxDates);
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            //this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -94,6 +119,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBoxDates;
         private System.Windows.Forms.Button btnGetDates;
+        private System.Windows.Forms.Button btnGetProducts;
+        private System.Windows.Forms.ListBox listBoxProducts;
     }
 }
 
