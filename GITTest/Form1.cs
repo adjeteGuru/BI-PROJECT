@@ -47,7 +47,7 @@ namespace GITTest
                 while (reader.Read())
                 {
                     Dates.Add(reader[0].ToString());
-                    Dates.Add(reader[0].ToString());
+                    Dates.Add(reader[1].ToString());
                 }
             }
 
