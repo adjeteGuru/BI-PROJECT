@@ -88,7 +88,7 @@
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
-            this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click);
+            //this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click);
             // 
             // listBoxProducts
             // 
@@ -114,7 +114,7 @@
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            //this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

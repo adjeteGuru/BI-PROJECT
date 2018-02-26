@@ -64,7 +64,8 @@ namespace GITTest
             listBoxDates.DataSource = DatesFormatted;
 
 
-        }
+
+            }
 
         private void btnGetProducts_Click(object sender, EventArgs e)
         {
@@ -82,6 +83,7 @@ namespace GITTest
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
 
+
                 //THIS IS WHERE THE PROGRAM BREAKS
                 //SEE IF YOU CAN FIX IT 
 
@@ -92,7 +94,11 @@ namespace GITTest
                    
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
+
+
                 }
+            }
+
 
                 //bind the listbox to the list
                 listBoxProducts.DataSource = Products;
@@ -107,20 +113,11 @@ namespace GITTest
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            
+
+    
         }
-    }
+
+    
 }
-
-//use below while loop will work. sorry about that i still didn't not figure out what your while loop mean.
-//Anyway, i found that if i try your while loop in the getDates, it will has error too.
-
-//while (reader.Read())
-//{
-//    Products.Add(reader[0].ToString());
-//    Products.Add(reader[1].ToString());
-//    Products.Add(reader[2].ToString());
-//    Products.Add(reader[3].ToString());
-//    Products.Add(reader[4].ToString());
-//    Products.Add(reader[5].ToString());
-//}
 
