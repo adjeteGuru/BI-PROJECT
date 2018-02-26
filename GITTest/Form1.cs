@@ -69,6 +69,13 @@ namespace GITTest
 
         private void btnGetProducts_Click(object sender, EventArgs e)
         {
+           
+
+
+            }
+
+        private void btnGetProducts_Click_1(object sender, EventArgs e)
+        {
             List<string> Products = new List<string>();
             //clear the listbox
             listBoxProducts.Items.Clear();
@@ -84,14 +91,13 @@ namespace GITTest
 
 
 
-                //THIS IS WHERE THE PROGRAM BREAKS
-                //SEE IF YOU CAN FIX IT 
-
+               
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
 
-                   
+                    //we enlist the columns to be read 
+                    
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
 
@@ -100,23 +106,13 @@ namespace GITTest
             }
 
 
-                //bind the listbox to the list
-                listBoxProducts.DataSource = Products;
-
-
-            }
-
-
+            //bind the listbox to the list
+            listBoxProducts.DataSource = Products;
         }
+    }
 
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            
-
-    
-        }
+        
 
     
 }

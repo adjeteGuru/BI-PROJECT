@@ -63,7 +63,7 @@
             this.listBoxDates.FormattingEnabled = true;
             this.listBoxDates.ItemHeight = 25;
             this.listBoxDates.Location = new System.Drawing.Point(10, 148);
-            this.listBoxDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.listBoxDates.Margin = new System.Windows.Forms.Padding(6);
             this.listBoxDates.Name = "listBoxDates";
             this.listBoxDates.Size = new System.Drawing.Size(360, 179);
             this.listBoxDates.TabIndex = 3;
@@ -71,7 +71,7 @@
             // btnGetDates
             // 
             this.btnGetDates.Location = new System.Drawing.Point(10, 75);
-            this.btnGetDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGetDates.Margin = new System.Windows.Forms.Padding(6);
             this.btnGetDates.Name = "btnGetDates";
             this.btnGetDates.Size = new System.Drawing.Size(150, 44);
             this.btnGetDates.TabIndex = 2;
@@ -82,20 +82,20 @@
             // btnGetProducts
             // 
             this.btnGetProducts.Location = new System.Drawing.Point(424, 75);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetProducts.Name = "btnGetProducts";
             this.btnGetProducts.Size = new System.Drawing.Size(204, 44);
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
-            //this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click);
+            this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click_1);
             // 
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
             this.listBoxProducts.ItemHeight = 25;
             this.listBoxProducts.Location = new System.Drawing.Point(424, 148);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(402, 179);
             this.listBoxProducts.TabIndex = 5;
@@ -111,10 +111,9 @@
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
