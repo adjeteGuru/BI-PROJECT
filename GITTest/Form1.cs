@@ -63,25 +63,6 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
-            /*
-             * TODO: COULD POTENTIALLY BE USED TO PULL MULTIPLE FIELDS FROM A DATATABLE
-            while (reader.Read())
-            {
-                string datesList = "";
-                foreach(var i in reader)
-                {
-                    datesList += i.ToString();
-                }
-                Dates.Add(datesList);
-
-
-
-                Dates.Add(reader[0].ToString() + ", " + reader[1].ToString());
-                //Dates.Add(reader[1].ToString());
-            }
-            */
-
-
 
         }
 
@@ -108,12 +89,7 @@ namespace GITTest
                 while (reader.Read())
                 {
 
-                    //Products.Add(reader[0].ToString());
-                    //Products.Add(reader[1].ToString());
-                    //Products.Add(reader[2].ToString());
-                    //Products.Add(reader[3].ToString());
-                    //Products.Add(reader[4].ToString());
-                    //Products.Add(reader[5].ToString());
+                   
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
                 }
