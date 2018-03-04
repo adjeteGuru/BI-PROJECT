@@ -63,6 +63,12 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
+            int year = 0;
+            int month = 0;
+            int day = 0;
+
+            Console.WriteLine(Dates[0].ToString());
+
 
 
             }
@@ -82,32 +88,27 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
-
-
                 //THIS IS WHERE THE PROGRAM BREAKS
                 //SEE IF YOU CAN FIX IT 
 
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
-                {
-
-                   
+                {             
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-
-
-
                 }
             }
-
 
                 //bind the listbox to the list
                 listBoxProducts.DataSource = Products;
 
-
+          
             }
 
+        private void btnGetProducts_Click_1(object sender, EventArgs e)
+        {
 
         }
+    }
 
 
         
