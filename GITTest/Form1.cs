@@ -38,10 +38,7 @@ namespace GITTest
             int month = Convert.ToInt32(arrayDate[1]);
             int day = Convert.ToInt32(arrayDate[0]);
 
-
-
             DateTime dateTime = new DateTime(year, month, day);
-            
 
             string dayOfWeek = dateTime.DayOfWeek.ToString();
             int dayOfYear = dateTime.DayOfYear;
@@ -49,8 +46,9 @@ namespace GITTest
             int weekNumber = dayOfYear / 7;
             bool Weekend = false;
             if (dayOfWeek == "Saturday" || dayOfWeek == "Sunday") Weekend = true;
+            string dbDate = dateTime.ToString("M/dd/yyyy");
 
-            insertTimeDimension(date, dayOfWeek, day, monthName, month, weekNumber, year, Weekend, dayOfYear);
+            insertTimeDimension(dbDate, dayOfWeek, day, monthName, month, weekNumber, year, Weekend, dayOfYear);
         }
 
         private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
