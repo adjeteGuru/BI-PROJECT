@@ -73,7 +73,9 @@ namespace GITTest
 
             }
 
-        private void btnGetProducts_Click(object sender, EventArgs e)
+      
+
+        private void btnGetProducts_Click_1(object sender, EventArgs e)
         {
             List<string> Products = new List<string>();
             //clear the listbox
@@ -93,19 +95,13 @@ namespace GITTest
 
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
-                {             
+                {
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
                 }
             }
 
-                //bind the listbox to the list
-                listBoxProducts.DataSource = Products;
-
-          
-            }
-
-        private void btnGetProducts_Click_1(object sender, EventArgs e)
-        {
+            //bind the listbox to the list
+            listBoxProducts.DataSource = Products;
 
         }
     }
