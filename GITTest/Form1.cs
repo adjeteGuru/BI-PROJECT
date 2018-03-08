@@ -109,6 +109,34 @@ namespace GITTest
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
         }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            List<string> Order = new List<string>();
+            //clear the listbox
+            listBoxOrder.Items.Clear();
+            //create the database string
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], Discount, Quantity, [Ship Mode] from Sheet1", connection);
+                reader = getOrder.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Order.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
+
+                }
+            }
+
+            //bind the listbox to the list
+            listBoxOrder.DataSource = Order;
+
+        }
+
+
     }
 
 
