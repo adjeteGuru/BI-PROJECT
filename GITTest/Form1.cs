@@ -88,29 +88,13 @@ namespace GITTest
                 reader = getCustomers.ExecuteReader();
                 while (reader.Read())
                 {
-                    Customers.Add(reader[0].ToString());
-                    Customers.Add(reader[1].ToString());
-                    Customers.Add(reader[2].ToString());
-                    Customers.Add(reader[3].ToString());
-                    Customers.Add(reader[4].ToString());
-                    Customers.Add(reader[5].ToString());
-                    Customers.Add(reader[6].ToString());
+                    //USING CONCATENATION ALLOWS TO LIST MORE THAN ONE COLUMN IN A ROW.
+                    Customers.Add(reader[0].ToString()+","+ reader[1].ToString()+ ","+ reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
                 }
             }
 
-            //Create a new list for the formatted data
-            List<string> CustomersFormatted = new List<string>();
-
-            foreach (string customer in Customers)
-            {
-                //Split the string on whitespace and remove anything thats blank
-                var customers = customer.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                //Grab the first item(we know this is the date) and add it to our new list
-                CustomersFormatted.Add(customers[0]);
-            }
-
-            //Bind the listbox to the list
-            listBoxCustomer.DataSource = CustomersFormatted;
+            ////Bind the listbox to the list
+            listBoxCustomer.DataSource = Customers;
         }
     }
 }

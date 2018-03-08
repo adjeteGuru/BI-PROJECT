@@ -93,14 +93,14 @@
             this.listBoxCustomer.FormattingEnabled = true;
             this.listBoxCustomer.Location = new System.Drawing.Point(166, 133);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(120, 95);
+            this.listBoxCustomer.Size = new System.Drawing.Size(220, 95);
             this.listBoxCustomer.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 324);
+            this.ClientSize = new System.Drawing.Size(780, 367);
             this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnGetCustomer);
             this.Controls.Add(this.lstBoxDates);
