@@ -42,7 +42,7 @@ namespace GITTest
 
             string dayOfWeek = dateTime.DayOfWeek.ToString();
             int dayOfYear = dateTime.DayOfYear;
-            string monthName = dateTime.ToString("MMMM");
+            string monthName = dateTime.ToString("MMMM");//check this
             int weekNumber = dayOfYear / 7;
             bool Weekend = false;
             if (dayOfWeek == "Saturday" || dayOfWeek == "Sunday") Weekend = true;
