@@ -69,7 +69,13 @@ namespace GITTest
             int month = 0;
             int day = 0;
 
-            //these two do the dhfsaf
+            //these two do the same thing, its down to personl coding style! noly use one of them
+            string[] arrayDate = DatesFormatted[0].ToString().Split('/');
+            Console.WriteLine("day: " + arrayDate[0] + " Month: " + arrayDate[1] + " Year: " + arrayDate[2]);
+
+            string fullDate = DatesFormatted[0].ToString();
+            string[] arrayDate1 = fullDate.Split('/');
+            Console.WriteLine("day: " + arrayDate[0] + " Month: " + arrayDate[1] + " Year: " + arrayDate[2]);
         }
     }
 }
