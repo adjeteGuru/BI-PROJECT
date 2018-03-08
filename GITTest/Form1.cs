@@ -97,7 +97,7 @@ namespace GITTest
                 {
 
                     //we enlist the columns to be read 
-                    
+                    //we use concatenation to read all rows in a single line
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
 
