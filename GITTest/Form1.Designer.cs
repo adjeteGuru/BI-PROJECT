@@ -32,6 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnGetDates = new System.Windows.Forms.Button();
             this.lstBoxDates = new System.Windows.Forms.ListBox();
+            this.btnGetCustomer = new System.Windows.Forms.Button();
+            this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -56,9 +58,11 @@
             // 
             // btnGetDates
             // 
+            this.btnGetDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetDates.ForeColor = System.Drawing.Color.Red;
             this.btnGetDates.Location = new System.Drawing.Point(16, 51);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
+            this.btnGetDates.Size = new System.Drawing.Size(120, 39);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -72,11 +76,33 @@
             this.lstBoxDates.Size = new System.Drawing.Size(120, 95);
             this.lstBoxDates.TabIndex = 3;
             // 
+            // btnGetCustomer
+            // 
+            this.btnGetCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCustomer.ForeColor = System.Drawing.Color.Red;
+            this.btnGetCustomer.Location = new System.Drawing.Point(166, 51);
+            this.btnGetCustomer.Name = "btnGetCustomer";
+            this.btnGetCustomer.Size = new System.Drawing.Size(120, 39);
+            this.btnGetCustomer.TabIndex = 4;
+            this.btnGetCustomer.Text = "GetCustomer";
+            this.btnGetCustomer.UseVisualStyleBackColor = true;
+            this.btnGetCustomer.Click += new System.EventHandler(this.btnGetCustomer_Click_1);
+            // 
+            // listBoxCustomer
+            // 
+            this.listBoxCustomer.FormattingEnabled = true;
+            this.listBoxCustomer.Location = new System.Drawing.Point(166, 133);
+            this.listBoxCustomer.Name = "listBoxCustomer";
+            this.listBoxCustomer.Size = new System.Drawing.Size(120, 95);
+            this.listBoxCustomer.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(473, 324);
+            this.Controls.Add(this.listBoxCustomer);
+            this.Controls.Add(this.btnGetCustomer);
             this.Controls.Add(this.lstBoxDates);
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
@@ -94,6 +120,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnGetDates;
         private System.Windows.Forms.ListBox lstBoxDates;
+        private System.Windows.Forms.Button btnGetCustomer;
+        private System.Windows.Forms.ListBox listBoxCustomer;
     }
 }
 
