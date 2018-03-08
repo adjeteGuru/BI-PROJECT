@@ -136,7 +136,30 @@ namespace GITTest
 
         }
 
+        private void btnCustomer_Click(object sender, EventArgs e)
+        {
+            List<string> Customer = new List<string>();
+            //clear the listbox
+            listBoxCustomer.Items.Clear();
+            //create the database string
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+                reader = getCustomer.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Customer.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
+                }
+            }
+
+            //bind the listbox to the list
+            listBoxCustomer.DataSource = Customer;
+        }
     }
 
 

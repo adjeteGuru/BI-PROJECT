@@ -36,6 +36,8 @@
             this.listBoxProducts = new System.Windows.Forms.ListBox();
             this.btnOrder = new System.Windows.Forms.Button();
             this.listBoxOrder = new System.Windows.Forms.ListBox();
+            this.btnCustomer = new System.Windows.Forms.Button();
+            this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -79,7 +81,7 @@
             // btnGetProducts
             // 
             this.btnGetProducts.Location = new System.Drawing.Point(212, 39);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
             this.btnGetProducts.Name = "btnGetProducts";
             this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
             this.btnGetProducts.TabIndex = 4;
@@ -91,7 +93,7 @@
             // 
             this.listBoxProducts.FormattingEnabled = true;
             this.listBoxProducts.Location = new System.Drawing.Point(212, 77);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(203, 95);
             this.listBoxProducts.TabIndex = 5;
@@ -114,11 +116,31 @@
             this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
             this.listBoxOrder.TabIndex = 7;
             // 
+            // btnCustomer
+            // 
+            this.btnCustomer.Location = new System.Drawing.Point(665, 39);
+            this.btnCustomer.Name = "btnCustomer";
+            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnCustomer.TabIndex = 8;
+            this.btnCustomer.Text = "GetCustomer";
+            this.btnCustomer.UseVisualStyleBackColor = true;
+            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
+            // 
+            // listBoxCustomer
+            // 
+            this.listBoxCustomer.FormattingEnabled = true;
+            this.listBoxCustomer.Location = new System.Drawing.Point(665, 77);
+            this.listBoxCustomer.Name = "listBoxCustomer";
+            this.listBoxCustomer.Size = new System.Drawing.Size(120, 95);
+            this.listBoxCustomer.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 332);
+            this.ClientSize = new System.Drawing.Size(856, 332);
+            this.Controls.Add(this.listBoxCustomer);
+            this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.listBoxOrder);
             this.Controls.Add(this.btnOrder);
             this.Controls.Add(this.listBoxProducts);
@@ -144,6 +166,8 @@
         private System.Windows.Forms.ListBox listBoxProducts;
         private System.Windows.Forms.Button btnOrder;
         private System.Windows.Forms.ListBox listBoxOrder;
+        private System.Windows.Forms.Button btnCustomer;
+        private System.Windows.Forms.ListBox listBoxCustomer;
     }
 }
 
