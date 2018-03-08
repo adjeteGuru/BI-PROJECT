@@ -64,6 +64,12 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
+
+            int year = 0;
+            int month = 0;
+            int day = 0;
+
+            //these two do the dhfsaf
         }
     }
 }
