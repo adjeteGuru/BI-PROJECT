@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,86 @@ namespace GITTest
         private void label2_Click(object sender, EventArgs e)
         {
             //comment here
+        }
+
+        //create function splitDate to allow code to be regroup in block
+        private void splitDates(string date)
+        {
+            //create an item to store a date convert into string then get split up to be individual 
+            //string[] arrayDates = DatesFormatted[0].ToString().Split('/');
+            string[] arrayDate = date.Split('/');
+
+            // declare variables and convert them 
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            ////display day of the week
+            //Console.WriteLine("Day of week: " + dateTime.DayOfWeek);
+
+            string dayOfWeek = dateTime.DayOfWeek.ToString();
+            int dayOfYear = dateTime.DayOfYear;
+            string monthName = dateTime.ToString("MMMM");
+            int weekNumber = dayOfYear / 7;
+            bool weekend = false;
+            if (dayOfWeek == "Saturday" || dayOfWeek == "Sunday") weekend = true;
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            insertTimeDimension(dbDate, dayOfWeek , day, monthName, month, year, weekend, dayOfYear);
+            
+           //send to output for test
+            //Console.WriteLine("Day: " + arrayDate[0] + " Month: " + arrayDate[1] + " Year: " + arrayDate[2]);
+        }
+
+        //create insert function allowing data into destination database
+        private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int weekNumber, int year, bool weekend, int dayOfYear )
+        {
+            //create connection to the MDF file to allow data transfer
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //create connection to the database
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //open the sqlConnection
+                myConnection.Open();
+
+                //create SqlCommand to check the SqlConnection
+                SqlCommand command = new SqlCommand("SELECT id Time WHERE date = @date", myConnection);
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //run the command and read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means tghe data exists so change the variable.
+                    if (reader.HasRows) exists = true;
+                }
+
+                //
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, weekNumber, year, weekend, date, dayOfYear)" + 
+                        "VALUES (@dayName, @dayNumber, @monthName, @weekNumber, @year, @weekend, @date, @dayOfYear) ", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
+                    insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("monthName", monthName));
+                    insertCommand.Parameters.Add(new SqlParameter("weekNumber", weekNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("year", year));
+                    insertCommand.Parameters.Add(new SqlParameter("weekend", weekend));
+                    insertCommand.Parameters.Add(new SqlParameter("date", date));
+                    insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
+
+                    //insert the line
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    //Console.WriteLine("Records affected: " + recordsAffected);
+                }
+
+                command.Parameters.Add(new SqlParameter("date", date));
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -60,10 +141,18 @@ namespace GITTest
                 //grab the first item (we know this is the date) and add it to our new list
                 DatesFormatted.Add(dates[0]);
             }
+
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
+            //split the dates and insert ecery date in the list
+            foreach(string date in DatesFormatted)
+            {
+                splitDates(date);
+            }
 
+            //call the function splitDates to display DatesFormatted
+            splitDates(DatesFormatted[0]);
 
             }
 
