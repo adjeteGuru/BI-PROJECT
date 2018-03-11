@@ -180,9 +180,9 @@ namespace GITTest
         {
             //Split the product down and assign it to variables for later use.
             string[] arrayProduct = product.Split(',');
-            string category = (arrayProduct[4]);
-            string subcategory = (arrayProduct[5]);
-            string name = (arrayProduct[1]);
+            string category = arrayProduct[4];
+            string subcategory = arrayProduct[5];
+            string name = arrayProduct[1];
 
           
 
