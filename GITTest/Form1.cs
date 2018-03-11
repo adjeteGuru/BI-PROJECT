@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -136,6 +137,64 @@ namespace GITTest
 
         }
 
+        private void splitCustomer(string customer)
+        {
+            //Split the customer down and assign it to variables for later use
+            string[] arrayCustomer = customer.Split('/');
+            string name = Convert.ToString(arrayCustomer[1]);
+            string country = Convert.ToString(arrayCustomer[2]);
+            string city = Convert.ToString(arrayCustomer[3]);
+            string state = Convert.ToString(arrayCustomer[4]);
+            string postalCode = Convert.ToString(arrayCustomer[5]);
+            string region = Convert.ToString(arrayCustomer[6]);
+            string reference = "Test";
+
+            insertCustomerDimension(name, country, city, state, postalCode, region, reference);
+        }
+
+        private void insertCustomerDimension(string name,string country,string city,string state,string postalCode,string region,string reference)
+        {
+            //Create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //Open the SqlConnection
+                myConnection.Open();
+                //the following code uses an SqlCommand based on the SqlConnection
+                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE name=@name", myConnection);
+                
+                //Create a variable and assign it to false by defult
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the customer exsists so change the exsists variable
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (name, country, city, state, postalCode, region, reference)" +
+                        " VALUES (@name, @country, @city, @state, @postalCode, @region, @reference)",myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+                    insertCommand.Parameters.Add(new SqlParameter("country", country));
+                    insertCommand.Parameters.Add(new SqlParameter("city", city));
+                    insertCommand.Parameters.Add(new SqlParameter("state", state));
+                    insertCommand.Parameters.Add(new SqlParameter("postalCode", postalCode));
+                    insertCommand.Parameters.Add(new SqlParameter("region", region));
+                    insertCommand.Parameters.Add(new SqlParameter("reference", reference));
+
+                    //insert the line
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+                }
+
+                
+            }
+        }
+
         private void btnCustomer_Click(object sender, EventArgs e)
         {
             List<string> Customer = new List<string>();
@@ -159,6 +218,11 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
+
+            foreach(string customer in Customer)
+            {
+                splitCustomer(customer);
+            }
         }
     }
 
