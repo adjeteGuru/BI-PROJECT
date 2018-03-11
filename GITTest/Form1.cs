@@ -200,7 +200,7 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT id FROM Product Where name = @name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Product WHERE name = @name", myConnection);
                 command.Parameters.Add(new SqlParameter("name", name));
 
                 //create a variable and assign it to false by default.
