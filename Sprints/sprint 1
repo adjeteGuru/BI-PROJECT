@@ -1,0 +1,10 @@
+Sprint 1
+
+Date of sprint start 05/03/18
+Date of sprint end 11/03/18
+
+Name    Wenhong
+P Number P16244305
+Wenhong went through the lab 8 which is insert data into database and done it for "customer" as well in CustomerBranchLab8 branch just for 
+practice, although the programmer is Adjete (for "customer" coding) this week. There was a error in line 144 in Form1.cs said the index out
+of range. Have no idea to fix it because the index is correct in my view.
