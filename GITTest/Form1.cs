@@ -179,7 +179,7 @@ namespace GITTest
         private void splitProducts(string product)
         {
             //Split the product down and assign it to variables for later use.
-            string[] arrayProduct = product.Split('/');
+            string[] arrayProduct = product.Split(',');
             string category = (arrayProduct[4]);
             string subcategory = (arrayProduct[5]);
             string name = (arrayProduct[1]);
