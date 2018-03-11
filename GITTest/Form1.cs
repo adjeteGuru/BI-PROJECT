@@ -91,8 +91,8 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
 
                     //insert the line
-                    int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("Records affected: " + recordsAffected);
+                    //int recordsAffected = insertCommand.ExecuteNonQuery();
+                    //Console.WriteLine("Records affected: " + recordsAffected);
 
                     //insertCommand.ExecuteNonQuery();
 
@@ -136,14 +136,14 @@ namespace GITTest
             listBoxDates.DataSource = DatesFormatted;
 
             //split the dates and insert every date in the list
-            foreach(string date in DatesFormatted)
+            foreach (string date in DatesFormatted)
             {
                 splitDates(date);
-                Console.WriteLine("splitdates loop OK");
+                //Console.WriteLine("splitdates loop OK");
             }
-            
 
-            }
+
+        }
 
       
 
@@ -162,9 +162,8 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
-                //THIS IS WHERE THE PROGRAM BREAKS
-                //SEE IF YOU CAN FIX IT 
-
+               
+                
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
@@ -174,12 +173,69 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
-
+            
         }
+
+        private void splitProducts(string product)
+        {
+            //Split the product down and assign it to variables for later use.
+            string[] arrayProduct = product.Split('/');
+            string category = (arrayProduct[4]);
+            string subcategory = (arrayProduct[5]);
+            string name = (arrayProduct[1]);
+
+          
+
+            insertProductDimension(category, subcategory, name);
+        }
+
+        private void insertProductDimension(string category, string subcategory, string name)
+        {
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT id FROM Product Where name = @name", myConnection);
+                command.Parameters.Add(new SqlParameter("name", name));
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Product (category, subcategory, name)" +
+                        "VALUES (@category, @subcategory, @name)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("category", category));
+                    insertCommand.Parameters.Add(new SqlParameter("subcatergory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+                    
+
+                    //insert the line
+                    int productRecordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("product Records affected: " + productRecordsAffected);
+                    //insertCommand.ExecuteNonQuery();
+
+                }
+            }
+        }
+
     }
 
 
-        
-    
+
+
 }
 
