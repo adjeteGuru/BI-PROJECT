@@ -216,7 +216,8 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Product (category, subcategory, name)" +
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Product (category, subcategory, name)" +
                         "VALUES (@category, @subcategory, @name)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("category", category));
                     insertCommand.Parameters.Add(new SqlParameter("subcatergory", subcategory));
