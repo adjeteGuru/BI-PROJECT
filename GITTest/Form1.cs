@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -63,9 +64,83 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
-
-
+            //split the dates and insert every date in the list!
+            foreach(string date in DatesFormatted)
+            {
+                splitDates(date);
             }
+            
+        }
+
+        private void splitDates(string date)
+        {
+            //Split the date down and assign it to variables for later use.
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dayOfWeek = dateTime.DayOfWeek.ToString();
+            int dayOfYear = dateTime.DayOfYear;
+            string monthName = dateTime.ToString("MMMM");
+            int weekNumber = dayOfYear / 7;
+            bool weekend = false;
+            if(dayOfWeek == "Saturday" || dayOfWeek == "Sunday")
+            {
+                weekend = true;
+            }
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+            insertTimeDimension(date, dayOfWeek, day, monthName, month, weekNumber, year, weekend, dayOfYear);
+        }
+
+        private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
+        {
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //open the sqlConnection
+                myConnection.Open();
+                //the following code uses an sqlCommand based on the SqlConnection,
+                SqlCommand command = new SqlCommand("SELECT id FROM Time WHERE date = @date", myConnection);
+                command.Parameters.Add(new SqlParameter("date", date));
+
+                //create a variabe and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    
+                    //If there are rows, it means the data exsists so change the exisits variable.
+                    if(reader.HasRows) exists = true;
+                    
+                }
+
+                if(exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Time (dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear) " +
+                        " VALUES (@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear) ", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
+                    insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("monthName", monthName));
+                    insertCommand.Parameters.Add(new SqlParameter("monthNumber", monthNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("weekNumber", weekNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("year", year));
+                    insertCommand.Parameters.Add(new SqlParameter("weekend", weekend));
+                    insertCommand.Parameters.Add(new SqlParameter("date", date));
+                    insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
+
+                    //inset the line 
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Recoeds affected: " + recordsAffected);
+                }
+            }
+        }
 
         private void btnGetProducts_Click(object sender, EventArgs e)
         {
@@ -97,8 +172,8 @@ namespace GITTest
                 {
 
                     //we enlist the columns to be read 
-                    //we use concatenation to read all rows in a single line
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    
+                    Products.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString());
 
 
 
@@ -108,8 +183,66 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
+
+            //split the products and insert every product in the list!
+            foreach(string product in Products)
+            {
+                splitProducts(product);
+            }
         }
 
+        private void splitProducts(string products)
+        {
+            //split the product down and assign it to valiables for later use
+            string[] arrayProducts = products.ToString().Split(',');
+            string category = arrayProducts[4];
+            string subcategory = arrayProducts[5];
+            string name = arrayProducts[1];
+
+            insertProductDimension(name, category, subcategory);
+        }
+
+        private void insertProductDimension(string name, string category, string subcategory)
+        {
+            //create a connection to MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                // open the sqlConnection
+                myConnection.Open();
+                //the following code uses an sqlCommand based on the SqlConnection,
+                SqlCommand command = new SqlCommand("SELECT id FROM Product WHERE name = @name", myConnection);
+                command.Parameters.Add(new SqlParameter("name", name));
+
+                //create a variabe and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //If there are rows, it means the data exsists so change the exisits variable.
+                    if (reader.HasRows) exists = true;
+                }
+
+                if(exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Product (category, subcategory, name) " +
+                        "VALUES (@category, @subcategory, @name) ", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("category", category));
+                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+
+                    //inset the line 
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Recoeds affected: " + recordsAffected);
+                }
+            }
+
+
+        }
         private void btnOrder_Click(object sender, EventArgs e)
         {
             List<string> Order = new List<string>();
