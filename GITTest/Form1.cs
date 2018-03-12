@@ -140,7 +140,7 @@ namespace GITTest
         private void splitCustomer(string customer)
         {
             //Split the customer down and assign it to variables for later use
-            string[] arrayCustomer = customer.Split('/');
+            string[] arrayCustomer = customer.Split(',');
             string name = Convert.ToString(arrayCustomer[1]);
             string country = Convert.ToString(arrayCustomer[2]);
             string city = Convert.ToString(arrayCustomer[3]);
@@ -211,7 +211,7 @@ namespace GITTest
                 while (reader.Read())
                 {
                     //we enlist the columns to be read
-                    Customer.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
                 }
             }
