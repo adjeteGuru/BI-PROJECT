@@ -138,7 +138,7 @@ namespace GITTest
         }
 
         private void splitCustomer(string customer)
-        {
+        {//must continous
             //Split the customer down and assign it to variables for later use
             string[] arrayCustomer = customer.Split(',');
             string name = Convert.ToString(arrayCustomer[1]);
