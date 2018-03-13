@@ -189,24 +189,26 @@ namespace GITTest
             string category = arrayProduct[4];
             string subcategory = arrayProduct[5];
             string name = arrayProduct[1];
+            string productID = arrayProduct[0];
 
           
 
-            insertProductDimension(category, subcategory, name);
+            insertProductDimension(category, subcategory, name, productID);
         }
 
-        private void insertProductDimension(string category, string subcategory, string name)
+        private void insertProductDimension(string category, string subcategory, string name, string productID)
         {
             //create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
             using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
             {
-
+                
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT id FROM Product WHERE name = @name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = name", myConnection);
+                command.Parameters.Add(new SqlParameter("ProductId", productID));
                 command.Parameters.Add(new SqlParameter("name", name));
                 command.Parameters.Add(new SqlParameter("subcategory", subcategory));
                 command.Parameters.Add(new SqlParameter("category", category));
@@ -225,18 +227,19 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO Product (category, subcategory, name)" +
-                        "VALUES (@category, @subcategory, @name)", myConnection);
+                        "INSERT INTO Product (category, subcategory, name, Id)" +
+                        "VALUES (@category, @subcategory, @name, @Id)", myConnection);
 
                     insertCommand.Parameters.Add(new SqlParameter("category", category));
-                    insertCommand.Parameters.Add(new SqlParameter("subcatergory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
-                    
+                    insertCommand.Parameters.Add(new SqlParameter("Id", productID));
 
-                    //insert the line
-                    int productRecordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("product Records affected: " + productRecordsAffected);
-                    //insertCommand.ExecuteNonQuery();
+
+                    ////insert the line
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+
 
                 }
             }
