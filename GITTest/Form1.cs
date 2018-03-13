@@ -173,7 +173,13 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
-            
+
+            foreach (string product in Products)
+            {
+                splitProducts(product);
+                Console.WriteLine("Looped successfully!");
+            }
+
         }
 
         private void splitProducts(string product)
@@ -202,6 +208,8 @@ namespace GITTest
                 //The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT id FROM Product WHERE name = @name", myConnection);
                 command.Parameters.Add(new SqlParameter("name", name));
+                command.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                command.Parameters.Add(new SqlParameter("category", category));
 
                 //create a variable and assign it to false by default.
                 bool exists = false;
@@ -219,6 +227,7 @@ namespace GITTest
                     SqlCommand insertCommand = new SqlCommand(
                         "INSERT INTO Product (category, subcategory, name)" +
                         "VALUES (@category, @subcategory, @name)", myConnection);
+
                     insertCommand.Parameters.Add(new SqlParameter("category", category));
                     insertCommand.Parameters.Add(new SqlParameter("subcatergory", subcategory));
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
