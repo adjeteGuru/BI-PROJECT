@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace GITTest
 {
     public partial class Form1 : Form
@@ -55,14 +57,14 @@ namespace GITTest
 
             string dbDate = dateTime.ToString("M/dd/yyyy");
 
-            insertTimeDimension(dbDate, dayOfWeek , day, monthName, month, year, weekend, dayOfYear);
+            insertTimeDimension(dbDate, dayOfWeek , day, monthName, month, weekNumber, year, weekend, dayOfYear);
             
            //send to output for test
             //Console.WriteLine("Day: " + arrayDate[0] + " Month: " + arrayDate[1] + " Year: " + arrayDate[2]);
         }
 
         //create insert function allowing data into destination database
-        private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int weekNumber, int year, bool weekend, int dayOfYear )
+        private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear )
         {
             //create connection to the MDF file to allow data transfer
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -74,7 +76,12 @@ namespace GITTest
                 myConnection.Open();
 
                 //create SqlCommand to check the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT id Time WHERE date = @date", myConnection);
+                //THIS WAS THE CAUSE OF THE "@Date error" you have been getting = you omitted the FROM in your select statement @ADJETE.
+                //SqlCommand command = new SqlCommand("SELECT id Time WHERE date = @date", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Time WHERE date = @date", myConnection);
+                //AND FINALLY THIS LINE WAS MISSED!
+                command.Parameters.Add(new SqlParameter("date", date));
+
 
                 //create a variable and assign it to false by default.
                 bool exists = false;
@@ -89,11 +96,15 @@ namespace GITTest
                 //
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, weekNumber, year, weekend, date, dayOfYear)" + 
-                        "VALUES (@dayName, @dayNumber, @monthName, @weekNumber, @year, @weekend, @date, @dayOfYear) ", myConnection);
+                    //AND HERE TOO you omitted monthNumber again in both the parameter and the value statement
+                    //SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, weekNumber, year, weekend, date, dayOfYear)" + 
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear)" + 
+
+                    "VALUES (@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
                     insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
                     insertCommand.Parameters.Add(new SqlParameter("monthName", monthName));
+                    insertCommand.Parameters.Add(new SqlParameter("monthNumber", monthNumber));
                     insertCommand.Parameters.Add(new SqlParameter("weekNumber", weekNumber));
                     insertCommand.Parameters.Add(new SqlParameter("year", year));
                     insertCommand.Parameters.Add(new SqlParameter("weekend", weekend));
@@ -101,11 +112,12 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
 
                     //insert the line
-                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    //int recordsAffected = insertCommand.ExecuteNonQuery();
                     //Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
-                command.Parameters.Add(new SqlParameter("date", date));
+                //RATHER WAS PUT IN THE WRONG PLACE.
+                //command.Parameters.Add(new SqlParameter("date", date));
             }
         }
 
@@ -152,7 +164,7 @@ namespace GITTest
             }
 
             //call the function splitDates to display DatesFormatted
-            splitDates(DatesFormatted[0]);
+            //splitDates(DatesFormatted[0]);
 
             }
 
