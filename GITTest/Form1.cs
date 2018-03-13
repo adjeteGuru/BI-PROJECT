@@ -30,6 +30,12 @@ namespace GITTest
             //comment here
         }
 
+        private int GetDateId(string date)
+        {
+            
+            return 0;
+        }
+
         private void splitDates(string date)
         {
             //Split the date down and assign it to variables for later use.
@@ -208,7 +214,7 @@ namespace GITTest
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = name", myConnection);
-                command.Parameters.Add(new SqlParameter("ProductId", productID));
+                command.Parameters.Add(new SqlParameter("productId", productID));
                 command.Parameters.Add(new SqlParameter("name", name));
                 command.Parameters.Add(new SqlParameter("subcategory", subcategory));
                 command.Parameters.Add(new SqlParameter("category", category));
