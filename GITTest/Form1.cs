@@ -82,14 +82,14 @@ namespace GITTest
                 //run the command and read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    //if there are rows, it means tghe data exists so change the variable.
+                    //if there are rows, it means the data exists so change the variable.
                     if (reader.HasRows) exists = true;
                 }
 
                 //
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, weekNumber, year, weekend, date, dayOfYear)" + 
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time(dayName, dayNumber, monthName, weekNumber, year, weekend, date, dayOfYear)" +
                         "VALUES (@dayName, @dayNumber, @monthName, @weekNumber, @year, @weekend, @date, @dayOfYear) ", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
                     insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
