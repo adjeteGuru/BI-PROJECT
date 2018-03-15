@@ -173,7 +173,7 @@ namespace GITTest
 
                     //we enlist the columns to be read 
                     
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    Products.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString());
 
 
 
@@ -183,8 +183,66 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
+
+            //split the products and insert every product in the list!
+            foreach(string product in Products)
+            {
+                splitProducts(product);
+            }
         }
 
+        private void splitProducts(string products)
+        {
+            //split the product down and assign it to valiables for later use
+            string[] arrayProducts = products.ToString().Split(',');
+            string category = arrayProducts[4];
+            string subcategory = arrayProducts[5];
+            string name = arrayProducts[1];
+
+            insertProductDimension(name, category, subcategory);
+        }
+
+        private void insertProductDimension(string name, string category, string subcategory)
+        {
+            //create a connection to MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                // open the sqlConnection
+                myConnection.Open();
+                //the following code uses an sqlCommand based on the SqlConnection,
+                SqlCommand command = new SqlCommand("SELECT id FROM Product WHERE name = @name", myConnection);
+                command.Parameters.Add(new SqlParameter("name", name));
+
+                //create a variabe and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //If there are rows, it means the data exsists so change the exisits variable.
+                    if (reader.HasRows) exists = true;
+                }
+
+                if(exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Product (category, subcategory, name) " +
+                        "VALUES (@category, @subcategory, @name) ", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("category", category));
+                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+
+                    //inset the line 
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Recoeds affected: " + recordsAffected);
+                }
+            }
+
+
+        }
         private void btnOrder_Click(object sender, EventArgs e)
         {
             List<string> Order = new List<string>();
