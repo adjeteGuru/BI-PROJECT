@@ -166,44 +166,33 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getProducts = new OleDbCommand("SELECT Id, [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
                
                 
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                    string category = reader[4].ToString();
+                    string subcategory = reader[5].ToString();
+                    string name = reader[1].ToString();
+                    string productCode = reader[0].ToString();
+
+                    insertProductDimension(category, subcategory, name, productCode);
                 }
             }
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
 
-            //foreach (string product in Products)
-            //{
-            //    splitProducts(product);
-            //    //Console.WriteLine("Looped successfully!");
-            //}
-
+          
         }
 
-        //private void splitProducts(string product)
-        //{
-        //    //Split the product down and assign it to variables for later use.
-        //    string[] arrayProduct = product.Split(',');
-        //    string category = arrayProduct[5];
-        //    string subcategory = arrayProduct[6];
-        //    string name = arrayProduct[2];
-        //    //string productID = arrayProduct[1];
-        //    string ID = arrayProduct[0];
+       
 
-          
-
-            
-        //}
-
-        private void insertProductDimension(string category, string subcategory, string name, string ID)
+        private void insertProductDimension(string category, string subcategory, string name, string productCode)
         {
             //create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -214,8 +203,8 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = name", myConnection);
-                command.Parameters.Add(new SqlParameter("Id", ID));
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = @name", myConnection);
+                command.Parameters.Add(new SqlParameter("productcode", productCode));
                 command.Parameters.Add(new SqlParameter("name", name));
                 command.Parameters.Add(new SqlParameter("subcategory", subcategory));
                 command.Parameters.Add(new SqlParameter("category", category));
@@ -234,13 +223,13 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO Product (category, subcategory, name, Id)" +
-                        "VALUES (@category, @subcategory, @name, @Id)", myConnection);
+                        "INSERT INTO Product (category, subcategory, name, productcode)" +
+                        "VALUES (@category, @subcategory, @name, @productcode)", myConnection);
 
                     insertCommand.Parameters.Add(new SqlParameter("category", category));
                     insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
-                    insertCommand.Parameters.Add(new SqlParameter("Id", ID));
+                    insertCommand.Parameters.Add(new SqlParameter("productcode", productCode));
 
 
                     ////insert the line
@@ -252,6 +241,20 @@ namespace GITTest
             }
         }
 
+        private void productBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.productBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'destinationDatabaseDataSet3.Product' table. You can move, or remove it, as needed.
+            this.productTableAdapter2.Fill(this.destinationDatabaseDataSet3.Product);
+
+        }
     }
 
 
