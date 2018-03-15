@@ -31,6 +31,7 @@ namespace GITTest
             //comment here
         }
 
+        //Done
         //create function splitDate to allow code to be regroup in block
         private void splitDates(string date)
         {
