@@ -8,3 +8,10 @@ P Number P16244305
 Wenhong went through the lab 8 which is insert data into database and done it for "customer" as well in CustomerBranchLab8 branch just for 
 practice, although the programmer is Adjete (for "customer" coding) this week. There was a error in line 144 in Form1.cs said the index out
 of range. Have no idea to fix it because the index is correct in my view.
+
+Name Zhaofeng
+P Number P16244825
+After I finished the lab8 work which is about insert into database, when I run the program, I found an error happen in the last coding in 
+the insertTimeDimension function. I did not know what going on and how to fix it, because all are the same with the lab. After I finished 
+inserting product into database and run the program, same error happen. I also found that the product information showing in the first line
+in the running program is different from the record that I execute SQL in the Data_Set database. Some information are not match.
