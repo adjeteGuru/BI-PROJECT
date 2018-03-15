@@ -271,6 +271,8 @@ namespace GITTest
             listBoxOrder.DataSource = Order;
         }
 
+        //FirstName Spplit From LaanstName function
+
         //private void splitCustomer(string customer)
         //{//must continous
         //    //Split the customer down and assign it to variables for later use
