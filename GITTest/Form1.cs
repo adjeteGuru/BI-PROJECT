@@ -96,8 +96,13 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("date", date));
                     insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
 
+
+                    //executes the above insert lines of code
+                    insertCommand.ExecuteNonQuery();
                     //insert the line
+                    //create a variable to display the no of rows affected and assign it to the execute command
                     //int recordsAffected = insertCommand.ExecuteNonQuery();
+                    //display outcome on console output
                     //Console.WriteLine("Records affected: " + recordsAffected);
 
                     //insertCommand.ExecuteNonQuery();
