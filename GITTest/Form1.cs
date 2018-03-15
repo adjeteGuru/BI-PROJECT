@@ -141,14 +141,29 @@ namespace GITTest
         {//must continous
             //Split the customer down and assign it to variables for later use
             string[] arrayCustomer = customer.Split(',');
-            string name = Convert.ToString(arrayCustomer[1]);
-            string country = Convert.ToString(arrayCustomer[2]);
-            string city = Convert.ToString(arrayCustomer[3]);
-            string state = Convert.ToString(arrayCustomer[4]);
-            string postalCode = Convert.ToString(arrayCustomer[5]);
-            string region = Convert.ToString(arrayCustomer[6]);
-            string reference = "Test";
 
+            //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
+
+            //string name = Convert.ToString(arrayCustomer[1]);
+            //string country = Convert.ToString(arrayCustomer[2]);
+            //string city = Convert.ToString(arrayCustomer[3]);
+            //string state = Convert.ToString(arrayCustomer[4]);
+            //string postalCode = Convert.ToString(arrayCustomer[5]);
+            //string region = Convert.ToString(arrayCustomer[6]);
+
+            //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
+            //string reference = "Test";
+
+
+            string name = Convert.ToString(arrayCustomer[0]);
+            string country = Convert.ToString(arrayCustomer[1]);
+            string city = Convert.ToString(arrayCustomer[2]);
+            string state = Convert.ToString(arrayCustomer[3]);
+            string postalCode = Convert.ToString(arrayCustomer[4]);
+            string region = Convert.ToString(arrayCustomer[5]);
+            string reference = Convert.ToString(arrayCustomer[6]);
+
+           
             insertCustomerDimension(name, country, city, state, postalCode, region, reference);
         }
 
@@ -163,7 +178,10 @@ namespace GITTest
                 myConnection.Open();
                 //the following code uses an SqlCommand based on the SqlConnection
                 SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE name=@name", myConnection);
-                
+
+                //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
+                command.Parameters.Add(new SqlParameter("name", name));
+
                 //Create a variable and assign it to false by defult
                 bool exists = false;
 
@@ -186,9 +204,11 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("region", region));
                     insertCommand.Parameters.Add(new SqlParameter("reference", reference));
 
+
+                    // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
                     //insert the line
-                    int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("Records affected: " + recordsAffected);
+                    //int recordsAffected = insertCommand.ExecuteNonQuery();
+                    //Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
                 
