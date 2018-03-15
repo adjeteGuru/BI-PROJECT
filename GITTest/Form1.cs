@@ -137,37 +137,7 @@ namespace GITTest
 
         }
 
-        private void splitCustomer(string customer)
-        {//must continous
-            //Split the customer down and assign it to variables for later use
-            string[] arrayCustomer = customer.Split(',');
-
-            //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
-
-            //string name = Convert.ToString(arrayCustomer[1]);
-            //string country = Convert.ToString(arrayCustomer[2]);
-            //string city = Convert.ToString(arrayCustomer[3]);
-            //string state = Convert.ToString(arrayCustomer[4]);
-            //string postalCode = Convert.ToString(arrayCustomer[5]);
-            //string region = Convert.ToString(arrayCustomer[6]);
-
-            //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
-            //string reference = "Test";
-
-
-            string name = Convert.ToString(arrayCustomer[0]);
-            string country = Convert.ToString(arrayCustomer[1]);
-            string city = Convert.ToString(arrayCustomer[2]);
-            string state = Convert.ToString(arrayCustomer[3]);
-            string postalCode = Convert.ToString(arrayCustomer[4]);
-            string region = Convert.ToString(arrayCustomer[5]);
-            string reference = Convert.ToString(arrayCustomer[6]);
-
-           
-            insertCustomerDimension(name, country, city, state, postalCode, region, reference);
-        }
-
-        private void insertCustomerDimension(string name,string country,string city,string state,string postalCode,string region,string reference)
+        private void insertCustomerDimension(string CustomerID, string name,string country,string city,string state,string postalCode,string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -194,21 +164,21 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (name, country, city, state, postalCode, region, reference)" +
-                        " VALUES (@name, @country, @city, @state, @postalCode, @region, @reference)",myConnection);
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, name, country, city, state, postalCode, region)" +
+                        " VALUES (@CustomerID, @name, @country, @city, @state, @postalCode, @region)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
                     insertCommand.Parameters.Add(new SqlParameter("country", country));
                     insertCommand.Parameters.Add(new SqlParameter("city", city));
                     insertCommand.Parameters.Add(new SqlParameter("state", state));
                     insertCommand.Parameters.Add(new SqlParameter("postalCode", postalCode));
                     insertCommand.Parameters.Add(new SqlParameter("region", region));
-                    insertCommand.Parameters.Add(new SqlParameter("reference", reference));
 
 
                     // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
                     //insert the line
-                    //int recordsAffected = insertCommand.ExecuteNonQuery();
-                    //Console.WriteLine("Records affected: " + recordsAffected);
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
                 
@@ -233,16 +203,22 @@ namespace GITTest
                     //we enlist the columns to be read
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
+                    string CustomerID = Convert.ToString(reader[0]);
+                    string name = Convert.ToString(reader[1]);
+                    string country = Convert.ToString(reader[2]);
+                    string city = Convert.ToString(reader[3]);
+                    string state = Convert.ToString(reader[4]);
+                    string postalCode = Convert.ToString(reader[5]);
+                    string region = Convert.ToString(reader[6]);
+
+                    insertCustomerDimension(CustomerID, name, country, city, state, postalCode, region);
                 }
             }
 
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-            foreach(string customer in Customer)
-            {
-                splitCustomer(customer);
-            }
+         
         }
     }
 

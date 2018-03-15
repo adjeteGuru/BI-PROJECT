@@ -72,6 +72,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DestinationDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DestinationDatabaseDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DestinationDatabaseDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +118,17 @@
     </None>
     <None Include="DestinationDatabaseDataSet.xss">
       <DependentUpon>DestinationDatabaseDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DestinationDatabaseDataSet1.xsc">
+      <DependentUpon>DestinationDatabaseDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DestinationDatabaseDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DestinationDatabaseDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DestinationDatabaseDataSet1.xss">
+      <DependentUpon>DestinationDatabaseDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
