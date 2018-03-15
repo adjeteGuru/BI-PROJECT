@@ -153,12 +153,7 @@ namespace GITTest
 
       
 
-        private void btnGetProducts_Click_1(object sender, EventArgs e)
-        {
-           
-
-
-            }
+       
 
         private void btnGetProducts_Click_1(object sender, EventArgs e)
         {
@@ -197,7 +192,7 @@ namespace GITTest
           
         }
 
-       
+
 
         private void insertProductDimension(string category, string subcategory, string name, string productCode)
         {
@@ -206,7 +201,7 @@ namespace GITTest
 
             using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
             {
-                
+
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
@@ -218,6 +213,32 @@ namespace GITTest
 
                 //create a variable and assign it to false by default.
                 bool exists = false;
+
+                //run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the data exists so change the exists variable
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Product (category, subcategory, name, productcode)" +
+                        "VALUES (@category, @subcategory, @name, @productcode)", myConnection);
+
+                    insertCommand.Parameters.Add(new SqlParameter("category", category));
+                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+                    insertCommand.Parameters.Add(new SqlParameter("productcode", productCode));
+
+                    //insert the line
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+                }
+            }
+        }
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
@@ -240,58 +261,41 @@ namespace GITTest
                 }
             }
 
-                if (exists == false)
-                {
-                    SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO Product (category, subcategory, name, productcode)" +
-                        "VALUES (@category, @subcategory, @name, @productcode)", myConnection);
 
-                    insertCommand.Parameters.Add(new SqlParameter("category", category));
-                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
-                    insertCommand.Parameters.Add(new SqlParameter("name", name));
-                    insertCommand.Parameters.Add(new SqlParameter("productcode", productCode));
-
-
-                    ////insert the line
-                    int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("Records affected: " + recordsAffected);
-
-
-                }
-            }
+            //bing the listbox to the list
+            listBoxOrder.DataSource = Order;
         }
 
-        private void splitCustomer(string customer)
-        {//must continous
-            //Split the customer down and assign it to variables for later use
-            string[] arrayCustomer = customer.Split(',');
+        //private void splitCustomer(string customer)
+        //{//must continous
+        //    //Split the customer down and assign it to variables for later use
+        //    string[] arrayCustomer = customer.Split(' ');
 
-            //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
+        //    //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
 
-            //string name = Convert.ToString(arrayCustomer[1]);
-            //string country = Convert.ToString(arrayCustomer[2]);
-            //string city = Convert.ToString(arrayCustomer[3]);
-            //string state = Convert.ToString(arrayCustomer[4]);
-            //string postalCode = Convert.ToString(arrayCustomer[5]);
-            //string region = Convert.ToString(arrayCustomer[6]);
+        //    //string name = Convert.ToString(arrayCustomer[1]);
+        //    //string country = Convert.ToString(arrayCustomer[2]);
+        //    //string city = Convert.ToString(arrayCustomer[3]);
+        //    //string state = Convert.ToString(arrayCustomer[4]);
+        //    //string postalCode = Convert.ToString(arrayCustomer[5]);
+        //    //string region = Convert.ToString(arrayCustomer[6]);
 
-            //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
-            //string reference = "Test";
+        //    //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
+        //    //string reference = "Test";
+
+        //    string CustomerID = Convert.ToString(arrayCustomer[0]);
+        //    string name = Convert.ToString(arrayCustomer[1]);
+        //    string country = Convert.ToString(arrayCustomer[2]);
+        //    string city = Convert.ToString(arrayCustomer[3]);
+        //    string state = Convert.ToString(arrayCustomer[4]);
+        //    string postalCode = Convert.ToString(arrayCustomer[5]);
+        //    string region = Convert.ToString(arrayCustomer[6]);
 
 
-            string name = Convert.ToString(arrayCustomer[0]);
-            string country = Convert.ToString(arrayCustomer[1]);
-            string city = Convert.ToString(arrayCustomer[2]);
-            string state = Convert.ToString(arrayCustomer[3]);
-            string postalCode = Convert.ToString(arrayCustomer[4]);
-            string region = Convert.ToString(arrayCustomer[5]);
-            string reference = Convert.ToString(arrayCustomer[6]);
+        //    insertCustomerDimension(CustomerID, name, country, city, state, postalCode, region);
+        //}
 
-           
-            insertCustomerDimension(name, country, city, state, postalCode, region, reference);
-        }
-
-        private void insertCustomerDimension(string name,string country,string city,string state,string postalCode,string region,string reference)
+        private void insertCustomerDimension(string CustomerID, string name, string country, string city, string state, string postalCode, string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -304,7 +308,9 @@ namespace GITTest
                 SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE name=@name", myConnection);
 
                 //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
+
                 command.Parameters.Add(new SqlParameter("name", name));
+
 
                 //Create a variable and assign it to false by defult
                 bool exists = false;
@@ -318,24 +324,26 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (name, country, city, state, postalCode, region, reference)" +
-                        " VALUES (@name, @country, @city, @state, @postalCode, @region, @reference)",myConnection);
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, name, country, city, state, postalCode, region)" +
+                        " VALUES (@CustomerID, @name, @country, @city, @state, @postalCode, @region)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
                     insertCommand.Parameters.Add(new SqlParameter("country", country));
                     insertCommand.Parameters.Add(new SqlParameter("city", city));
                     insertCommand.Parameters.Add(new SqlParameter("state", state));
                     insertCommand.Parameters.Add(new SqlParameter("postalCode", postalCode));
                     insertCommand.Parameters.Add(new SqlParameter("region", region));
-                    insertCommand.Parameters.Add(new SqlParameter("reference", reference));
+
+
 
 
                     // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
                     //insert the line
-                    //int recordsAffected = insertCommand.ExecuteNonQuery();
-                    //Console.WriteLine("Records affected: " + recordsAffected);
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
-                
+
             }
         }
 
@@ -357,16 +365,22 @@ namespace GITTest
                     //we enlist the columns to be read
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
+                    string CustomerID = Convert.ToString(reader[0]);
+                    string name = Convert.ToString(reader[1]);
+                    string country = Convert.ToString(reader[2]);
+                    string city = Convert.ToString(reader[3]);
+                    string state = Convert.ToString(reader[4]);
+                    string postalcode = Convert.ToString(reader[5]);
+                    string region = Convert.ToString(reader[6]);
+
+                    insertCustomerDimension(CustomerID, name, country, city, state, postalcode, region);
                 }
             }
 
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-            foreach(string customer in Customer)
-            {
-                splitCustomer(customer);
-            }
+            
         }
     }
 

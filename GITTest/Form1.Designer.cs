@@ -1,4 +1,6 @@
-﻿namespace GITTest
+﻿using System;
+
+namespace GITTest
 {
     partial class Form1
     {
@@ -47,16 +49,16 @@
             this.productBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.productTableAdapter2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.ProductTableAdapter();
             this.tableAdapterManager2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager();
+            this.btnOrder = new System.Windows.Forms.Button();
+            this.listBoxOrder = new System.Windows.Forms.ListBox();
+            this.btnCustomer = new System.Windows.Forms.Button();
+            this.listBoxCustomer = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).BeginInit();
-            this.btnOrder = new System.Windows.Forms.Button();
-            this.listBoxOrder = new System.Windows.Forms.ListBox();
-            this.btnCustomer = new System.Windows.Forms.Button();
-            this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -114,44 +116,8 @@
             this.listBoxProducts.Location = new System.Drawing.Point(212, 77);
             this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(642, 95);
+            this.listBoxProducts.Size = new System.Drawing.Size(637, 95);
             this.listBoxProducts.TabIndex = 5;
-            // 
-            // btnOrder
-            // 
-            this.btnOrder.Location = new System.Drawing.Point(495, 39);
-            this.btnOrder.Name = "btnOrder";
-            this.btnOrder.Size = new System.Drawing.Size(91, 23);
-            this.btnOrder.TabIndex = 6;
-            this.btnOrder.Text = "GetOrder";
-            this.btnOrder.UseVisualStyleBackColor = true;
-            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
-            // 
-            // listBoxOrder
-            // 
-            this.listBoxOrder.FormattingEnabled = true;
-            this.listBoxOrder.Location = new System.Drawing.Point(442, 77);
-            this.listBoxOrder.Name = "listBoxOrder";
-            this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
-            this.listBoxOrder.TabIndex = 7;
-            // 
-            // btnCustomer
-            // 
-            this.btnCustomer.Location = new System.Drawing.Point(665, 39);
-            this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
-            this.btnCustomer.TabIndex = 8;
-            this.btnCustomer.Text = "GetCustomer";
-            this.btnCustomer.UseVisualStyleBackColor = true;
-            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
-            // 
-            // listBoxCustomer
-            // 
-            this.listBoxCustomer.FormattingEnabled = true;
-            this.listBoxCustomer.Location = new System.Drawing.Point(665, 77);
-            this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(280, 95);
-            this.listBoxCustomer.TabIndex = 9;
             // 
             // productBindingSource
             // 
@@ -219,11 +185,47 @@
             this.tableAdapterManager2.ProductTableAdapter = this.productTableAdapter2;
             this.tableAdapterManager2.UpdateOrder = GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // btnOrder
+            // 
+            this.btnOrder.Location = new System.Drawing.Point(901, 39);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(91, 23);
+            this.btnOrder.TabIndex = 6;
+            this.btnOrder.Text = "GetOrder";
+            this.btnOrder.UseVisualStyleBackColor = true;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
+            // 
+            // listBoxOrder
+            // 
+            this.listBoxOrder.FormattingEnabled = true;
+            this.listBoxOrder.Location = new System.Drawing.Point(901, 77);
+            this.listBoxOrder.Name = "listBoxOrder";
+            this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
+            this.listBoxOrder.TabIndex = 7;
+            // 
+            // btnCustomer
+            // 
+            this.btnCustomer.Location = new System.Drawing.Point(1151, 39);
+            this.btnCustomer.Name = "btnCustomer";
+            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnCustomer.TabIndex = 8;
+            this.btnCustomer.Text = "GetCustomer";
+            this.btnCustomer.UseVisualStyleBackColor = true;
+            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
+            // 
+            // listBoxCustomer
+            // 
+            this.listBoxCustomer.FormattingEnabled = true;
+            this.listBoxCustomer.Location = new System.Drawing.Point(1151, 77);
+            this.listBoxCustomer.Name = "listBoxCustomer";
+            this.listBoxCustomer.Size = new System.Drawing.Size(280, 95);
+            this.listBoxCustomer.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 332);
+            this.ClientSize = new System.Drawing.Size(1451, 332);
             this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.listBoxOrder);
@@ -246,6 +248,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+        //quick fix
+        private void Form1_Load(object sender, EventArgs e)
+        {
+           
         }
 
         #endregion
