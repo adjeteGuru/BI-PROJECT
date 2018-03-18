@@ -146,8 +146,12 @@ namespace GITTest
             {
                 //Open the SqlConnection
                 myConnection.Open();
+
+                //YOU MISSED TO REAJUST THIS LINE OF CODE 'select id from customer where firstName=@firstName
+                //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
+
                 //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@firstName", myConnection);
 
                 //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
                 command.Parameters.Add(new SqlParameter("firstName", firstName));
