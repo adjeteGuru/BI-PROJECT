@@ -137,7 +137,7 @@ namespace GITTest
 
         }
 
-        private void insertCustomerDimension(string CustomerID, string name,string country,string city,string state,string postalCode,string region)
+        private void insertCustomerDimension(string CustomerID, string firstName,string lastName,string country,string city,string state,string postalCode,string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -146,11 +146,15 @@ namespace GITTest
             {
                 //Open the SqlConnection
                 myConnection.Open();
+
+                //YOU MISSED TO REAJUST THIS LINE OF CODE 'select id from customer where firstName=@firstName
+                //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
+
                 //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE name=@name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@firstName", myConnection);
 
                 //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
-                command.Parameters.Add(new SqlParameter("name", name));
+                command.Parameters.Add(new SqlParameter("firstName", firstName));
 
                 //Create a variable and assign it to false by defult
                 bool exists = false;
@@ -164,10 +168,11 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, name, country, city, state, postalCode, region)" +
-                        " VALUES (@CustomerID, @name, @country, @city, @state, @postalCode, @region)", myConnection);
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, firstName, lastName, country, city, state, postalCode, region)" +
+                        " VALUES (@CustomerID, @firstName, @lastName, @country, @city, @state, @postalCode, @region)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
-                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+                    insertCommand.Parameters.Add(new SqlParameter("firstName", firstName));
+                    insertCommand.Parameters.Add(new SqlParameter("lastName", lastName));
                     insertCommand.Parameters.Add(new SqlParameter("country", country));
                     insertCommand.Parameters.Add(new SqlParameter("city", city));
                     insertCommand.Parameters.Add(new SqlParameter("state", state));
@@ -204,14 +209,18 @@ namespace GITTest
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
                     string CustomerID = Convert.ToString(reader[0]);
+                    //split name into firstname and lastname
                     string name = Convert.ToString(reader[1]);
+                    string[] splitname = name.Split(new char[] {' '});
+                    string firstName = Convert.ToString(splitname[0]);
+                    string lastName = Convert.ToString(splitname[1]);
                     string country = Convert.ToString(reader[2]);
                     string city = Convert.ToString(reader[3]);
                     string state = Convert.ToString(reader[4]);
                     string postalCode = Convert.ToString(reader[5]);
                     string region = Convert.ToString(reader[6]);
 
-                    insertCustomerDimension(CustomerID, name, country, city, state, postalCode, region);
+                    insertCustomerDimension(CustomerID, firstName,lastName, country, city, state, postalCode, region);
                 }
             }
 
