@@ -220,6 +220,23 @@ namespace GITTest
 
          
         }
+
+        private void customerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.customerBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'destinationDatabaseDataSet2.Customer' table. You can move, or remove it, as needed.
+            this.customerTableAdapter1.Fill(this.destinationDatabaseDataSet2.Customer);
+            //// TODO: This line of code loads data into the 'destinationDatabaseDataSet1.Customer' table. You can move, or remove it, as needed.
+            //this.customerTableAdapter.Fill(this.destinationDatabaseDataSet1.Customer);
+
+        }
     }
 
 
