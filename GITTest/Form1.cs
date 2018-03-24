@@ -302,7 +302,7 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, firstName, lastName, country, city, state, postalCode, region)" +
-                        " VALUES (@CustomerID, @name, @country, @city, @state, @postalCode, @region)", myConnection);
+                        " VALUES (@CustomerID, @firstName, @lastName, @country, @city, @state, @postalCode, @region)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
                     insertCommand.Parameters.Add(new SqlParameter("firstName", firstName));
                     insertCommand.Parameters.Add(new SqlParameter("lastName", lastName));
