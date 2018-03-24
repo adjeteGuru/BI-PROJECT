@@ -15,6 +15,8 @@ namespace GITTest
 {
     public partial class Form1 : Form
     {
+        
+
         public Form1()
         {
             InitializeComponent();
@@ -146,6 +148,14 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
+            
+            
+            //listBoxFromDB.DataSource = btnDestinationDB;
+
+           
+            
+            
+               
             //split the dates and insert every date in the list
             foreach (string date in DatesFormatted)
             {
@@ -153,7 +163,7 @@ namespace GITTest
                 //Console.WriteLine("splitdates loop OK");
             }
 
-
+           
         }
 
       
@@ -386,6 +396,53 @@ namespace GITTest
             listBoxCustomer.DataSource = Customer;
 
             
+        }
+
+        private void btnDestinationDB_Click(object sender, EventArgs e)
+        {
+            //create new list to store the indexed results in
+            List<string> DestinationDates = new List<string>();
+
+            //create new list to store the named results in
+            List<string> DestinationDatesNamed = new List<string>();
+
+
+            //create the database string
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
+
+
+                using (SqlDataReader reader = command.ExecuteReader()) 
+                    //if there are rows, it means the date exists so change the exists variable
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationDates.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() 
+                            + ", " + reader[5].ToString() + ", " + reader[6].ToString() + ", " + reader[7].ToString() + ", " + reader[8].ToString());
+
+                            DestinationDatesNamed.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " + reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString() 
+                            + ", " + reader["weekNumber"].ToString() + ", " + reader["year"].ToString() + ", " + reader["weekend"].ToString() + ", " + reader["date"].ToString() + ", " + reader["dayOfYear"].ToString());
+                        }
+
+                        
+                    }
+                    else
+                    {
+                        DestinationDates.Add("No data present");
+                        DestinationDatesNamed.Add("No data present");
+                    }
+
+                //bind the listbox to the list
+                listBoxFromDB.DataSource = DestinationDates;
+                //bind the listbox to the list
+                listBoxFromDBNamed.DataSource = DestinationDatesNamed;
+
+            }
         }
     }
 
