@@ -64,9 +64,10 @@ namespace GITTest
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(17, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 13);
+            this.label1.Size = new System.Drawing.Size(199, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Git clone and pull test!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -74,9 +75,10 @@ namespace GITTest
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 77);
+            this.label2.Location = new System.Drawing.Point(68, 89);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(10, 13);
+            this.label2.Size = new System.Drawing.Size(15, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -84,16 +86,19 @@ namespace GITTest
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
-            this.listBoxDates.Location = new System.Drawing.Point(5, 77);
+            this.listBoxDates.ItemHeight = 15;
+            this.listBoxDates.Location = new System.Drawing.Point(7, 89);
+            this.listBoxDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxDates.Name = "listBoxDates";
-            this.listBoxDates.Size = new System.Drawing.Size(182, 95);
+            this.listBoxDates.Size = new System.Drawing.Size(241, 109);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(5, 39);
+            this.btnGetDates.Location = new System.Drawing.Point(7, 45);
+            this.btnGetDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
+            this.btnGetDates.Size = new System.Drawing.Size(100, 27);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -101,10 +106,10 @@ namespace GITTest
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(212, 39);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGetProducts.Location = new System.Drawing.Point(283, 45);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGetProducts.Name = "btnGetProducts";
-            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
+            this.btnGetProducts.Size = new System.Drawing.Size(136, 27);
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
@@ -113,10 +118,11 @@ namespace GITTest
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.Location = new System.Drawing.Point(212, 77);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxProducts.ItemHeight = 15;
+            this.listBoxProducts.Location = new System.Drawing.Point(283, 89);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(637, 95);
+            this.listBoxProducts.Size = new System.Drawing.Size(848, 109);
             this.listBoxProducts.TabIndex = 5;
             // 
             // productBindingSource
@@ -187,9 +193,10 @@ namespace GITTest
             // 
             // btnOrder
             // 
-            this.btnOrder.Location = new System.Drawing.Point(901, 39);
+            this.btnOrder.Location = new System.Drawing.Point(7, 226);
+            this.btnOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOrder.Name = "btnOrder";
-            this.btnOrder.Size = new System.Drawing.Size(91, 23);
+            this.btnOrder.Size = new System.Drawing.Size(121, 27);
             this.btnOrder.TabIndex = 6;
             this.btnOrder.Text = "GetOrder";
             this.btnOrder.UseVisualStyleBackColor = true;
@@ -198,16 +205,19 @@ namespace GITTest
             // listBoxOrder
             // 
             this.listBoxOrder.FormattingEnabled = true;
-            this.listBoxOrder.Location = new System.Drawing.Point(901, 77);
+            this.listBoxOrder.ItemHeight = 15;
+            this.listBoxOrder.Location = new System.Drawing.Point(7, 285);
+            this.listBoxOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxOrder.Name = "listBoxOrder";
-            this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
+            this.listBoxOrder.Size = new System.Drawing.Size(1124, 109);
             this.listBoxOrder.TabIndex = 7;
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(1151, 39);
+            this.btnCustomer.Location = new System.Drawing.Point(1535, 45);
+            this.btnCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnCustomer.Size = new System.Drawing.Size(100, 27);
             this.btnCustomer.TabIndex = 8;
             this.btnCustomer.Text = "GetCustomer";
             this.btnCustomer.UseVisualStyleBackColor = true;
@@ -216,16 +226,18 @@ namespace GITTest
             // listBoxCustomer
             // 
             this.listBoxCustomer.FormattingEnabled = true;
-            this.listBoxCustomer.Location = new System.Drawing.Point(1151, 77);
+            this.listBoxCustomer.ItemHeight = 15;
+            this.listBoxCustomer.Location = new System.Drawing.Point(1535, 89);
+            this.listBoxCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(280, 95);
+            this.listBoxCustomer.Size = new System.Drawing.Size(372, 109);
             this.listBoxCustomer.TabIndex = 9;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1451, 332);
+            this.ClientSize = new System.Drawing.Size(1924, 422);
             this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.listBoxOrder);
@@ -236,6 +248,7 @@ namespace GITTest
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

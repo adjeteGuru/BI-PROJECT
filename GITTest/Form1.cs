@@ -256,12 +256,12 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], Discount, Quantity, [Ship Mode] from Sheet1", connection);
+                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], [Order Date], [Ship Date], [Ship Mode], [Customer Name], Quantity, Discount from Sheet1", connection);
                 reader = getOrder.ExecuteReader();
                 while (reader.Read())
                 {
                     //we enlist the columns to be read
-                    Order.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
+                    Order.Add(reader[0].ToString() + ", " + Convert.ToDateTime(reader[1]).ToString("M/dd/yyyy") + ", " + Convert.ToDateTime(reader[2]).ToString("M/dd/yyyy") + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
                 }
             }
@@ -269,6 +269,20 @@ namespace GITTest
 
             //bing the listbox to the list
             listBoxOrder.DataSource = Order;
+        }
+
+        private void insertOrderDimension()
+        {
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE ")
+            }
         }
 
         //private void splitCustomer(string customer)
