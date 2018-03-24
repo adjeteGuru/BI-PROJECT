@@ -271,38 +271,8 @@ namespace GITTest
             listBoxOrder.DataSource = Order;
         }
 
-        //FirstName Spplit From LaanstName function
-
-        //private void splitCustomer(string customer)
-        //{//must continous
-        //    //Split the customer down and assign it to variables for later use
-        //    string[] arrayCustomer = customer.Split(' ');
-
-        //    //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
-
-        //    //string name = Convert.ToString(arrayCustomer[1]);
-        //    //string country = Convert.ToString(arrayCustomer[2]);
-        //    //string city = Convert.ToString(arrayCustomer[3]);
-        //    //string state = Convert.ToString(arrayCustomer[4]);
-        //    //string postalCode = Convert.ToString(arrayCustomer[5]);
-        //    //string region = Convert.ToString(arrayCustomer[6]);
-
-        //    //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
-        //    //string reference = "Test";
-
-        //    string CustomerID = Convert.ToString(arrayCustomer[0]);
-        //    string name = Convert.ToString(arrayCustomer[1]);
-        //    string country = Convert.ToString(arrayCustomer[2]);
-        //    string city = Convert.ToString(arrayCustomer[3]);
-        //    string state = Convert.ToString(arrayCustomer[4]);
-        //    string postalCode = Convert.ToString(arrayCustomer[5]);
-        //    string region = Convert.ToString(arrayCustomer[6]);
-
-
-        //    insertCustomerDimension(CustomerID, name, country, city, state, postalCode, region);
-        //}
-
-        private void insertCustomerDimension(string CustomerID, string name, string country, string city, string state, string postalCode, string region)
+     
+        private void insertCustomerDimension(string CustomerID, string firstName, string lastName, string country, string city, string state, string postalCode, string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -312,11 +282,11 @@ namespace GITTest
                 //Open the SqlConnection
                 myConnection.Open();
                 //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE name=@name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@firstName", myConnection);
 
                 //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
 
-                command.Parameters.Add(new SqlParameter("name", name));
+                command.Parameters.Add(new SqlParameter("firstName", firstName));
 
 
                 //Create a variable and assign it to false by defult
@@ -331,10 +301,11 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, name, country, city, state, postalCode, region)" +
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, firstName, lastName, country, city, state, postalCode, region)" +
                         " VALUES (@CustomerID, @name, @country, @city, @state, @postalCode, @region)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
-                    insertCommand.Parameters.Add(new SqlParameter("name", name));
+                    insertCommand.Parameters.Add(new SqlParameter("firstName", firstName));
+                    insertCommand.Parameters.Add(new SqlParameter("lastName", lastName));
                     insertCommand.Parameters.Add(new SqlParameter("country", country));
                     insertCommand.Parameters.Add(new SqlParameter("city", city));
                     insertCommand.Parameters.Add(new SqlParameter("state", state));
@@ -374,13 +345,18 @@ namespace GITTest
 
                     string CustomerID = Convert.ToString(reader[0]);
                     string name = Convert.ToString(reader[1]);
+                    //split customer name into FirstName and LastName
+                    string[] splitName = name.Split(new char[] { ' ' });
+                    string firstName = Convert.ToString(splitName[0]);
+                    string lastName = Convert.ToString(splitName[1]);
                     string country = Convert.ToString(reader[2]);
                     string city = Convert.ToString(reader[3]);
                     string state = Convert.ToString(reader[4]);
                     string postalcode = Convert.ToString(reader[5]);
                     string region = Convert.ToString(reader[6]);
 
-                    insertCustomerDimension(CustomerID, name, country, city, state, postalcode, region);
+                    // insert properties into the customer table dimension
+                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalcode, region);
                 }
             }
 
@@ -392,8 +368,5 @@ namespace GITTest
     }
 
 
-        
-
-    
 }
 
