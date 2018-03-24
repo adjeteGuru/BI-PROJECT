@@ -31,6 +31,51 @@ namespace GITTest
             //comment here
         }
 
+        private int GetDateId(string date)
+        {
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+            DateTime dateTime = new DateTime(year, month, day);
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //create connection to the database
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //open the sqlConnection
+                myConnection.Open();
+
+                //create SqlCommand to check the SqlConnection
+                //THIS WAS THE CAUSE OF THE "@Date error" you have been getting = you omitted the FROM in your select statement @ADJETE.
+                //SqlCommand command = new SqlCommand("SELECT id Time WHERE date = @date", myConnection);
+                SqlCommand command = new SqlCommand("SELECT id FROM Time WHERE date = @date", myConnection);
+                //AND FINALLY THIS LINE WAS MISSED!
+                command.Parameters.Add(new SqlParameter("date", date));
+
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //run the command and read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means tghe data exists so change the variable.
+                    if (reader.HasRows) exists = true;
+                }
+
+                //
+                if (exists == false)
+                {
+
+                }
+
+                return 0;
+            }
+        }
+
         //Done
         //create function splitDate to allow code to be regroup in block
         private void splitDates(string date)
