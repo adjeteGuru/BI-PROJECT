@@ -35,7 +35,7 @@ namespace GITTest
             //clear the listbox
             listBoxDates.Items.Clear();
 
-            //create the database string
+            //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
@@ -195,10 +195,11 @@ namespace GITTest
             List<string> Customer = new List<string>();
             //clear the listbox
             listBoxCustomer.Items.Clear();
-            //create the database string
+            //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
+                //open the connection
                 connection.Open();
                 OleDbDataReader reader = null;
                 OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
