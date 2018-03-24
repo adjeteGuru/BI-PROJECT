@@ -220,6 +220,7 @@ namespace GITTest
                     string postalCode = Convert.ToString(reader[5]);
                     string region = Convert.ToString(reader[6]);
 
+                    // insert properties into the customer table dimension
                     insertCustomerDimension(CustomerID, firstName,lastName, country, city, state, postalCode, region);
                 }
             }
