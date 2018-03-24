@@ -325,6 +325,11 @@ namespace GITTest
             }
         }
 
+        private int GetCustomerId()
+        {
+            return 0;
+        }
+
         private void btnCustomer_Click(object sender, EventArgs e)
         {
             List<string> Customer = new List<string>();
