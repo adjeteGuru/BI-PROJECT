@@ -53,18 +53,27 @@ namespace GITTest
             this.listBoxOrder = new System.Windows.Forms.ListBox();
             this.btnCustomer = new System.Windows.Forms.Button();
             this.listBoxCustomer = new System.Windows.Forms.ListBox();
+            this.buttonGetFromDestinationDb = new System.Windows.Forms.Button();
+            this.listBoxFromDb = new System.Windows.Forms.ListBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonLoadData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 15);
+            this.label1.Location = new System.Drawing.Point(7, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(199, 15);
@@ -86,16 +95,18 @@ namespace GITTest
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
+            this.listBoxDates.HorizontalScrollbar = true;
             this.listBoxDates.ItemHeight = 15;
-            this.listBoxDates.Location = new System.Drawing.Point(7, 89);
+            this.listBoxDates.Location = new System.Drawing.Point(7, 110);
             this.listBoxDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxDates.Name = "listBoxDates";
-            this.listBoxDates.Size = new System.Drawing.Size(241, 109);
+            this.listBoxDates.ScrollAlwaysVisible = true;
+            this.listBoxDates.Size = new System.Drawing.Size(187, 109);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(7, 45);
+            this.btnGetDates.Location = new System.Drawing.Point(7, 63);
             this.btnGetDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnGetDates.Name = "btnGetDates";
             this.btnGetDates.Size = new System.Drawing.Size(100, 27);
@@ -106,7 +117,7 @@ namespace GITTest
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(283, 45);
+            this.btnGetProducts.Location = new System.Drawing.Point(492, 63);
             this.btnGetProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGetProducts.Name = "btnGetProducts";
             this.btnGetProducts.Size = new System.Drawing.Size(136, 27);
@@ -118,11 +129,13 @@ namespace GITTest
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
+            this.listBoxProducts.HorizontalScrollbar = true;
             this.listBoxProducts.ItemHeight = 15;
-            this.listBoxProducts.Location = new System.Drawing.Point(283, 89);
+            this.listBoxProducts.Location = new System.Drawing.Point(492, 110);
             this.listBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(848, 109);
+            this.listBoxProducts.ScrollAlwaysVisible = true;
+            this.listBoxProducts.Size = new System.Drawing.Size(188, 109);
             this.listBoxProducts.TabIndex = 5;
             // 
             // productBindingSource
@@ -193,7 +206,7 @@ namespace GITTest
             // 
             // btnOrder
             // 
-            this.btnOrder.Location = new System.Drawing.Point(7, 226);
+            this.btnOrder.Location = new System.Drawing.Point(10, 252);
             this.btnOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Size = new System.Drawing.Size(121, 27);
@@ -205,16 +218,18 @@ namespace GITTest
             // listBoxOrder
             // 
             this.listBoxOrder.FormattingEnabled = true;
+            this.listBoxOrder.HorizontalScrollbar = true;
             this.listBoxOrder.ItemHeight = 15;
-            this.listBoxOrder.Location = new System.Drawing.Point(7, 285);
+            this.listBoxOrder.Location = new System.Drawing.Point(10, 300);
             this.listBoxOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxOrder.Name = "listBoxOrder";
-            this.listBoxOrder.Size = new System.Drawing.Size(1124, 109);
+            this.listBoxOrder.ScrollAlwaysVisible = true;
+            this.listBoxOrder.Size = new System.Drawing.Size(187, 109);
             this.listBoxOrder.TabIndex = 7;
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(1535, 45);
+            this.btnCustomer.Location = new System.Drawing.Point(249, 252);
             this.btnCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(100, 27);
@@ -226,28 +241,96 @@ namespace GITTest
             // listBoxCustomer
             // 
             this.listBoxCustomer.FormattingEnabled = true;
+            this.listBoxCustomer.HorizontalScrollbar = true;
             this.listBoxCustomer.ItemHeight = 15;
-            this.listBoxCustomer.Location = new System.Drawing.Point(1535, 89);
+            this.listBoxCustomer.Location = new System.Drawing.Point(249, 298);
             this.listBoxCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(372, 109);
+            this.listBoxCustomer.ScrollAlwaysVisible = true;
+            this.listBoxCustomer.Size = new System.Drawing.Size(181, 109);
             this.listBoxCustomer.TabIndex = 9;
+            // 
+            // buttonGetFromDestinationDb
+            // 
+            this.buttonGetFromDestinationDb.Location = new System.Drawing.Point(249, 49);
+            this.buttonGetFromDestinationDb.Name = "buttonGetFromDestinationDb";
+            this.buttonGetFromDestinationDb.Size = new System.Drawing.Size(146, 55);
+            this.buttonGetFromDestinationDb.TabIndex = 10;
+            this.buttonGetFromDestinationDb.Text = "Get from Destination Db";
+            this.buttonGetFromDestinationDb.UseVisualStyleBackColor = true;
+            this.buttonGetFromDestinationDb.Click += new System.EventHandler(this.buttonGetFromDestinationDb_Click);
+            // 
+            // listBoxFromDb
+            // 
+            this.listBoxFromDb.BackColor = System.Drawing.SystemColors.Window;
+            this.listBoxFromDb.FormattingEnabled = true;
+            this.listBoxFromDb.HorizontalScrollbar = true;
+            this.listBoxFromDb.ItemHeight = 15;
+            this.listBoxFromDb.Location = new System.Drawing.Point(249, 110);
+            this.listBoxFromDb.Name = "listBoxFromDb";
+            this.listBoxFromDb.ScrollAlwaysVisible = true;
+            this.listBoxFromDb.Size = new System.Drawing.Size(181, 109);
+            this.listBoxFromDb.TabIndex = 11;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 34);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(771, 454);
+            this.tabControl1.TabIndex = 12;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.listBoxProducts);
+            this.tabPage1.Controls.Add(this.listBoxCustomer);
+            this.tabPage1.Controls.Add(this.btnGetProducts);
+            this.tabPage1.Controls.Add(this.listBoxFromDb);
+            this.tabPage1.Controls.Add(this.btnCustomer);
+            this.tabPage1.Controls.Add(this.btnGetDates);
+            this.tabPage1.Controls.Add(this.buttonGetFromDestinationDb);
+            this.tabPage1.Controls.Add(this.listBoxDates);
+            this.tabPage1.Controls.Add(this.btnOrder);
+            this.tabPage1.Controls.Add(this.listBoxOrder);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(763, 425);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.buttonLoadData);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(763, 425);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonLoadData
+            // 
+            this.buttonLoadData.Location = new System.Drawing.Point(23, 18);
+            this.buttonLoadData.Name = "buttonLoadData";
+            this.buttonLoadData.Size = new System.Drawing.Size(106, 39);
+            this.buttonLoadData.TabIndex = 0;
+            this.buttonLoadData.Text = "Load Data";
+            this.buttonLoadData.UseVisualStyleBackColor = true;
+            this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 422);
-            this.Controls.Add(this.listBoxCustomer);
-            this.Controls.Add(this.btnCustomer);
-            this.Controls.Add(this.listBoxOrder);
-            this.Controls.Add(this.btnOrder);
-            this.Controls.Add(this.listBoxProducts);
-            this.Controls.Add(this.btnGetProducts);
-            this.Controls.Add(this.listBoxDates);
-            this.Controls.Add(this.btnGetDates);
+            this.ClientSize = new System.Drawing.Size(816, 533);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -258,6 +341,10 @@ namespace GITTest
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,6 +379,12 @@ namespace GITTest
         private System.Windows.Forms.ListBox listBoxOrder;
         private System.Windows.Forms.Button btnCustomer;
         private System.Windows.Forms.ListBox listBoxCustomer;
+        private System.Windows.Forms.Button buttonGetFromDestinationDb;
+        private System.Windows.Forms.ListBox listBoxFromDb;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button buttonLoadData;
     }
 }
 

@@ -30,11 +30,6 @@ namespace GITTest
             //comment here
         }
 
-        private int GetDateId(string date)
-        {
-            
-            return 0;
-        }
 
         private void splitDates(string date)
         {
@@ -109,6 +104,52 @@ namespace GITTest
 
                 }
             }
+        }
+
+        private int GetDateId(string date)
+        {
+            //Split the date down and assign it to variables for later use.
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
+                command.Parameters.Add(new SqlParameter("date", date));
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if (reader.HasRows) 
+                    {
+                        exists = true;
+                        Console.WriteLine("Data exists!");
+                    }
+                }
+                if(exists == false)
+                {
+
+                }
+            }
+            return 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -210,11 +251,11 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = @name", myConnection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE productcode = @productcode", myConnection);
                 command.Parameters.Add(new SqlParameter("productcode", productCode));
-                command.Parameters.Add(new SqlParameter("name", name));
-                command.Parameters.Add(new SqlParameter("subcategory", subcategory));
-                command.Parameters.Add(new SqlParameter("category", category));
+                //command.Parameters.Add(new SqlParameter("name", name));
+                //command.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                //command.Parameters.Add(new SqlParameter("category", category));
 
                 //create a variable and assign it to false by default.
                 bool exists = false;
@@ -243,6 +284,45 @@ namespace GITTest
                     Console.WriteLine("Records affected: " + recordsAffected);
                 }
             }
+        }
+
+        private int GetProductId(string name)
+        {
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = @name", myConnection);
+                //command.Parameters.Add(new SqlParameter("productcode", productCode));
+                command.Parameters.Add(new SqlParameter("name", name));
+                //command.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                //command.Parameters.Add(new SqlParameter("category", category));
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the data exists so change the exists variable
+                    if (reader.HasRows)
+                    {
+                        exists = true;
+                        Console.WriteLine("Data exists!");
+                    }
+                }
+                if (exists == false)
+                {
+
+                }
+            }          
+            return 0;
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -281,7 +361,7 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE ")
+                SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE ");
             }
         }
 
@@ -400,6 +480,103 @@ namespace GITTest
             listBoxCustomer.DataSource = Customer;
 
             
+        }
+
+        private void buttonGetFromDestinationDb_Click(object sender, EventArgs e)
+        {
+            //Create new list to store the indexed result in.
+            List<string> DestinationDates = new List<string>();
+
+            //Create new list to store the named resuts in.
+            List<string> DestinationDatesNamed = new List<string>();
+
+            //create the database string
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if(reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationDates.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " +
+                                reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString() + ", " +
+                                reader[7].ToString() + ", " + reader[8].ToString());
+
+                            DestinationDatesNamed.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " +
+                                reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString() + ", " + reader["weekNumber"].ToString() + ", " +
+                                reader["year"].ToString() + ", " + reader["weekend"].ToString() + ", " + reader["date"].ToString() + ", " +
+                                reader["dayOfYear"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        DestinationDates.Add("No Date present.");
+                        DestinationDatesNamed.Add("No Data present.");
+                    }
+
+                    //bind the listBox to the list
+                    listBoxFromDb.DataSource = DestinationDates;
+                }
+            }
+
+            
+        }
+
+        private void buttonLoadData_Click(object sender, EventArgs e)
+        {
+            //This is a hardcoded week - the lowest grade.
+            //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
+            //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
+            List<string> datelist = new List<string>(new string[] { "06/01/2014", "07/01/2014", "08/01/2014", "09/01/2014", "10/01/2014", "11/01/2014", "12/01/2014" });
+
+            //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
+            //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
+            //The dictionary type is string, int - date, number of sales.
+            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+
+            //Create aconnectionto the MDF file. We only need this ince so its outside my loop
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //run this code once for each date in my list - in my case 7 times
+            foreach(string date in datelist)
+            {
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+                    //open the SqlConnection
+                    myConnection.Open();
+                    //the following code uses an SqlCommand base on the SqlConnection
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    command.Parameters.Add(new SqlParameter("date", date));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //if there are rows, it means there were sales
+                        if(reader.HasRows)
+                        {
+                            while(reader.Read())
+                            {
+                                //this line adds a dictionary item with the key of the date, and the value being the sales number
+                                //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
+                                salesCount.Add(date, Int32.Parse(reader["SalesNumber"].ToString()));
+                            }
+                        }
+                        //if there are no rows it means there were 0 sales, so we also need to handle this!
+                        else
+                        {
+                            salesCount.Add(date, 0);
+                        }
+                    }
+                }
+
+                
+            }
         }
     }
 
