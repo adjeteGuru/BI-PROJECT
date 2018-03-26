@@ -15,7 +15,7 @@ namespace GITTest
 {
     public partial class Form1 : Form
     {
-        
+
 
         public Form1()
         {
@@ -34,7 +34,7 @@ namespace GITTest
 
         private int GetDateId(string date)
         {
-            
+
             return 0;
         }
 
@@ -79,12 +79,12 @@ namespace GITTest
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    
+
                     //if there are rows, it means the date exists so change the exists variable.
                     if (reader.HasRows) exists = true;
                 }
 
-                if(exists == false)
+                if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO Time (dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear)" +
                         "VALUES (@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear)", myConnection);
@@ -143,14 +143,14 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
-            
-            
+
+
             //listBoxFromDB.DataSource = btnDestinationDB;
 
-           
-            
-            
-               
+
+
+
+
             //split the dates and insert every date in the list
             foreach (string date in DatesFormatted)
             {
@@ -158,12 +158,12 @@ namespace GITTest
                 //Console.WriteLine("splitdates loop OK");
             }
 
-           
+
         }
 
-      
 
-       
+
+
 
         private void btnGetProducts_Click_1(object sender, EventArgs e)
         {
@@ -180,8 +180,8 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
-               
-                
+
+
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
@@ -199,7 +199,7 @@ namespace GITTest
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
 
-          
+
         }
 
 
@@ -276,34 +276,6 @@ namespace GITTest
             listBoxOrder.DataSource = Order;
         }
 
-        //private void splitCustomer(string customer)
-        //{//must continous
-        //    //Split the customer down and assign it to variables for later use
-        //    string[] arrayCustomer = customer.Split(' ');
-
-        //    //HERE TOO....YOU MISSED THAT ARRAY ALWAY STARTING FROM '0'
-
-        //    //string name = Convert.ToString(arrayCustomer[1]);
-        //    //string country = Convert.ToString(arrayCustomer[2]);
-        //    //string city = Convert.ToString(arrayCustomer[3]);
-        //    //string state = Convert.ToString(arrayCustomer[4]);
-        //    //string postalCode = Convert.ToString(arrayCustomer[5]);
-        //    //string region = Convert.ToString(arrayCustomer[6]);
-
-        //    //ALSO YOU DIDN'T CONVERT REFERENCE TO ARRAY
-        //    //string reference = "Test";
-
-        //    string CustomerID = Convert.ToString(arrayCustomer[0]);
-        //    string name = Convert.ToString(arrayCustomer[1]);
-        //    string country = Convert.ToString(arrayCustomer[2]);
-        //    string city = Convert.ToString(arrayCustomer[3]);
-        //    string state = Convert.ToString(arrayCustomer[4]);
-        //    string postalCode = Convert.ToString(arrayCustomer[5]);
-        //    string region = Convert.ToString(arrayCustomer[6]);
-
-
-        //    insertCustomerDimension(CustomerID, name, country, city, state, postalCode, region);
-        //}
 
         private void insertCustomerDimension(string CustomerID, string name, string country, string city, string state, string postalCode, string region)
         {
@@ -390,13 +362,12 @@ namespace GITTest
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-            
+
         }
 
         private void btnDestinationDB_Click(object sender, EventArgs e)
         {
-            //create new list to store the indexed results in
-            List<string> DestinationDates = new List<string>();
+
 
             //create new list to store the named results in
             List<string> DestinationDatesNamed = new List<string>();
@@ -411,39 +382,72 @@ namespace GITTest
                 SqlCommand command = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
 
 
-                using (SqlDataReader reader = command.ExecuteReader()) 
+                using (SqlDataReader reader = command.ExecuteReader())
                     //if there are rows, it means the date exists so change the exists variable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            DestinationDates.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() 
-                            + ", " + reader[5].ToString() + ", " + reader[6].ToString() + ", " + reader[7].ToString() + ", " + reader[8].ToString());
 
-                            DestinationDatesNamed.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " + reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString() 
+
+                            DestinationDatesNamed.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " + reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString()
                             + ", " + reader["weekNumber"].ToString() + ", " + reader["year"].ToString() + ", " + reader["weekend"].ToString() + ", " + reader["date"].ToString() + ", " + reader["dayOfYear"].ToString());
                         }
-
-                        
                     }
                     else
                     {
-                        DestinationDates.Add("No data present");
                         DestinationDatesNamed.Add("No data present");
                     }
 
-                //bind the listbox to the list
-                listBoxFromDB.DataSource = DestinationDates;
+
                 //bind the listbox to the list
                 listBoxFromDBNamed.DataSource = DestinationDatesNamed;
 
             }
         }
+
+        private void btnGetProductDestinationDB_Click(object sender, EventArgs e)
+        {
+            //create new list to store the named results in
+            List<string> DestinationProducts = new List<string>();
+
+            //create the database string
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT category, subcategory, name, productcode from Product", connection);
+
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    //if there are rows, it means the date exists so change the exists variable
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationProducts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["name"].ToString() + ", " + reader["productcode"].ToString());
+                        }
+
+
+                    }
+                    else
+                    {
+
+                        DestinationProducts.Add("No data present");
+                    }
+
+
+                //bind the listbox to the list
+                listBoxFromProductDestinationDB.DataSource = DestinationProducts;
+
+            }
+        }
+
+
+
+
+
     }
-
-
-        
-
-    
 }
 
