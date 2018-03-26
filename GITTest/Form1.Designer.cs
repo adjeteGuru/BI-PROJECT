@@ -42,12 +42,12 @@
             this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.btnGetCustomerFromDatabase = new System.Windows.Forms.Button();
             this.tableAdapterManager1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager();
+            this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.customerTableAdapter = new GITTest.DestinationDatabaseDataSet1TableAdapters.CustomerTableAdapter();
             this.tableAdapterManager = new GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager();
             this.destinationDatabaseDataSet2 = new GITTest.DestinationDatabaseDataSet2();
             this.customerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.sheet1TableAdapter1 = new GITTest.Data_set_1DataSetTableAdapters.Sheet1TableAdapter();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -112,7 +112,6 @@
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
-            this.btnGetDates.Click += new System.EventHandler(this.button1_Click);
             // 
             // listBoxDates
             // 
@@ -131,7 +130,6 @@
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
-            this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click_1);
             // 
             // listBoxProducts
             // 
@@ -179,6 +177,10 @@
             this.tableAdapterManager1.TimeTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // customerTableAdapter1
+            // 
+            this.customerTableAdapter1.ClearBeforeFill = true;
+            // 
             // customerBindingSource
             // 
             this.customerBindingSource.DataMember = "Customer";
@@ -203,10 +205,6 @@
             // 
             this.customerBindingSource1.DataMember = "Customer";
             this.customerBindingSource1.DataSource = this.destinationDatabaseDataSet2;
-            // 
-            // customerTableAdapter1
-            // 
-            this.customerTableAdapter1.ClearBeforeFill = true;
             // 
             // listBoxCustomerFromDbNamed
             // 
