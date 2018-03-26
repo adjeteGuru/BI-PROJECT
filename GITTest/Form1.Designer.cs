@@ -42,17 +42,18 @@
             this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.btnGetCustomerFromDatabase = new System.Windows.Forms.Button();
             this.tableAdapterManager1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager();
+            this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.customerTableAdapter = new GITTest.DestinationDatabaseDataSet1TableAdapters.CustomerTableAdapter();
             this.tableAdapterManager = new GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager();
             this.destinationDatabaseDataSet2 = new GITTest.DestinationDatabaseDataSet2();
             this.customerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.sheet1TableAdapter1 = new GITTest.Data_set_1DataSetTableAdapters.Sheet1TableAdapter();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnDimension = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
@@ -179,6 +180,10 @@
             this.tableAdapterManager1.TimeTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // customerTableAdapter1
+            // 
+            this.customerTableAdapter1.ClearBeforeFill = true;
+            // 
             // customerBindingSource
             // 
             this.customerBindingSource.DataMember = "Customer";
@@ -204,10 +209,6 @@
             this.customerBindingSource1.DataMember = "Customer";
             this.customerBindingSource1.DataSource = this.destinationDatabaseDataSet2;
             // 
-            // customerTableAdapter1
-            // 
-            this.customerTableAdapter1.ClearBeforeFill = true;
-            // 
             // listBoxCustomerFromDbNamed
             // 
             this.listBoxCustomerFromDbNamed.FormattingEnabled = true;
@@ -232,6 +233,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnDimension);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.listBoxCustomerFromDbNamed);
             this.tabPage1.Controls.Add(this.btnGetDates);
@@ -260,6 +262,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnDimension
+            // 
+            this.btnDimension.Location = new System.Drawing.Point(539, 54);
+            this.btnDimension.Name = "btnDimension";
+            this.btnDimension.Size = new System.Drawing.Size(101, 40);
+            this.btnDimension.TabIndex = 12;
+            this.btnDimension.Text = "GetDimension";
+            this.btnDimension.UseVisualStyleBackColor = true;
+            this.btnDimension.Click += new System.EventHandler(this.btnDimension_Click);
             // 
             // Form1
             // 
@@ -309,6 +321,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnDimension;
     }
 }
 

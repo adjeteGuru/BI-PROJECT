@@ -31,38 +31,38 @@ namespace GITTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            List<string> Dates = new List<string>();
-            //clear the listbox
-            listBoxDates.Items.Clear();
+            //List<string> Dates = new List<string>();
+            ////clear the listbox
+            //listBoxDates.Items.Clear();
 
-            //create the database connection string
-            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            ////create the database connection string
+            //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
+            //using (OleDbConnection connection = new OleDbConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+            //    OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
 
-                reader = getDates.ExecuteReader();
-                while (reader.Read())
-                {
-                    Dates.Add(reader[0].ToString());
-                    Dates.Add(reader[1].ToString());
-                }
-            }
+            //    reader = getDates.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        Dates.Add(reader[0].ToString());
+            //        Dates.Add(reader[1].ToString());
+            //    }
+            //}
 
-            //create a new list for the formatted data
-            List<string> DatesFormatted = new List<string>();
-            foreach (string date in Dates)
-            {
-                //split the string on whitespce and remove anything thats blank.
-                var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                //grab the first item (we know this is the date) and add it to our new list
-                DatesFormatted.Add(dates[0]);
-            }
-            //bind the listbox to the list
-            listBoxDates.DataSource = DatesFormatted;
+            ////create a new list for the formatted data
+            //List<string> DatesFormatted = new List<string>();
+            //foreach (string date in Dates)
+            //{
+            //    //split the string on whitespce and remove anything thats blank.
+            //    var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+            //    //grab the first item (we know this is the date) and add it to our new list
+            //    DatesFormatted.Add(dates[0]);
+            //}
+            ////bind the listbox to the list
+            //listBoxDates.DataSource = DatesFormatted;
 
 
 
@@ -77,38 +77,38 @@ namespace GITTest
 
         private void btnGetProducts_Click_1(object sender, EventArgs e)
         {
-            List<string> Products = new List<string>();
-            //clear the listbox
-            listBoxProducts.Items.Clear();
+            //List<string> Products = new List<string>();
+            ////clear the listbox
+            //listBoxProducts.Items.Clear();
 
-            //create the database string
-            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            ////create the database string
+            //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+            //using (OleDbConnection connection = new OleDbConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+            //    OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
 
 
                
-                reader = getProducts.ExecuteReader();
-                while (reader.Read())
-                {
+            //    reader = getProducts.ExecuteReader();
+            //    while (reader.Read())
+            //    {
 
-                    //we enlist the columns to be read 
+            //        //we enlist the columns to be read 
                     
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+            //        Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
 
 
-                }
-            }
+            //    }
+            //}
 
 
-            //bind the listbox to the list
-            listBoxProducts.DataSource = Products;
+            ////bind the listbox to the list
+            //listBoxProducts.DataSource = Products;
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -192,42 +192,42 @@ namespace GITTest
 
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            List<string> Customer = new List<string>();
-            //clear the listbox
-            listBoxCustomer.Items.Clear();
-            //create the database connection string
-            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                //open the connection
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
-                reader = getCustomer.ExecuteReader();
-                while (reader.Read())
-                {
-                    //we enlist the columns to be read
-                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
+           // List<string> Customer = new List<string>();
+           // //clear the listbox
+           // listBoxCustomer.Items.Clear();
+           // //create the database connection string
+           // string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+           // using (OleDbConnection connection = new OleDbConnection(connectionString))
+           // {
+           //     //open the connection
+           //     connection.Open();
+           //     OleDbDataReader reader = null;
+           //     OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+           //     reader = getCustomer.ExecuteReader();
+           //     while (reader.Read())
+           //     {
+           //         //we enlist the columns to be read
+           //         Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
-                    string CustomerID = Convert.ToString(reader[0]);
-                    //split name into firstname and lastname
-                    string name = Convert.ToString(reader[1]);
-                    string[] splitname = name.Split(new char[] {' '});
-                    string firstName = Convert.ToString(splitname[0]);
-                    string lastName = Convert.ToString(splitname[1]);
-                    string country = Convert.ToString(reader[2]);
-                    string city = Convert.ToString(reader[3]);
-                    string state = Convert.ToString(reader[4]);
-                    string postalCode = Convert.ToString(reader[5]);
-                    string region = Convert.ToString(reader[6]);
+           //         string CustomerID = Convert.ToString(reader[0]);
+           //         //split name into firstname and lastname
+           //         string name = Convert.ToString(reader[1]);
+           //         string[] splitname = name.Split(new char[] {' '});
+           //         string firstName = Convert.ToString(splitname[0]);
+           //         string lastName = Convert.ToString(splitname[1]);
+           //         string country = Convert.ToString(reader[2]);
+           //         string city = Convert.ToString(reader[3]);
+           //         string state = Convert.ToString(reader[4]);
+           //         string postalCode = Convert.ToString(reader[5]);
+           //         string region = Convert.ToString(reader[6]);
 
-                    // insert properties into the customer table dimension
-                    insertCustomerDimension(CustomerID, firstName,lastName, country, city, state, postalCode, region);
-                }
-            }
+           //         // insert properties into the customer table dimension
+           //         insertCustomerDimension(CustomerID, firstName,lastName, country, city, state, postalCode, region);
+           //     }
+           // }
 
-            //bind the listbox to the list
-            listBoxCustomer.DataSource = Customer;
+           // //bind the listbox to the list
+           //// listBoxCustomer.DataSource = Customer;
 
          
         }
@@ -251,6 +251,43 @@ namespace GITTest
 
         private void btnGetCustomerFromDatabase_Click(object sender, EventArgs e)
         {
+            List<string> Customer = new List<string>();
+            //clear the listbox
+            //listBoxCustomer.Items.Clear();
+            //create the database connection string
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+                reader = getCustomer.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
+
+                    string CustomerID = Convert.ToString(reader[0]);
+                    //split name into firstname and lastname
+                    string name = Convert.ToString(reader[1]);
+                    string[] splitname = name.Split(new char[] { ' ' });
+                    string firstName = Convert.ToString(splitname[0]);
+                    string lastName = Convert.ToString(splitname[1]);
+                    string country = Convert.ToString(reader[2]);
+                    string city = Convert.ToString(reader[3]);
+                    string state = Convert.ToString(reader[4]);
+                    string postalCode = Convert.ToString(reader[5]);
+                    string region = Convert.ToString(reader[6]);
+
+                    // insert properties into the customer table dimension
+                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+                }
+            }
+
+
+
+
             //Create new list to store the indexed results in.
             List<string> DestinationCustomersNamed = new List<string>();
 
@@ -285,11 +322,159 @@ namespace GITTest
             }
             listBoxCustomerFromDbNamed.DataSource = DestinationCustomersNamed;
         }
-    }
+
+
+
+        private void btnDimension_Click(object sender, EventArgs e)
+        {
+
+            List<string> Dates = new List<string>();
+            //clear the listbox
+            listBoxDates.Items.Clear();
+
+            List<string> Products = new List<string>();
+            //clear the listbox
+            listBoxProducts.Items.Clear();
+
+            List<string> Customer = new List<string>();
+            //clear the listbox
+            listBoxCustomer.Items.Clear();
+
+            //create the database connection string
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+
+                reader = getDates.ExecuteReader();
+                reader = getProducts.ExecuteReader();
+                reader = getCustomer.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Dates.Add(reader[0].ToString());
+                    Dates.Add(reader[1].ToString());
+
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
+                    string CustomerID = Convert.ToString(reader[0]);
+                    //split name into firstname and lastname
+                    string name = Convert.ToString(reader[1]);
+                    string[] splitname = name.Split(new char[] { ' ' });
+                    string firstName = Convert.ToString(splitname[0]);
+                    string lastName = Convert.ToString(splitname[1]);
+                    string country = Convert.ToString(reader[2]);
+                    string city = Convert.ToString(reader[3]);
+                    string state = Convert.ToString(reader[4]);
+                    string postalCode = Convert.ToString(reader[5]);
+                    string region = Convert.ToString(reader[6]);
+
+                }
+
+
+            }
+
+            //create a new list for the formatted data
+            List<string> DatesFormatted = new List<string>();
+            foreach (string date in Dates)
+            {
+                //split the string on whitespce and remove anything thats blank.
+                var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+                //grab the first item (we know this is the date) and add it to our new list
+                DatesFormatted.Add(dates[0]);
+            }
+            //bind the listbox to the list
+            listBoxDates.DataSource = DatesFormatted;
+            //bind the listbox to the list
+
+            listBoxProducts.DataSource = Products;
+
+            //bind the listbox to the list
+            listBoxCustomer.DataSource = Customer;
+
+
+
+
+            //create the database string
+            //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+            //using (OleDbConnection connection = new OleDbConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+
+
+
+
+
+            //    reader = getProducts.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+
+            //        //we enlist the columns to be read 
+
+
+
+
+
+            //    }
+            //}
+
+
+            ////bind the listbox to the list
+            //listBoxProducts.DataSource = Products;
+
+            //
+
+
+            ////create the database connection string
+            //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+            //using (OleDbConnection connection = new OleDbConnection(connectionString))
+            //{
+            //    //open the connection
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+                
+            //    reader = getCustomer.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        //we enlist the columns to be read
+            //        Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
+
+            //        string CustomerID = Convert.ToString(reader[0]);
+            //        //split name into firstname and lastname
+            //        string name = Convert.ToString(reader[1]);
+            //        string[] splitname = name.Split(new char[] { ' ' });
+            //        string firstName = Convert.ToString(splitname[0]);
+            //        string lastName = Convert.ToString(splitname[1]);
+            //        string country = Convert.ToString(reader[2]);
+            //        string city = Convert.ToString(reader[3]);
+            //        string state = Convert.ToString(reader[4]);
+            //        string postalCode = Convert.ToString(reader[5]);
+            //        string region = Convert.ToString(reader[6]);
+
+                    // insert properties into the customer table dimension
+                    //insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+                }
+            }
+
+            ////bind the listbox to the list
+            // listBoxCustomer.DataSource = Customer;
+
+            //
+        }
+   // }
 
 
         
 
     
-}
+//}
 
