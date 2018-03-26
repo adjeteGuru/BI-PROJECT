@@ -35,6 +35,93 @@ namespace GITTest
         private int GetDateId(string date)
         {
 
+            //Split the date down and assign it to variables for later use.
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
+                command.Parameters.Add(new SqlParameter("date", dbDate));
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if (reader.HasRows)
+                    {
+                        exists = true;
+
+                        Console.WriteLine("Data exists!");
+
+                    }
+                }
+
+                if (exists == false)
+                {
+
+                }
+
+                //string getDateIDExists = GetDateId(date).ToString();
+                //Console.WriteLine("Yes: " + getDateIDExists);
+            }
+            return 0;
+        }
+
+        private int GetProductId(string product)
+        {
+
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product Where productcode = @productcode", myConnection);
+                command.Parameters.Add(new SqlParameter("productcode", product));
+
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if (reader.HasRows)
+                    {
+                        exists = true;
+                        Console.WriteLine("Data exists!");
+                    }
+                }
+
+                if (exists == false)
+                {
+
+                }
+
+            }
+            string getProductIDExists = GetProductId(product).ToString();
+            Console.WriteLine("Yes: " + getProductIDExists);
             return 0;
         }
 
