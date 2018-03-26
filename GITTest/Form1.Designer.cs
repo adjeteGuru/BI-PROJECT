@@ -33,27 +33,20 @@
             this.listBoxProducts = new System.Windows.Forms.ListBox();
             this.listBoxCustomer = new System.Windows.Forms.ListBox();
             this.btnGetCustomerFromDatabase = new System.Windows.Forms.Button();
-            this.tableAdapterManager1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager();
-            this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.customerTableAdapter = new GITTest.DestinationDatabaseDataSet1TableAdapters.CustomerTableAdapter();
-            this.tableAdapterManager = new GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager();
-            this.destinationDatabaseDataSet2 = new GITTest.DestinationDatabaseDataSet2();
-            this.customerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBoxDatabaseTables = new System.Windows.Forms.GroupBox();
+            this.groupBoxDimensionsTables = new System.Windows.Forms.GroupBox();
+            this.lblProducts = new System.Windows.Forms.Label();
+            this.lblCustomers = new System.Windows.Forms.Label();
+            this.lblDates = new System.Windows.Forms.Label();
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBoxDimensionsTables = new System.Windows.Forms.GroupBox();
-            this.lblDates = new System.Windows.Forms.Label();
-            this.lblCustomers = new System.Windows.Forms.Label();
-            this.lblProducts = new System.Windows.Forms.Label();
-            this.groupBoxDatabaseTables = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBoxDimensionsTables.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
+            this.groupBoxDimensionsTables.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -65,14 +58,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(6, 19);
-            this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
-            this.btnGetDates.TabIndex = 2;
-            this.btnGetDates.Text = "GetDates";
-            this.btnGetDates.UseVisualStyleBackColor = true;
-            this.btnGetDates.Click += new System.EventHandler(this.button1_Click);
-            // 
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
@@ -81,21 +66,10 @@
             this.listBoxDates.Size = new System.Drawing.Size(115, 95);
             this.listBoxDates.TabIndex = 3;
             // 
-            // btnGetProducts
-            // 
-            this.btnGetProducts.Location = new System.Drawing.Point(7, 146);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGetProducts.Name = "btnGetProducts";
-            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
-            this.btnGetProducts.TabIndex = 4;
-            this.btnGetProducts.Text = "GetProducts";
-            this.btnGetProducts.UseVisualStyleBackColor = true;
-            this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click_1);
-            // 
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.Location = new System.Drawing.Point(0, 203);
+            this.listBoxProducts.Location = new System.Drawing.Point(0, 190);
             this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(573, 95);
@@ -119,50 +93,12 @@
             this.btnGetCustomerFromDatabase.UseVisualStyleBackColor = true;
             this.btnGetCustomerFromDatabase.Click += new System.EventHandler(this.btnGetCustomerFromDatabase_Click);
             // 
-            // tableAdapterManager1
-            // 
-            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.CustomerTableAdapter = this.customerTableAdapter1;
-            this.tableAdapterManager1.FactTableTableAdapter = null;
-            this.tableAdapterManager1.ProductTableAdapter = null;
-            this.tableAdapterManager1.TimeTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // customerBindingSource
-            // 
-            this.customerBindingSource.DataMember = "Customer";
-            this.customerBindingSource.DataSource = this.destinationDatabaseDataSet1;
-            // 
-            // customerTableAdapter
-            // 
-            this.customerTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CustomerTableAdapter = this.customerTableAdapter;
-            this.tableAdapterManager.UpdateOrder = GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // destinationDatabaseDataSet2
-            // 
-            this.destinationDatabaseDataSet2.DataSetName = "DestinationDatabaseDataSet2";
-            this.destinationDatabaseDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // customerBindingSource1
-            // 
-            this.customerBindingSource1.DataMember = "Customer";
-            this.customerBindingSource1.DataSource = this.destinationDatabaseDataSet2;
-            // 
-            // customerTableAdapter1
-            // 
-            this.customerTableAdapter1.ClearBeforeFill = true;
-            // 
             // listBoxCustomerFromDbNamed
             // 
             this.listBoxCustomerFromDbNamed.FormattingEnabled = true;
-            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(46, 168);
+            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(6, 169);
             this.listBoxCustomerFromDbNamed.Name = "listBoxCustomerFromDbNamed";
-            this.listBoxCustomerFromDbNamed.Size = new System.Drawing.Size(529, 82);
+            this.listBoxCustomerFromDbNamed.Size = new System.Drawing.Size(540, 82);
             this.listBoxCustomerFromDbNamed.TabIndex = 11;
             // 
             // tabControl1
@@ -189,25 +125,15 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnDimension
+            // groupBoxDatabaseTables
             // 
-            this.btnDimension.Location = new System.Drawing.Point(177, 313);
-            this.btnDimension.Name = "btnDimension";
-            this.btnDimension.Size = new System.Drawing.Size(139, 52);
-            this.btnDimension.TabIndex = 12;
-            this.btnDimension.Text = "Get Dimensions Tables";
-            this.btnDimension.UseVisualStyleBackColor = true;
-            this.btnDimension.Click += new System.EventHandler(this.btnDimension_Click);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1006, 540);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.groupBoxDatabaseTables.Controls.Add(this.listBoxCustomerFromDbNamed);
+            this.groupBoxDatabaseTables.Location = new System.Drawing.Point(599, 420);
+            this.groupBoxDatabaseTables.Name = "groupBoxDatabaseTables";
+            this.groupBoxDatabaseTables.Size = new System.Drawing.Size(552, 258);
+            this.groupBoxDatabaseTables.TabIndex = 14;
+            this.groupBoxDatabaseTables.TabStop = false;
+            this.groupBoxDatabaseTables.Text = "Database Tables";
             // 
             // groupBoxDimensionsTables
             // 
@@ -224,14 +150,14 @@
             this.groupBoxDimensionsTables.TabStop = false;
             this.groupBoxDimensionsTables.Text = "Dimensions Tables";
             // 
-            // lblDates
+            // lblProducts
             // 
-            this.lblDates.AutoSize = true;
-            this.lblDates.Location = new System.Drawing.Point(19, 37);
-            this.lblDates.Name = "lblDates";
-            this.lblDates.Size = new System.Drawing.Size(35, 13);
-            this.lblDates.TabIndex = 10;
-            this.lblDates.Text = "Dates";
+            this.lblProducts.AutoSize = true;
+            this.lblProducts.Location = new System.Drawing.Point(6, 172);
+            this.lblProducts.Name = "lblProducts";
+            this.lblProducts.Size = new System.Drawing.Size(49, 13);
+            this.lblProducts.TabIndex = 12;
+            this.lblProducts.Text = "Products";
             // 
             // lblCustomers
             // 
@@ -242,24 +168,34 @@
             this.lblCustomers.TabIndex = 11;
             this.lblCustomers.Text = "Customers";
             // 
-            // lblProducts
+            // lblDates
             // 
-            this.lblProducts.AutoSize = true;
-            this.lblProducts.Location = new System.Drawing.Point(6, 183);
-            this.lblProducts.Name = "lblProducts";
-            this.lblProducts.Size = new System.Drawing.Size(49, 13);
-            this.lblProducts.TabIndex = 12;
-            this.lblProducts.Text = "Products";
+            this.lblDates.AutoSize = true;
+            this.lblDates.Location = new System.Drawing.Point(19, 37);
+            this.lblDates.Name = "lblDates";
+            this.lblDates.Size = new System.Drawing.Size(35, 13);
+            this.lblDates.TabIndex = 10;
+            this.lblDates.Text = "Dates";
             // 
-            // groupBoxDatabaseTables
+            // btnDimension
             // 
-            this.groupBoxDatabaseTables.Controls.Add(this.listBoxCustomerFromDbNamed);
-            this.groupBoxDatabaseTables.Location = new System.Drawing.Point(599, 420);
-            this.groupBoxDatabaseTables.Name = "groupBoxDatabaseTables";
-            this.groupBoxDatabaseTables.Size = new System.Drawing.Size(552, 258);
-            this.groupBoxDatabaseTables.TabIndex = 14;
-            this.groupBoxDatabaseTables.TabStop = false;
-            this.groupBoxDatabaseTables.Text = "Database Tables";
+            this.btnDimension.Location = new System.Drawing.Point(177, 313);
+            this.btnDimension.Name = "btnDimension";
+            this.btnDimension.Size = new System.Drawing.Size(139, 52);
+            this.btnDimension.TabIndex = 12;
+            this.btnDimension.Text = "Get Dimensions Tables";
+            this.btnDimension.UseVisualStyleBackColor = true;
+            this.btnDimension.Click += new System.EventHandler(this.btnDimension_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1157, 681);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -273,9 +209,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBoxDatabaseTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.PerformLayout();
-            this.groupBoxDatabaseTables.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

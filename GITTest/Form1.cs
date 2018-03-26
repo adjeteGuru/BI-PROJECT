@@ -73,13 +73,15 @@ namespace GITTest
             }
         }
 
-        private void customerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.customerBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
+        //TODO: I MESSED UP THIS PIECES OF CODE IN THE FORM1 DESIGN VIEW (accidently delete the settu on the form1) so please re do them again
 
-        }
+        //private void customerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        //{
+        //    this.Validate();
+        //    this.customerBindingSource.EndEdit();
+        //    this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
+
+        //}
 
         private void Form1_Load(object sender, EventArgs e)
         {
