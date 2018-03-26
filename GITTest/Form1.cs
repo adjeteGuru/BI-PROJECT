@@ -248,6 +248,43 @@ namespace GITTest
             //this.customerTableAdapter.Fill(this.destinationDatabaseDataSet1.Customer);
 
         }
+
+        private void btnGetCustomerFromDatabase_Click(object sender, EventArgs e)
+        {
+            //Create new list to store the indexed results in.
+            List<string> DestinationCustomersNamed = new List<string>();
+
+            //Create the database string 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode,region FROM Customer", connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //If there are rows, get them. 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            //TrimEnd() function use to delete all the space which in the end
+                            DestinationCustomersNamed.Add(reader["CustomerID"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " +
+                              reader["LastName"].ToString().TrimEnd() + ", " + reader["country"].ToString().TrimEnd() + ", " + reader["city"].ToString().TrimEnd() +
+                              ", " + reader["state"].ToString().TrimEnd() + ", " + reader["postalCode"].ToString().TrimEnd() + ", " + reader["region"].ToString().TrimEnd());
+
+                        }
+                    }
+                    else
+                    {
+                        DestinationCustomersNamed.Add("No Data present.");
+                    }
+                }
+
+            }
+            listBoxCustomerFromDbNamed.DataSource = DestinationCustomersNamed;
+        }
     }
 
 
