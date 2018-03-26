@@ -28,21 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
             this.btnGetDates = new System.Windows.Forms.Button();
             this.btnGetProducts = new System.Windows.Forms.Button();
             this.listBoxProducts = new System.Windows.Forms.ListBox();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.destinationDatabaseDataSet1 = new GITTest.DestinationDatabaseDataSet1();
+            this.productTableAdapter = new GITTest.DestinationDatabaseDataSet1TableAdapters.ProductTableAdapter();
+            this.tableAdapterManager = new GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager();
+            this.destinationDatabaseDataSet2 = new GITTest.DestinationDatabaseDataSet2();
+            this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.productTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.ProductTableAdapter();
+            this.tableAdapterManager1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager();
+            this.destinationDatabaseDataSet3 = new GITTest.DestinationDatabaseDataSet3();
+            this.productBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.productTableAdapter2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.ProductTableAdapter();
+            this.tableAdapterManager2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(227, 26);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Git clone and pull test!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -50,10 +68,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(102, 148);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(51, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 26);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -61,19 +78,16 @@
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
-            this.listBoxDates.ItemHeight = 25;
-            this.listBoxDates.Location = new System.Drawing.Point(10, 148);
-            this.listBoxDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.listBoxDates.Location = new System.Drawing.Point(5, 77);
             this.listBoxDates.Name = "listBoxDates";
-            this.listBoxDates.Size = new System.Drawing.Size(360, 179);
+            this.listBoxDates.Size = new System.Drawing.Size(182, 95);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(10, 75);
-            this.btnGetDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGetDates.Location = new System.Drawing.Point(5, 39);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(150, 44);
+            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -81,10 +95,10 @@
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(424, 75);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGetProducts.Location = new System.Drawing.Point(212, 39);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
             this.btnGetProducts.Name = "btnGetProducts";
-            this.btnGetProducts.Size = new System.Drawing.Size(204, 44);
+            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
@@ -93,27 +107,98 @@
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.ItemHeight = 25;
-            this.listBoxProducts.Location = new System.Drawing.Point(424, 148);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxProducts.Location = new System.Drawing.Point(212, 77);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(1280, 179);
+            this.listBoxProducts.Size = new System.Drawing.Size(642, 95);
             this.listBoxProducts.TabIndex = 5;
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.destinationDatabaseDataSet1;
+            // 
+            // destinationDatabaseDataSet1
+            // 
+            this.destinationDatabaseDataSet1.DataSetName = "DestinationDatabaseDataSet1";
+            this.destinationDatabaseDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CustomerTableAdapter = null;
+            this.tableAdapterManager.FactTableTableAdapter = null;
+            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
+            this.tableAdapterManager.TimeTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // destinationDatabaseDataSet2
+            // 
+            this.destinationDatabaseDataSet2.DataSetName = "DestinationDatabaseDataSet2";
+            this.destinationDatabaseDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productBindingSource1
+            // 
+            this.productBindingSource1.DataMember = "Product";
+            this.productBindingSource1.DataSource = this.destinationDatabaseDataSet2;
+            // 
+            // productTableAdapter1
+            // 
+            this.productTableAdapter1.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager1
+            // 
+            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager1.CustomerTableAdapter = null;
+            this.tableAdapterManager1.FactTableTableAdapter = null;
+            this.tableAdapterManager1.ProductTableAdapter = this.productTableAdapter1;
+            this.tableAdapterManager1.TimeTableAdapter = null;
+            this.tableAdapterManager1.UpdateOrder = GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // destinationDatabaseDataSet3
+            // 
+            this.destinationDatabaseDataSet3.DataSetName = "DestinationDatabaseDataSet3";
+            this.destinationDatabaseDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productBindingSource2
+            // 
+            this.productBindingSource2.DataMember = "Product";
+            this.productBindingSource2.DataSource = this.destinationDatabaseDataSet3;
+            // 
+            // productTableAdapter2
+            // 
+            this.productTableAdapter2.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager2
+            // 
+            this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager2.ProductTableAdapter = this.productTableAdapter2;
+            this.tableAdapterManager2.UpdateOrder = GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1794, 638);
+            this.ClientSize = new System.Drawing.Size(897, 567);
             this.Controls.Add(this.listBoxProducts);
             this.Controls.Add(this.btnGetProducts);
             this.Controls.Add(this.listBoxDates);
             this.Controls.Add(this.btnGetDates);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,6 +212,18 @@
         private System.Windows.Forms.Button btnGetDates;
         private System.Windows.Forms.Button btnGetProducts;
         private System.Windows.Forms.ListBox listBoxProducts;
+        private DestinationDatabaseDataSet1 destinationDatabaseDataSet1;
+        private System.Windows.Forms.BindingSource productBindingSource;
+        private DestinationDatabaseDataSet1TableAdapters.ProductTableAdapter productTableAdapter;
+        private DestinationDatabaseDataSet1TableAdapters.TableAdapterManager tableAdapterManager;
+        private DestinationDatabaseDataSet2 destinationDatabaseDataSet2;
+        private System.Windows.Forms.BindingSource productBindingSource1;
+        private DestinationDatabaseDataSet2TableAdapters.ProductTableAdapter productTableAdapter1;
+        private DestinationDatabaseDataSet2TableAdapters.TableAdapterManager tableAdapterManager1;
+        private DestinationDatabaseDataSet3 destinationDatabaseDataSet3;
+        private System.Windows.Forms.BindingSource productBindingSource2;
+        private DestinationDatabaseDataSet3TableAdapters.ProductTableAdapter productTableAdapter2;
+        private DestinationDatabaseDataSet3TableAdapters.TableAdapterManager tableAdapterManager2;
     }
 }
 
