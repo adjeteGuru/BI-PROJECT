@@ -50,16 +50,21 @@
             this.customerTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.CustomerTableAdapter();
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.sheet1TableAdapter1 = new GITTest.Data_set_1DataSetTableAdapters.Sheet1TableAdapter();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(8, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
@@ -68,7 +73,7 @@
             // 
             // btnOrder
             // 
-            this.btnOrder.Location = new System.Drawing.Point(5, 295);
+            this.btnOrder.Location = new System.Drawing.Point(8, 272);
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Size = new System.Drawing.Size(91, 23);
             this.btnOrder.TabIndex = 6;
@@ -79,7 +84,7 @@
             // listBoxOrder
             // 
             this.listBoxOrder.FormattingEnabled = true;
-            this.listBoxOrder.Location = new System.Drawing.Point(5, 324);
+            this.listBoxOrder.Location = new System.Drawing.Point(8, 298);
             this.listBoxOrder.Name = "listBoxOrder";
             this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
             this.listBoxOrder.TabIndex = 7;
@@ -101,7 +106,7 @@
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(5, 39);
+            this.btnGetDates.Location = new System.Drawing.Point(6, 19);
             this.btnGetDates.Name = "btnGetDates";
             this.btnGetDates.Size = new System.Drawing.Size(75, 23);
             this.btnGetDates.TabIndex = 2;
@@ -112,14 +117,14 @@
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
-            this.listBoxDates.Location = new System.Drawing.Point(5, 68);
+            this.listBoxDates.Location = new System.Drawing.Point(6, 46);
             this.listBoxDates.Name = "listBoxDates";
             this.listBoxDates.Size = new System.Drawing.Size(182, 95);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(5, 168);
+            this.btnGetProducts.Location = new System.Drawing.Point(7, 146);
             this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
             this.btnGetProducts.Name = "btnGetProducts";
             this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
@@ -131,7 +136,7 @@
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.Location = new System.Drawing.Point(5, 195);
+            this.listBoxProducts.Location = new System.Drawing.Point(7, 172);
             this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(203, 95);
@@ -139,7 +144,7 @@
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(5, 425);
+            this.btnCustomer.Location = new System.Drawing.Point(7, 399);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(86, 23);
             this.btnCustomer.TabIndex = 8;
@@ -150,14 +155,14 @@
             // listBoxCustomer
             // 
             this.listBoxCustomer.FormattingEnabled = true;
-            this.listBoxCustomer.Location = new System.Drawing.Point(5, 454);
+            this.listBoxCustomer.Location = new System.Drawing.Point(7, 432);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(280, 95);
+            this.listBoxCustomer.Size = new System.Drawing.Size(351, 95);
             this.listBoxCustomer.TabIndex = 9;
             // 
             // btnGetCustomerFromDatabase
             // 
-            this.btnGetCustomerFromDatabase.Location = new System.Drawing.Point(443, 425);
+            this.btnGetCustomerFromDatabase.Location = new System.Drawing.Point(439, 399);
             this.btnGetCustomerFromDatabase.Name = "btnGetCustomerFromDatabase";
             this.btnGetCustomerFromDatabase.Size = new System.Drawing.Size(147, 23);
             this.btnGetCustomerFromDatabase.TabIndex = 10;
@@ -206,7 +211,7 @@
             // listBoxCustomerFromDbNamed
             // 
             this.listBoxCustomerFromDbNamed.FormattingEnabled = true;
-            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(443, 454);
+            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(439, 432);
             this.listBoxCustomerFromDbNamed.Name = "listBoxCustomerFromDbNamed";
             this.listBoxCustomerFromDbNamed.Size = new System.Drawing.Size(561, 95);
             this.listBoxCustomerFromDbNamed.TabIndex = 11;
@@ -215,23 +220,54 @@
             // 
             this.sheet1TableAdapter1.ClearBeforeFill = true;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(0, -2);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1014, 566);
+            this.tabControl1.TabIndex = 12;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.listBoxCustomerFromDbNamed);
+            this.tabPage1.Controls.Add(this.btnGetDates);
+            this.tabPage1.Controls.Add(this.btnGetCustomerFromDatabase);
+            this.tabPage1.Controls.Add(this.listBoxDates);
+            this.tabPage1.Controls.Add(this.listBoxCustomer);
+            this.tabPage1.Controls.Add(this.btnGetProducts);
+            this.tabPage1.Controls.Add(this.btnCustomer);
+            this.tabPage1.Controls.Add(this.listBoxProducts);
+            this.tabPage1.Controls.Add(this.listBoxOrder);
+            this.tabPage1.Controls.Add(this.btnOrder);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1006, 540);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1006, 540);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 565);
-            this.Controls.Add(this.listBoxCustomerFromDbNamed);
-            this.Controls.Add(this.btnGetCustomerFromDatabase);
-            this.Controls.Add(this.listBoxCustomer);
-            this.Controls.Add(this.btnCustomer);
-            this.Controls.Add(this.listBoxOrder);
-            this.Controls.Add(this.btnOrder);
-            this.Controls.Add(this.listBoxProducts);
-            this.Controls.Add(this.btnGetProducts);
-            this.Controls.Add(this.listBoxDates);
-            this.Controls.Add(this.btnGetDates);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -239,6 +275,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,6 +306,9 @@
         private System.Windows.Forms.BindingSource customerBindingSource1;
         private System.Windows.Forms.ListBox listBoxCustomerFromDbNamed;
         private Data_set_1DataSetTableAdapters.Sheet1TableAdapter sheet1TableAdapter1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
