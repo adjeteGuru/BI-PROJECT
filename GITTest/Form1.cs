@@ -339,61 +339,61 @@ namespace GITTest
             }
         }
 
-        //private void insertOrderDimension(string orderCode, string orderDate, string customerName, string discount, string quantity, string shipMode, string shipDate)
-        //{
-        //    //create a connection to the MDF file
-        //    string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+        private void insertOrderDimension(string orderCode, string orderDate, string customerName, string discount, string quantity, string shipMode, string shipDate)
+        {
+            //create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
-        //    using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
-        //    {
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
 
-        //        //open the SqlConnection
-        //        myConnection.Open();
-        //        //The following code uses an SqlCommand based on the SqlConnection.
-        //        SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE customername = @customername", myConnection);
-        //        command.Parameters.Add(new SqlParameter("ordercode", orderCode));
-        //        command.Parameters.Add(new SqlParameter("customername", customerName));
-        //        command.Parameters.Add(new SqlParameter("orderdate", orderDate));
-        //        command.Parameters.Add(new SqlParameter("quantity", quantity));
-        //        command.Parameters.Add(new SqlParameter("discount", discount));
-        //        command.Parameters.Add(new SqlParameter("shipmode", shipMode));
-        //        command.Parameters.Add(new SqlParameter("shipdate", shipDate));
-
-
-
-        //        //create a variable and assign it to false by default.
-        //        bool exists = false;
-
-        //        //run the command & read the results
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-
-        //            //if there are rows, it means the data exists so change the exists variable
-        //            if (reader.HasRows) exists = true;
-        //        }
-
-        //        if (exists == false)
-        //        {
-        //            SqlCommand insertCommand = new SqlCommand(
-        //                "INSERT INTO Order (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
-        //                "VALUES (@ordercode, @customername, @orderdate, @quantity, @discount, @shipmode, @shipdate)", myConnection);
-
-        //            insertCommand.Parameters.Add(new SqlParameter("ordercode", orderCode));
-        //            insertCommand.Parameters.Add(new SqlParameter("customername", customerName));
-        //            insertCommand.Parameters.Add(new SqlParameter("orderdate", orderDate));
-        //            insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
-        //            insertCommand.Parameters.Add(new SqlParameter("discount", discount));
-        //            insertCommand.Parameters.Add(new SqlParameter("shipmode", shipMode));
-        //            insertCommand.Parameters.Add(new SqlParameter("shipdate", shipDate));
+                //open the SqlConnection
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE customername = @customername", myConnection);
+                command.Parameters.Add(new SqlParameter("ordercode", orderCode));
+                command.Parameters.Add(new SqlParameter("customername", customerName));
+                command.Parameters.Add(new SqlParameter("orderdate", orderDate));
+                command.Parameters.Add(new SqlParameter("quantity", quantity));
+                command.Parameters.Add(new SqlParameter("discount", discount));
+                command.Parameters.Add(new SqlParameter("shipmode", shipMode));
+                command.Parameters.Add(new SqlParameter("shipdate", shipDate));
 
 
 
-        //            //insert the line
-        //            int recordsAffected = insertCommand.ExecuteNonQuery();
-        //            Console.WriteLine("Records affected: " + recordsAffected);
-        //        }
-        //    }
-        //}
+                //create a variable and assign it to false by default.
+                bool exists = false;
+
+                //run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    //if there are rows, it means the data exists so change the exists variable
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Order (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
+                        "VALUES (@ordercode, @customername, @orderdate, @quantity, @discount, @shipmode, @shipdate)", myConnection);
+
+                    insertCommand.Parameters.Add(new SqlParameter("ordercode", orderCode));
+                    insertCommand.Parameters.Add(new SqlParameter("customername", customerName));
+                    insertCommand.Parameters.Add(new SqlParameter("orderdate", orderDate));
+                    insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+                    insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+                    insertCommand.Parameters.Add(new SqlParameter("shipmode", shipMode));
+                    insertCommand.Parameters.Add(new SqlParameter("shipdate", shipDate));
+
+
+
+                    //insert the lines
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+                }
+            }
+        }
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
@@ -432,7 +432,7 @@ namespace GITTest
                     string shipMode = (reader[5]).ToString();
                     string shipdate = (reader[6]).ToString();
                   
-                    //insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
+                    insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
                 }
                 }
 
