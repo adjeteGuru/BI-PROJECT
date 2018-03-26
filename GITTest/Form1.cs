@@ -19,8 +19,8 @@ namespace GITTest
             InitializeComponent();
         }
 
-
-        private void insertCustomerDimension(string CustomerID, string firstName, string lastName, string country, string city, string state, string postalCode, string region)
+ 
+        private void insertCustomerDimension(string CustomerID, string firstName,string lastName,string country,string city,string state,string postalCode,string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -69,7 +69,7 @@ namespace GITTest
                     Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
-
+                
             }
         }
 
@@ -126,7 +126,7 @@ namespace GITTest
                 }
             }
 
-
+            
 
             //Create new list to store the indexed results in.
             List<string> DestinationCustomersNamed = new List<string>();
@@ -202,11 +202,11 @@ namespace GITTest
 
                     //Add Products
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-
+                    
                     //Add customers
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
                     string CustomerID = Convert.ToString(reader[0]);
-
+                    
                     //split name into firstname and lastname
                     string name = Convert.ToString(reader[1]);
                     string[] splitname = name.Split(new char[] { ' ' });
@@ -241,84 +241,9 @@ namespace GITTest
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-
+         
+                }
+            }
         }
-
-        private void btnOrder_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxOrder_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxDates_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnGetProducts_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCustomer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxCustomer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void customerBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void customerBindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxCustomerFromDbNamed_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnGetDates_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-    }
-}
-
+ 
 
