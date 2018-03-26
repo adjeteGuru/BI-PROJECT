@@ -120,7 +120,7 @@ namespace GITTest
             this.listBoxProducts.Location = new System.Drawing.Point(212, 77);
             this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(637, 95);
+            this.listBoxProducts.Size = new System.Drawing.Size(459, 95);
             this.listBoxProducts.TabIndex = 5;
             // 
             // productBindingSource
@@ -202,9 +202,9 @@ namespace GITTest
             // listBoxOrder
             // 
             this.listBoxOrder.FormattingEnabled = true;
-            this.listBoxOrder.Location = new System.Drawing.Point(901, 77);
+            this.listBoxOrder.Location = new System.Drawing.Point(695, 77);
             this.listBoxOrder.Name = "listBoxOrder";
-            this.listBoxOrder.Size = new System.Drawing.Size(188, 95);
+            this.listBoxOrder.Size = new System.Drawing.Size(441, 95);
             this.listBoxOrder.TabIndex = 7;
             // 
             // btnCustomer

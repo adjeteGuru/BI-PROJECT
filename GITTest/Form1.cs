@@ -146,6 +146,21 @@ namespace GITTest
             insertTimeDimension(dbDate, dayOfWeek, day, monthName, month, weekNumber, year, Weekend, dayOfYear);
         }
 
+        private void splitOrderDates(string orderDates)
+        {
+            //Split the date down and assign it to variables for later use.
+            string[] arrayOrderDates = orderDates.Split(' ');
+
+            
+            int year = Convert.ToInt32(arrayOrderDates[2]);
+            int month = Convert.ToInt32(arrayOrderDates[1]);
+            int day = Convert.ToInt32(arrayOrderDates[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+           
+        }
+
         private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
         {
             //create a connection to the MDF file
@@ -230,14 +245,6 @@ namespace GITTest
             //bind the listbox to the list
             listBoxDates.DataSource = DatesFormatted;
 
-
-
-            //listBoxFromDB.DataSource = btnDestinationDB;
-
-
-
-
-
             //split the dates and insert every date in the list
             foreach (string date in DatesFormatted)
             {
@@ -247,9 +254,6 @@ namespace GITTest
 
 
         }
-
-
-
 
 
         private void btnGetProducts_Click_1(object sender, EventArgs e)
@@ -285,8 +289,6 @@ namespace GITTest
 
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
-
-
         }
 
 
@@ -337,9 +339,65 @@ namespace GITTest
             }
         }
 
+        //private void insertOrderDimension(string orderCode, string orderDate, string customerName, string discount, string quantity, string shipMode, string shipDate)
+        //{
+        //    //create a connection to the MDF file
+        //    string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+        //    using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+        //    {
+
+        //        //open the SqlConnection
+        //        myConnection.Open();
+        //        //The following code uses an SqlCommand based on the SqlConnection.
+        //        SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE customername = @customername", myConnection);
+        //        command.Parameters.Add(new SqlParameter("ordercode", orderCode));
+        //        command.Parameters.Add(new SqlParameter("customername", customerName));
+        //        command.Parameters.Add(new SqlParameter("orderdate", orderDate));
+        //        command.Parameters.Add(new SqlParameter("quantity", quantity));
+        //        command.Parameters.Add(new SqlParameter("discount", discount));
+        //        command.Parameters.Add(new SqlParameter("shipmode", shipMode));
+        //        command.Parameters.Add(new SqlParameter("shipdate", shipDate));
+
+
+
+        //        //create a variable and assign it to false by default.
+        //        bool exists = false;
+
+        //        //run the command & read the results
+        //        using (SqlDataReader reader = command.ExecuteReader())
+        //        {
+
+        //            //if there are rows, it means the data exists so change the exists variable
+        //            if (reader.HasRows) exists = true;
+        //        }
+
+        //        if (exists == false)
+        //        {
+        //            SqlCommand insertCommand = new SqlCommand(
+        //                "INSERT INTO Order (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
+        //                "VALUES (@ordercode, @customername, @orderdate, @quantity, @discount, @shipmode, @shipdate)", myConnection);
+
+        //            insertCommand.Parameters.Add(new SqlParameter("ordercode", orderCode));
+        //            insertCommand.Parameters.Add(new SqlParameter("customername", customerName));
+        //            insertCommand.Parameters.Add(new SqlParameter("orderdate", orderDate));
+        //            insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+        //            insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+        //            insertCommand.Parameters.Add(new SqlParameter("shipmode", shipMode));
+        //            insertCommand.Parameters.Add(new SqlParameter("shipdate", shipDate));
+
+
+
+        //            //insert the line
+        //            int recordsAffected = insertCommand.ExecuteNonQuery();
+        //            Console.WriteLine("Records affected: " + recordsAffected);
+        //        }
+        //    }
+        //}
+
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            List<string> Order = new List<string>();
+            List<string> Orders = new List<string>();
             //clear the listbox
             listBoxOrder.Items.Clear();
             //create the database string
@@ -348,21 +406,44 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], Discount, Quantity, [Ship Mode] from Sheet1", connection);
+                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], [Order Date], [Customer Name], Discount, Quantity, [Ship Mode], [Ship Date] from Sheet1", connection);
                 reader = getOrder.ExecuteReader();
                 while (reader.Read())
                 {
+                    //create an array-variable and assign to the reader arrayposition of the field we want to split
+                    string[] splitOrderDate = reader[1].ToString().Split(' ');
+                    //create a string variable to convert and asign the date field position [] after splitting
+                    string orderDate = Convert.ToString(splitOrderDate[0]);
+                    //create an array variable and assign to the reader arrayposition of the field we want to split
+                    string[] splitShipDate = reader[6].ToString().Split(' ');
+                    //create a string variable to convert to and assign the date field position [] after splitting
+                    string shipDate = Convert.ToString(splitShipDate[0]);
                     //we enlist the columns to be read
-                    Order.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
 
+
+                    Orders.Add(reader[0].ToString() + ", " + orderDate + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + shipDate);
+
+
+                    string orderCode = (reader[0]).ToString();
+                    string customerName = (reader[2]).ToString();
+                    string orderdate = (reader[1]).ToString();
+                    string quantity = (reader[4]).ToString();
+                    string discount = (reader[3]).ToString();
+                    string shipMode = (reader[5]).ToString();
+                    string shipdate = (reader[6]).ToString();
+                  
+                    //insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
                 }
+                }
+
+                
+                //bing the listbox to the list
+                listBoxOrder.DataSource = Orders;
             }
+        
 
 
-            //bing the listbox to the list
-            listBoxOrder.DataSource = Order;
-        }
-
+     
 
         private void insertCustomerDimension(string CustomerID, string name, string country, string city, string state, string postalCode, string region)
         {
@@ -403,15 +484,11 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("postalCode", postalCode));
                     insertCommand.Parameters.Add(new SqlParameter("region", region));
 
-
-
-
                     // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
                     //insert the line
                     int recordsAffected = insertCommand.ExecuteNonQuery();
                     Console.WriteLine("Records affected: " + recordsAffected);
                 }
-
 
             }
         }
@@ -449,12 +526,10 @@ namespace GITTest
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-
         }
 
         private void btnDestinationDB_Click(object sender, EventArgs e)
         {
-
 
             //create new list to store the named results in
             List<string> DestinationDatesNamed = new List<string>();
@@ -516,7 +591,6 @@ namespace GITTest
                             DestinationProducts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["name"].ToString() + ", " + reader["productcode"].ToString());
                         }
 
-
                     }
                     else
                     {
@@ -524,16 +598,11 @@ namespace GITTest
                         DestinationProducts.Add("No data present");
                     }
 
-
                 //bind the listbox to the list
                 listBoxFromProductDestinationDB.DataSource = DestinationProducts;
 
             }
         }
-
-
-
-
 
     }
 }
