@@ -242,10 +242,13 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("name", name));
                     insertCommand.Parameters.Add(new SqlParameter("Id", ID));
 
-
+                    
                     ////insert the line
                     int recordsAffected = insertCommand.ExecuteNonQuery();
                     Console.WriteLine("Records affected: " + recordsAffected);
+
+                   
+                    //Console.WriteLine("Looped successfully!");
 
 
                 }
