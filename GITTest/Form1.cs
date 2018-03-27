@@ -35,9 +35,9 @@ namespace GITTest
         {
             //Split the date down and assign it to variables for later use.
             string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[2]);
+            int year = Convert.ToInt32(arrayDate[0]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[0]);
+            int day = Convert.ToInt32(arrayDate[2]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
