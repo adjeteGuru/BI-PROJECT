@@ -31,6 +31,12 @@ namespace GITTest
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
@@ -59,6 +65,8 @@ namespace GITTest
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonLoadData = new System.Windows.Forms.Button();
+            this.pieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.barChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
@@ -68,6 +76,8 @@ namespace GITTest
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pieChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barChart)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -305,6 +315,8 @@ namespace GITTest
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.barChart);
+            this.tabPage2.Controls.Add(this.pieChart);
             this.tabPage2.Controls.Add(this.buttonLoadData);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
@@ -323,6 +335,39 @@ namespace GITTest
             this.buttonLoadData.Text = "Load Data";
             this.buttonLoadData.UseVisualStyleBackColor = true;
             this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
+            // 
+            // pieChart
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.pieChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.pieChart.Legends.Add(legend2);
+            this.pieChart.Location = new System.Drawing.Point(441, 98);
+            this.pieChart.Name = "pieChart";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.pieChart.Series.Add(series2);
+            this.pieChart.Size = new System.Drawing.Size(279, 280);
+            this.pieChart.TabIndex = 1;
+            this.pieChart.Text = "chart1";
+            // 
+            // barChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.barChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.barChart.Legends.Add(legend1);
+            this.barChart.Location = new System.Drawing.Point(23, 98);
+            this.barChart.Name = "barChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.barChart.Series.Add(series1);
+            this.barChart.Size = new System.Drawing.Size(350, 280);
+            this.barChart.TabIndex = 2;
+            this.barChart.Text = "chart2";
             // 
             // Form1
             // 
@@ -345,6 +390,8 @@ namespace GITTest
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pieChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,6 +432,8 @@ namespace GITTest
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button buttonLoadData;
+        private System.Windows.Forms.DataVisualization.Charting.Chart barChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart pieChart;
     }
 }
 

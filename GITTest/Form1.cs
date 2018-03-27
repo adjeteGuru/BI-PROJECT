@@ -552,7 +552,7 @@ namespace GITTest
                     //open the SqlConnection
                     myConnection.Open();
                     //the following code uses an SqlCommand base on the SqlConnection
-                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SaleNumber FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
                     command.Parameters.Add(new SqlParameter("date", date));
 
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -564,7 +564,7 @@ namespace GITTest
                             {
                                 //this line adds a dictionary item with the key of the date, and the value being the sales number
                                 //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
-                                salesCount.Add(date, Int32.Parse(reader["SalesNumber"].ToString()));
+                                salesCount.Add(date, Int32.Parse(reader["SaleNumber"].ToString()));
                             }
                         }
                         //if there are no rows it means there were 0 sales, so we also need to handle this!
@@ -572,6 +572,19 @@ namespace GITTest
                         {
                             salesCount.Add(date, 0);
                         }
+                        //end of the foreach loop. we now have a (hopefully) filled array
+
+                        //now to bulid a bar chart
+                        barChart.DataSource = salesCount;
+                        barChart.Series[0].XValueMember = "Key";
+                        barChart.Series[0].YValueMembers = "Value";
+                        barChart.DataBind();
+
+                        //or a pie chart                      
+                        pieChart.DataSource = salesCount;
+                        pieChart.Series[0].XValueMember = "Key";
+                        pieChart.Series[0].YValueMembers = "Value";
+                        pieChart.DataBind();
                     }
                 }
 
