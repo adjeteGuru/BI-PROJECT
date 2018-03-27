@@ -18,9 +18,283 @@ namespace GITTest
         {
             InitializeComponent();
         }
+        //Get Date ID
+        private int GetDateId(string date)
 
- 
-        private void insertCustomerDimension(string CustomerID, string firstName,string lastName,string country,string city,string state,string postalCode,string region)
+        {
+
+
+            //Split the date down and assign it to variables for later use. 
+
+            string[] arrayDate = date.Split('/');
+
+            int year = Convert.ToInt32(arrayDate[2]);
+
+            int month = Convert.ToInt32(arrayDate[1]);
+
+            int day = Convert.ToInt32(arrayDate[0]);
+
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+
+
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+
+            {
+
+
+                //open the SqlConnection 
+
+                myConnection.Open();
+
+                //The following code uses an SqlCommand based on the SqlConnection. 
+
+                SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
+
+                command.Parameters.Add(new SqlParameter("date", dbDate));
+
+
+                //create a variable and assign it to false by default. 
+
+                bool exists = false;
+
+
+                //Run the command & read the results 
+
+                using (SqlDataReader reader = command.ExecuteReader())
+
+                {
+
+
+                    //if there are rows, it means the date exists so change the exists variable. 
+
+                    if (reader.HasRows)
+
+                    {
+
+                        exists = true;
+
+
+                        Console.WriteLine("Data exists!");
+
+
+                    }
+
+                }
+
+
+                if (exists == false)
+
+                {
+
+
+                }
+
+
+                //string getDateIDExists = GetDateId(date).ToString(); 
+
+                //Console.WriteLine("Yes: " + getDateIDExists); 
+
+            }
+
+            return 0;
+
+        }
+
+        //Get Product ID
+        private int GetProductId(string product)
+
+        {
+
+
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+
+            {
+
+
+                //open the SqlConnection 
+
+                myConnection.Open();
+
+                //The following code uses an SqlCommand based on the SqlConnection. 
+
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product Where productcode = @productcode", myConnection);
+
+                command.Parameters.Add(new SqlParameter("productcode", product));
+
+
+                //create a variable and assign it to false by default. 
+
+                bool exists = false;
+
+
+                //Run the command & read the results 
+
+                using (SqlDataReader reader = command.ExecuteReader())
+
+                {
+
+
+                    //if there are rows, it means the date exists so change the exists variable. 
+
+                    if (reader.HasRows)
+
+                    {
+
+                        exists = true;
+
+                        Console.WriteLine("Data exists!");
+
+                    }
+
+                }
+
+
+                if (exists == false)
+
+                {
+
+
+                }
+
+
+            }
+
+            string getProductIDExists = GetProductId(product).ToString();
+
+            Console.WriteLine("Yes: " + getProductIDExists);
+
+            return 0;
+
+        }
+
+        private void splitDates(string date)
+
+        {
+            //Split the date down and assign it to variables for later use. 
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dayOfWeek = dateTime.DayOfWeek.ToString();
+            int dayOfYear = dateTime.DayOfYear;
+            string monthName = dateTime.ToString("MMMM");//check this 
+            int weekNumber = dayOfYear / 7;
+            bool Weekend = false;
+            if (dayOfWeek == "Saturday" || dayOfWeek == "Sunday") Weekend = true;
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            insertTimeDimension(dbDate, dayOfWeek, day, monthName, month, weekNumber, year, Weekend, dayOfYear);
+
+        }
+
+        private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
+        {
+            //create a connection to the MDF file 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection 
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection. 
+                SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
+                command.Parameters.Add(new SqlParameter("date", date));
+
+                //create a variable and assign it to false by default. 
+                bool exists = false;
+                //Run the command & read the results 
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the date exists so change the exists variable. 
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Time (dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear)" +
+                        "VALUES (@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
+                    insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("monthName", monthName));
+                    insertCommand.Parameters.Add(new SqlParameter("monthNumber", monthNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("weekNumber", weekNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("year", year));
+                    insertCommand.Parameters.Add(new SqlParameter("weekend", weekend));
+                    insertCommand.Parameters.Add(new SqlParameter("date", date));
+                    insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
+
+                    //insert the line 
+                    //int recordsAffected = insertCommand.ExecuteNonQuery(); 
+                    //Console.WriteLine("Records affected: " + recordsAffected); 
+
+                    //insertCommand.ExecuteNonQuery(); 
+                }
+            }
+        }
+
+
+        private void insertProductDimension(string category, string subcategory, string productname, string productCode)
+        {
+            //create a connection to the MDF file 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection 
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection. 
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE productname = @productname", myConnection);
+                command.Parameters.Add(new SqlParameter("productcode", productCode));
+                command.Parameters.Add(new SqlParameter("productname", productname));
+                command.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                command.Parameters.Add(new SqlParameter("category", category));
+
+                //create a variable and assign it to false by default. 
+                bool exists = false;
+
+                //run the command & read the results 
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the data exists so change the exists variable 
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO Product (category, subcategory, productname, productcode)" +
+                        "VALUES (@category, @subcategory, @productname, @productcode)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("category", category));
+                    insertCommand.Parameters.Add(new SqlParameter("subcategory", subcategory));
+                    insertCommand.Parameters.Add(new SqlParameter("productname", productname));
+                    insertCommand.Parameters.Add(new SqlParameter("productcode", productCode));
+
+                    //insert the line 
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+                }
+            }
+        }
+
+
+
+        private void insertCustomerDimension(string CustomerID, string firstName, string lastName, string country, string city, string state, string postalCode, string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -69,7 +343,6 @@ namespace GITTest
                     Console.WriteLine("Records affected: " + recordsAffected);
                 }
 
-                
             }
         }
 
@@ -128,7 +401,7 @@ namespace GITTest
                 }
             }
 
-            
+
 
             //Create new list to store the indexed results in.
             List<string> DestinationCustomersNamed = new List<string>();
@@ -167,6 +440,8 @@ namespace GITTest
 
 
 
+
+
         private void btnDimension_Click(object sender, EventArgs e)
         {
 
@@ -202,13 +477,23 @@ namespace GITTest
                     Dates.Add(reader[0].ToString());
                     Dates.Add(reader[1].ToString());
 
+                    
                     //Add Products
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-                    
+
+                    string category = reader[4].ToString();
+                    string subcategory = reader[5].ToString();
+                    string productname = reader[1].ToString();
+                    string productCode = reader[0].ToString();
+
+                    //insertProductDimension(category, subcategory, productname, productCode);
+
+
+
                     //Add customers
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
                     string CustomerID = Convert.ToString(reader[0]);
-                    
+
                     //split name into firstname and lastname
                     string name = Convert.ToString(reader[1]);
                     string[] splitname = name.Split(new char[] { ' ' });
@@ -220,32 +505,144 @@ namespace GITTest
                     string postalCode = Convert.ToString(reader[5]);
                     string region = Convert.ToString(reader[6]);
 
-                }
 
-            }
 
-            //create a new list for the formatted data
-            List<string> DatesFormatted = new List<string>();
-            foreach (string date in Dates)
-            {
-                //split the string on whitespce and remove anything thats blank.
-                var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                //grab the first item (we know this is the date) and add it to our new list
-                DatesFormatted.Add(dates[0]);
-            }
 
-            //bind the listbox to the list
-            listBoxDates.DataSource = DatesFormatted;
-            //bind the listbox to the list
 
-            listBoxProducts.DataSource = Products;
+                    //create a new list for the formatted data
+                    List<string> DatesFormatted = new List<string>();
+                    foreach (string date in Dates)
+                    {
+                        //split the string on whitespce and remove anything thats blank.
+                        var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+                        //grab the first item (we know this is the date) and add it to our new list
+                        DatesFormatted.Add(dates[0]);
+                    }
 
-            //bind the listbox to the list
-            listBoxCustomer.DataSource = Customer;
+                    //bind the listbox to the list
+                    listBoxDates.DataSource = DatesFormatted;
+                    //bind the listbox to the list
 
-         
+                    listBoxProducts.DataSource = Products;
+
+                    //bind the listbox to the list
+                    listBoxCustomer.DataSource = Customer;
                 }
             }
         }
- 
+
+        private void btnGetProductFromDatabase_Click(object sender, EventArgs e)
+        {
+            //We create a list for the products 
+            List<string> Products = new List<string>();
+            //clear the listbox 
+            listBoxProducts.Items.Clear();
+            //create the database string 
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                reader = getProducts.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                    string category = reader[4].ToString();
+                    string subcategory = reader[5].ToString();
+                    string name = reader[1].ToString();
+                    string productCode = reader[0].ToString();
+
+                    insertProductDimension(category, subcategory, name, productCode);
+                }
+            }
+
+
+            //create new list to store the named results in 
+            List<string> DestinationProducts = new List<string>();
+
+            //create the database string 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    //if there are rows, it means the date exists so change the exists variable 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationProducts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["productname"].ToString() + ", " + reader["productcode"].ToString());
+                        }
+
+                    }
+                    else
+                    {
+                        DestinationProducts.Add("No data present");
+                    }
+
+                //bind the listbox to the list 
+                listBoxProductFromDbNamed.DataSource = DestinationProducts;
+
+            }
+        }
+
+
+
+        //Kindly ignore because of the reference
+        //deleting will me too much trouble
+        private void listBoxCustomerFromDbNamed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDates_Click(object sender, EventArgs e)
+        {
+            List<string> Dates = new List<string>();
+            //clear the listbox 
+            listBoxDates.Items.Clear();
+           //create the database string 
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
+                reader = getDates.ExecuteReader();
+                while (reader.Read())
+                {
+                    Dates.Add(reader[0].ToString());
+                    Dates.Add(reader[1].ToString());
+                }
+            
+            }
+       
+            //create a new list for the formatted data 
+            List<string> DatesFormatted = new List<string>();
+            foreach (string date in Dates)
+            {
+                //split the string on whitespce and remove anything thats blank. 
+                var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+                //grab the first item (we know this is the date) and add it to our new list 
+                DatesFormatted.Add(dates[0]);
+            }
+            //bind the listbox to the list 
+            listBoxDateFromSource .DataSource = DatesFormatted;
+            //split the dates and insert every date in the list 
+            foreach (string date in DatesFormatted)
+            {
+                splitDates(date);
+                //Console.WriteLine("splitdates loop OK"); 
+            }
+        }
+    }
+}
+
+
 
