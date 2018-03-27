@@ -214,7 +214,7 @@ namespace GITTest
         {
             List<string> Dates = new List<string>();
             //clear the listbox
-            listBoxDates.Items.Clear();
+            //listBoxDates.Items.Clear();
 
             //create the database string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
@@ -260,7 +260,7 @@ namespace GITTest
         {
             List<string> Products = new List<string>();
             //clear the listbox
-            listBoxProducts.Items.Clear();
+            //listBoxProducts.Items.Clear();
 
             //create the database string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
@@ -604,6 +604,74 @@ namespace GITTest
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+            //This is a hardcoded week - the lowest grade.
+            //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
+            //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
+
+            List<string> datelist = new List<string>(new string[] { "06/01/2014", "07/01/2014", "08/01/2014", "09/01/2014", "10/01/2014", "11/01/2014", "12/01/2014" });
+
+            //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
+            //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
+            //The dictionary type is string, int - date, number of sales.
+
+            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+
+
+            //Create a connection to the MDF file. We only need this once so its outside my loop.
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //run this code once for each date in my list - in my case 7 times.
+            foreach (string date in datelist)
+            {
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+                    //Open the SqlConnection
+                    myConnection.Open();
+                    //The following code uses an SQLCommand based on the SqlConnection
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Time " + "ON FactTable.timeId = Time.id WHERE Time.date = @date; ", myConnection);
+                    command.Parameters.Add(new SqlParameter("date", date));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //if there are rows, it means there were sales
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                //This line adds a dictionary ite, with the key of the date, and the value being the sales number.
+                                //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write
+                                salesCount.Add(date, Int32.Parse(reader["SalesNumber"].ToString()));
+                            }
+
+                           
+                        }
+                    
+                        //if there are no rows it means there were 0 sales, so we also need to handle this!
+                        else
+                        {
+                            salesCount.Add(date, 0);
+                        }
+                        //End of the foreach loop. We now have a (hopefully) filled array
+
+                        //Building the pie chart
+                        chart1.DataSource = salesCount;
+                        chart1.Series[0].XValueMember = "Key";
+                        chart1.Series[0].YValueMembers = "Value";
+                        chart1.DataBind();
+
+                        //Building the bar chart
+                        chart2.DataSource = salesCount;
+                        chart2.Series[0].XValueMember = "Key";
+                        chart2.Series[0].YValueMembers = "Value";
+                        chart2.DataBind();
+                    }
+                }
+            }
+
+        }
     }
 }
 
