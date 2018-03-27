@@ -238,11 +238,11 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("date", date));
                     insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
 
-                    //insert the line 
-                    //int recordsAffected = insertCommand.ExecuteNonQuery(); 
-                    //Console.WriteLine("Records affected: " + recordsAffected); 
+                    //insert the lines
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
 
-                    //insertCommand.ExecuteNonQuery(); 
+                    //insertCommand.ExecuteNonQuery();
                 }
             }
         }
@@ -445,89 +445,181 @@ namespace GITTest
         private void btnDimension_Click(object sender, EventArgs e)
         {
 
-            List<string> Dates = new List<string>();
-            //clear the listbox
-            listBoxDates.Items.Clear();
+            //create new lists to store the named read results in 
+            List<string> DestinationProducts = new List<string>();
 
-            List<string> Products = new List<string>();
-            //clear the listbox
-            listBoxProducts.Items.Clear();
+            List<string> Dates = new List<string>();
 
             List<string> Customer = new List<string>();
-            //clear the listbox
-            listBoxCustomer.Items.Clear();
 
-            //create the database connection string
-            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            //create the database string 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
             {
                 connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
-                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+                SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
+                SqlCommand command2 = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
+                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName country, city, state, postalCode, region from Customer", connection);
 
-                reader = getDates.ExecuteReader();
-                reader = getProducts.ExecuteReader();
-                reader = getCustomer.ExecuteReader();
+                using (SqlDataReader reader = command.ExecuteReader())
 
-                while (reader.Read())
-                {//Add Dates
-                    Dates.Add(reader[0].ToString());
-                    Dates.Add(reader[1].ToString());
-
-                    
-                    //Add Products
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-
-                    string category = reader[4].ToString();
-                    string subcategory = reader[5].ToString();
-                    string productname = reader[1].ToString();
-                    string productCode = reader[0].ToString();
-
-                    //insertProductDimension(category, subcategory, productname, productCode);
-
-
-
-                    //Add customers
-                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
-                    string CustomerID = Convert.ToString(reader[0]);
-
-                    //split name into firstname and lastname
-                    string name = Convert.ToString(reader[1]);
-                    string[] splitname = name.Split(new char[] { ' ' });
-                    string firstName = Convert.ToString(splitname[0]);
-                    string lastName = Convert.ToString(splitname[1]);
-                    string country = Convert.ToString(reader[2]);
-                    string city = Convert.ToString(reader[3]);
-                    string state = Convert.ToString(reader[4]);
-                    string postalCode = Convert.ToString(reader[5]);
-                    string region = Convert.ToString(reader[6]);
-
-
-
-
-
-                    //create a new list for the formatted data
-                    List<string> DatesFormatted = new List<string>();
-                    foreach (string date in Dates)
+                    //if there are rows, it means the products exists so change the exists variable 
+                    if (reader.HasRows)
                     {
-                        //split the string on whitespce and remove anything thats blank.
-                        var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                        //grab the first item (we know this is the date) and add it to our new list
-                        DatesFormatted.Add(dates[0]);
+                        while (reader.Read())
+                        {
+                            DestinationProducts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["productname"].ToString() + ", " + reader["productcode"].ToString());
+                        }
+
+                    }
+                    else
+                    {
+                        DestinationProducts.Add("No data present");
                     }
 
-                    //bind the listbox to the list
-                    listBoxDates.DataSource = DatesFormatted;
-                    //bind the listbox to the list
+                //bind the listbox to the list 
+                listBoxProducts.DataSource = DestinationProducts;
 
-                    listBoxProducts.DataSource = Products;
+                using (SqlDataReader reader = command2.ExecuteReader())
 
-                    //bind the listbox to the list
-                    listBoxCustomer.DataSource = Customer;
-                }
+                    //if there are rows, it means the date exists so change the exists variable 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Dates.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " + reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString() + ", " + reader["weekNumber"].ToString() + ", " + reader["year"].ToString() + ", " + reader["weekend"].ToString() + ", " + reader["date"].ToString() + ", " + reader["dayOfYear"].ToString());
+                        }
+                    }
+
+                    else
+                    {
+                        Dates.Add("No data present");
+                    }
+
+                //bind the listbox to the list 
+                listBoxDates.DataSource = Dates;
+
+                using (SqlDataReader reader = command3.ExecuteReader())
+
+                    //if there are rows, it means the date exists so change the exists variable 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Customer.Add(reader["CustomerID"].ToString() + ", " + reader["FirstName"].ToString() + ", " + reader["LastName"].ToString() + ", " + reader["country"].ToString() + ", " + reader["city"].ToString() + ", " + reader["state"].ToString() + ", " + reader["postalCode"].ToString() + ", " + reader["region"].ToString());
+                        }                        
+                    }
+
+                
+
+                    else
+                    {
+                        Customer.Add("No data present");
+                    }
+
+                //bing the listbox to the list
+                listBoxCustomer.DataSource = Customer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    //List<string> Customer = new List<string>();
+                    ////clear the listbox
+                    //listBoxCustomer.Items.Clear();
+
+                    ////create the database connection string
+                    //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+                    //using (OleDbConnection connection = new OleDbConnection(connectionString))
+                    //{
+                    //    connection.Open();
+                    //    OleDbDataReader reader = null;
+                    //    OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
+                    //    OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                    //    OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
+
+                    //    reader = getDates.ExecuteReader();
+                    //    reader = getProducts.ExecuteReader();
+                    //    reader = getCustomer.ExecuteReader();
+
+                    //    while (reader.Read())
+                    //    {//Add Dates
+                    //        Dates.Add(reader[0].ToString());
+                    //        Dates.Add(reader[1].ToString());
+
+
+                    //        //Add Products
+                    //        Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                    //        string category = reader[4].ToString();
+                    //        string subcategory = reader[5].ToString();
+                    //        string productname = reader[1].ToString();
+                    //        string productCode = reader[0].ToString();
+
+                    //        //insertProductDimension(category, subcategory, productname, productCode);
+
+
+
+                    //        //Add customers
+                    //        Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
+                    //        string CustomerID = Convert.ToString(reader[0]);
+
+                    //        //split name into firstname and lastname
+                    //        string name = Convert.ToString(reader[1]);
+                    //        string[] splitname = name.Split(new char[] { ' ' });
+                    //        string firstName = Convert.ToString(splitname[0]);
+                    //        string lastName = Convert.ToString(splitname[1]);
+                    //        string country = Convert.ToString(reader[2]);
+                    //        string city = Convert.ToString(reader[3]);
+                    //        string state = Convert.ToString(reader[4]);
+                    //        string postalCode = Convert.ToString(reader[5]);
+                    //        string region = Convert.ToString(reader[6]);
+
+
+
+
+
+                    //        //create a new list for the formatted data
+                    //        List<string> DatesFormatted = new List<string>();
+                    //        foreach (string date in Dates)
+                    //        {
+                    //            //split the string on whitespce and remove anything thats blank.
+                    //            var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+                    //            //grab the first item (we know this is the date) and add it to our new list
+                    //            DatesFormatted.Add(dates[0]);
+                    //        }
+
+                    //        //bind the listbox to the list
+                    //        listBoxDates.DataSource = DatesFormatted;
+                    //        //bind the listbox to the list
+
+                    //        listBoxProducts.DataSource = Products;
+
+                    //        //bind the listbox to the list
+                    //        listBoxCustomer.DataSource = Customer;
+                    //    }
+                    //}
             }
         }
 
@@ -536,7 +628,7 @@ namespace GITTest
             //We create a list for the products 
             List<string> Products = new List<string>();
             //clear the listbox 
-            listBoxProducts.Items.Clear();
+            //listBoxProductFromDbNamed.Items.Clear();                                            /* POSSIBLE RENAMING
             //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
@@ -601,11 +693,12 @@ namespace GITTest
 
         }
 
+
         private void btnDates_Click(object sender, EventArgs e)
         {
             List<string> Dates = new List<string>();
             //clear the listbox 
-            listBoxDates.Items.Clear();
+            //listBoxDates.Items.Clear();
            //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
@@ -633,7 +726,7 @@ namespace GITTest
                 DatesFormatted.Add(dates[0]);
             }
             //bind the listbox to the list 
-            listBoxDateFromSource .DataSource = DatesFormatted;
+            listBoxDateFromSource.DataSource = DatesFormatted;
             //split the dates and insert every date in the list 
             foreach (string date in DatesFormatted)
             {
