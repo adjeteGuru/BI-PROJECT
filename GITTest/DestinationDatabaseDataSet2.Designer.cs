@@ -2663,7 +2663,6 @@ SELECT Id, name, country, city, state, postalCode, region, reference FROM Custom
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GITTest.Properties.Settings.Default.DestinationDatabaseConnectionString1LiveDB;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3167,7 +3166,6 @@ SELECT productId, timeId, customerId, value, discount, profit, quantity FROM Fac
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GITTest.Properties.Settings.Default.DestinationDatabaseConnectionString1LiveDB;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3505,7 +3503,6 @@ SELECT Id, category, subcategory, name, productcode FROM Product WHERE (Id = @Id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GITTest.Properties.Settings.Default.DestinationDatabaseConnectionString1LiveDB;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3941,7 +3938,6 @@ SELECT id, dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GITTest.Properties.Settings.Default.DestinationDatabaseConnectionString1LiveDB;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
