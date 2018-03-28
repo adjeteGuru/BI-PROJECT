@@ -460,16 +460,16 @@ namespace GITTest
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
                 SqlCommand command2 = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
-                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName country, city, state, postalCode, region from Customer", connection);
+                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode, region from Customer", connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
-
+                {
                     //if there are rows, it means the products exists so change the exists variable 
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            DestinationProducts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["productname"].ToString() + ", " + reader["productcode"].ToString());
+                            DestinationProducts.Add(reader["category"].ToString().TrimEnd() + ", " + reader["subcategory"].ToString().TrimEnd() + ", " + reader["productname"].ToString().TrimEnd() + ", " + reader["productcode"].ToString().TrimEnd());
                         }
 
                     }
@@ -477,18 +477,19 @@ namespace GITTest
                     {
                         DestinationProducts.Add("No data present");
                     }
-
+                }
                 //bind the listbox to the list 
                 listBoxProducts.DataSource = DestinationProducts;
 
                 using (SqlDataReader reader = command2.ExecuteReader())
-
+                {
                     //if there are rows, it means the date exists so change the exists variable 
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            Dates.Add(reader["dayName"].ToString() + ", " + reader["dayNumber"].ToString() + ", " + reader["monthName"].ToString() + ", " + reader["monthNumber"].ToString() + ", " + reader["weekNumber"].ToString() + ", " + reader["year"].ToString() + ", " + reader["weekend"].ToString() + ", " + reader["date"].ToString() + ", " + reader["dayOfYear"].ToString());
+                            //TrimEnd function used to delete all the spaces after each record
+                            Dates.Add(reader["dayName"].ToString().TrimEnd() + ", " + reader["dayNumber"].ToString().TrimEnd() + ", " + reader["monthName"].ToString().TrimEnd() + ", " + reader["monthNumber"].ToString().TrimEnd() + ", " + reader["weekNumber"].ToString().TrimEnd() + ", " + reader["year"].ToString().TrimEnd() + ", " + reader["weekend"].ToString().TrimEnd() + ", " + reader["date"].ToString().TrimEnd() + ", " + reader["dayOfYear"].ToString().TrimEnd());
                         }
                     }
 
@@ -496,130 +497,31 @@ namespace GITTest
                     {
                         Dates.Add("No data present");
                     }
-
+                }
                 //bind the listbox to the list 
                 listBoxDates.DataSource = Dates;
 
                 using (SqlDataReader reader = command3.ExecuteReader())
-
+                {
                     //if there are rows, it means the date exists so change the exists variable 
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            Customer.Add(reader["CustomerID"].ToString() + ", " + reader["FirstName"].ToString() + ", " + reader["LastName"].ToString() + ", " + reader["country"].ToString() + ", " + reader["city"].ToString() + ", " + reader["state"].ToString() + ", " + reader["postalCode"].ToString() + ", " + reader["region"].ToString());
-                        }                        
+                            //TrimEnd function used to delete all the spaces after each record
+                            Customer.Add(reader["CustomerID"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " + reader["LastName"].ToString().TrimEnd() + ", " + reader["country"].ToString().TrimEnd() + ", " + reader["city"].ToString().TrimEnd() + ", " + reader["state"].ToString().TrimEnd() + ", " + reader["postalCode"].ToString().TrimEnd() + ", " + reader["region"].ToString().TrimEnd());
+                        }
                     }
 
-                
+
 
                     else
                     {
                         Customer.Add("No data present");
                     }
-
+                }
                 //bing the listbox to the list
                 listBoxCustomer.DataSource = Customer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    //List<string> Customer = new List<string>();
-                    ////clear the listbox
-                    //listBoxCustomer.Items.Clear();
-
-                    ////create the database connection string
-                    //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-
-                    //using (OleDbConnection connection = new OleDbConnection(connectionString))
-                    //{
-                    //    connection.Open();
-                    //    OleDbDataReader reader = null;
-                    //    OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
-                    //    OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
-                    //    OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
-
-                    //    reader = getDates.ExecuteReader();
-                    //    reader = getProducts.ExecuteReader();
-                    //    reader = getCustomer.ExecuteReader();
-
-                    //    while (reader.Read())
-                    //    {//Add Dates
-                    //        Dates.Add(reader[0].ToString());
-                    //        Dates.Add(reader[1].ToString());
-
-
-                    //        //Add Products
-                    //        Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-
-                    //        string category = reader[4].ToString();
-                    //        string subcategory = reader[5].ToString();
-                    //        string productname = reader[1].ToString();
-                    //        string productCode = reader[0].ToString();
-
-                    //        //insertProductDimension(category, subcategory, productname, productCode);
-
-
-
-                    //        //Add customers
-                    //        Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
-                    //        string CustomerID = Convert.ToString(reader[0]);
-
-                    //        //split name into firstname and lastname
-                    //        string name = Convert.ToString(reader[1]);
-                    //        string[] splitname = name.Split(new char[] { ' ' });
-                    //        string firstName = Convert.ToString(splitname[0]);
-                    //        string lastName = Convert.ToString(splitname[1]);
-                    //        string country = Convert.ToString(reader[2]);
-                    //        string city = Convert.ToString(reader[3]);
-                    //        string state = Convert.ToString(reader[4]);
-                    //        string postalCode = Convert.ToString(reader[5]);
-                    //        string region = Convert.ToString(reader[6]);
-
-
-
-
-
-                    //        //create a new list for the formatted data
-                    //        List<string> DatesFormatted = new List<string>();
-                    //        foreach (string date in Dates)
-                    //        {
-                    //            //split the string on whitespce and remove anything thats blank.
-                    //            var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                    //            //grab the first item (we know this is the date) and add it to our new list
-                    //            DatesFormatted.Add(dates[0]);
-                    //        }
-
-                    //        //bind the listbox to the list
-                    //        listBoxDates.DataSource = DatesFormatted;
-                    //        //bind the listbox to the list
-
-                    //        listBoxProducts.DataSource = Products;
-
-                    //        //bind the listbox to the list
-                    //        listBoxCustomer.DataSource = Customer;
-                    //    }
-                    //}
             }
         }
 
@@ -628,7 +530,7 @@ namespace GITTest
             //We create a list for the products 
             List<string> Products = new List<string>();
             //clear the listbox 
-            //listBoxProductFromDbNamed.Items.Clear();                                            /* POSSIBLE RENAMING
+            //listBoxProductFromDbNamed.Items.Clear();                                            /* POSSIBLE RENAMING*/
             //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
