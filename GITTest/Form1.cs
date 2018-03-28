@@ -35,9 +35,9 @@ namespace GITTest
         {
             //Split the date down and assign it to variables for later use.
             string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
+            int year = Convert.ToInt32(arrayDate[2]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
+            int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -490,6 +490,9 @@ namespace GITTest
             //Create new list to store the named resuts in.
             List<string> DestinationDatesNamed = new List<string>();
 
+            //create new list to store the indexed result in.
+            List<string> DestinationProducts = new List<string>();
+
             //create the database string
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
@@ -526,8 +529,34 @@ namespace GITTest
                 }
             }
 
-            
-        }
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT productcode, name, category, subcategory from Product", connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the date exists so change the exists variable.
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationProducts.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " +
+                                reader[3].ToString());
+                        }
+                    }
+                    else
+                    {
+                        DestinationProducts.Add("No Product present.");
+                    }
+
+                    //bind the listBox to the list
+                    listBoxProductFromDestinationDb.DataSource = DestinationProducts;
+                }
+            }
+
+
+            }
 
         private void buttonLoadData_Click(object sender, EventArgs e)
         {
