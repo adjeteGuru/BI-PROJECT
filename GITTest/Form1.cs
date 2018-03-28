@@ -365,7 +365,9 @@ namespace GITTest
                 bool exists = false;
 
                 //run the command & read the results
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (
+                    
+                    SqlDataReader reader = command.ExecuteReader())
                 {
 
                     //if there are rows, it means the data exists so change the exists variable
