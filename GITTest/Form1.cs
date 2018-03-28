@@ -32,19 +32,11 @@ namespace GITTest
             //comment here
         }
 
+
+
         private int GetDateId(string date)
         {
-
-            //Split the date down and assign it to variables for later use.
-            string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[2]);
-            int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[0]);
-
-            DateTime dateTime = new DateTime(year, month, day);
-
-            string dbDate = dateTime.ToString("M/dd/yyyy");
-
+            string dbDate = convertToDbDate(date);
 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
@@ -83,6 +75,23 @@ namespace GITTest
                 //Console.WriteLine("Yes: " + getDateIDExists);
             }
             return 0;
+        }
+
+        private static string convertToDbDate(string date)
+        {
+            //Split the date down and assign it to variables for later use.
+            string[] arrayDate = date.Split('/');
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+            //int dbDATE = Convert.ToInt32(arrayDate[0]);
+
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+            return dbDate;
         }
 
         private int GetProductId(string product)
@@ -146,21 +155,7 @@ namespace GITTest
             insertTimeDimension(dbDate, dayOfWeek, day, monthName, month, weekNumber, year, Weekend, dayOfYear);
         }
 
-        private void splitOrderDates(string orderDates)
-        {
-            //Split the date down and assign it to variables for later use.
-            string[] arrayOrderDates = orderDates.Split(' ');
-
-            
-            int year = Convert.ToInt32(arrayOrderDates[2]);
-            int month = Convert.ToInt32(arrayOrderDates[1]);
-            int day = Convert.ToInt32(arrayOrderDates[0]);
-
-            DateTime dateTime = new DateTime(year, month, day);
-
-           
-        }
-
+      
         private void insertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
         {
             //create a connection to the MDF file
@@ -341,6 +336,8 @@ namespace GITTest
 
         private void insertOrderDimension(string orderCode, string orderDate, string customerName, string discount, string quantity, string shipMode, string shipDate)
         {
+            string dbDate = convertToDbDate(shipDate);
+
             //create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
@@ -350,14 +347,14 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT Id FROM Order WHERE customername = @customername", myConnection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM \"Order\" WHERE customername = @customername", myConnection);
                 command.Parameters.Add(new SqlParameter("ordercode", orderCode));
                 command.Parameters.Add(new SqlParameter("customername", customerName));
-                command.Parameters.Add(new SqlParameter("orderdate", orderDate));
+                command.Parameters.Add(new SqlParameter("orderdate", convertToDbDate(orderDate)));
                 command.Parameters.Add(new SqlParameter("quantity", quantity));
                 command.Parameters.Add(new SqlParameter("discount", discount));
                 command.Parameters.Add(new SqlParameter("shipmode", shipMode));
-                command.Parameters.Add(new SqlParameter("shipdate", shipDate));
+                command.Parameters.Add(new SqlParameter("shipdate", convertToDbDate(shipDate)));
 
 
 
@@ -375,16 +372,16 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO Order (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
+                        "INSERT INTO \"Order\" (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
                         "VALUES (@ordercode, @customername, @orderdate, @quantity, @discount, @shipmode, @shipdate)", myConnection);
 
                     insertCommand.Parameters.Add(new SqlParameter("ordercode", orderCode));
                     insertCommand.Parameters.Add(new SqlParameter("customername", customerName));
-                    insertCommand.Parameters.Add(new SqlParameter("orderdate", orderDate));
+                    insertCommand.Parameters.Add(new SqlParameter("orderdate", convertToDbDate(orderDate)));
                     insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
                     insertCommand.Parameters.Add(new SqlParameter("discount", discount));
                     insertCommand.Parameters.Add(new SqlParameter("shipmode", shipMode));
-                    insertCommand.Parameters.Add(new SqlParameter("shipdate", shipDate));
+                    insertCommand.Parameters.Add(new SqlParameter("shipdate", convertToDbDate(shipDate)));
 
 
 
@@ -432,7 +429,8 @@ namespace GITTest
                     string shipMode = (reader[5]).ToString();
                     string shipdate = (reader[6]).ToString();
                   
-                    insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
+                    //insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
+                    insertOrderDimension(orderCode, orderDate, customerName, discount, quantity, shipMode, shipDate);
                 }
                 }
 
