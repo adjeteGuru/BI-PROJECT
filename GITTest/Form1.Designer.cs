@@ -40,17 +40,8 @@ namespace GITTest
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.destinationDatabaseDataSet1 = new GITTest.DestinationDatabaseDataSet1();
-            this.productTableAdapter = new GITTest.DestinationDatabaseDataSet1TableAdapters.ProductTableAdapter();
-            this.tableAdapterManager = new GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager();
-            this.destinationDatabaseDataSet2 = new GITTest.DestinationDatabaseDataSet2();
             this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.productTableAdapter1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.ProductTableAdapter();
-            this.tableAdapterManager1 = new GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager();
-            this.destinationDatabaseDataSet3 = new GITTest.DestinationDatabaseDataSet3();
             this.productBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.productTableAdapter2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.ProductTableAdapter();
-            this.tableAdapterManager2 = new GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnGetDates = new System.Windows.Forms.Button();
@@ -70,10 +61,7 @@ namespace GITTest
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -105,69 +93,41 @@ namespace GITTest
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.destinationDatabaseDataSet1;
             // 
             // destinationDatabaseDataSet1
             // 
-            this.destinationDatabaseDataSet1.DataSetName = "DestinationDatabaseDataSet1";
-            this.destinationDatabaseDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // productTableAdapter
             // 
-            this.productTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CustomerTableAdapter = null;
-            this.tableAdapterManager.FactTableTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager.TimeTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = GITTest.DestinationDatabaseDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // destinationDatabaseDataSet2
             // 
-            this.destinationDatabaseDataSet2.DataSetName = "DestinationDatabaseDataSet2";
-            this.destinationDatabaseDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // productBindingSource1
             // 
             this.productBindingSource1.DataMember = "Product";
-            this.productBindingSource1.DataSource = this.destinationDatabaseDataSet2;
-            // 
             // productTableAdapter1
             // 
-            this.productTableAdapter1.ClearBeforeFill = true;
             // 
             // tableAdapterManager1
             // 
-            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.CustomerTableAdapter = null;
-            this.tableAdapterManager1.FactTableTableAdapter = null;
-            this.tableAdapterManager1.ProductTableAdapter = this.productTableAdapter1;
-            this.tableAdapterManager1.TimeTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = GITTest.DestinationDatabaseDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
+           
             // destinationDatabaseDataSet3
             // 
-            this.destinationDatabaseDataSet3.DataSetName = "DestinationDatabaseDataSet3";
-            this.destinationDatabaseDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
+           
             // productBindingSource2
             // 
             this.productBindingSource2.DataMember = "Product";
-            this.productBindingSource2.DataSource = this.destinationDatabaseDataSet3;
             // 
             // productTableAdapter2
             // 
-            this.productTableAdapter2.ClearBeforeFill = true;
             // 
             // tableAdapterManager2
             // 
-            this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager2.ProductTableAdapter = this.productTableAdapter2;
-            this.tableAdapterManager2.UpdateOrder = GITTest.DestinationDatabaseDataSet3TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
+           
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -380,10 +340,7 @@ namespace GITTest
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -404,18 +361,9 @@ namespace GITTest
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private DestinationDatabaseDataSet1 destinationDatabaseDataSet1;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private DestinationDatabaseDataSet1TableAdapters.ProductTableAdapter productTableAdapter;
-        private DestinationDatabaseDataSet1TableAdapters.TableAdapterManager tableAdapterManager;
-        private DestinationDatabaseDataSet2 destinationDatabaseDataSet2;
         private System.Windows.Forms.BindingSource productBindingSource1;
-        private DestinationDatabaseDataSet2TableAdapters.ProductTableAdapter productTableAdapter1;
-        private DestinationDatabaseDataSet2TableAdapters.TableAdapterManager tableAdapterManager1;
-        private DestinationDatabaseDataSet3 destinationDatabaseDataSet3;
         private System.Windows.Forms.BindingSource productBindingSource2;
-        private DestinationDatabaseDataSet3TableAdapters.ProductTableAdapter productTableAdapter2;
-        private DestinationDatabaseDataSet3TableAdapters.TableAdapterManager tableAdapterManager2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button btnGetDates;
