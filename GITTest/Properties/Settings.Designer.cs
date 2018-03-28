@@ -50,9 +50,9 @@ namespace GITTest.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\bin\\Debug\\Dat" +
             "abases\\DestinationDatabase.mdf;Integrated Security=True;Connect Timeout=30")]
-        public string DestinationDatabaseConnectionString1LiveDB {
+        public string DestinationDatabaseConnectionString1 {
             get {
-                return ((string)(this["DestinationDatabaseConnectionString1LiveDB"]));
+                return ((string)(this["DestinationDatabaseConnectionString1"]));
             }
         }
     }
