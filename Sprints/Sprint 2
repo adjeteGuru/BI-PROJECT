@@ -8,3 +8,9 @@ P16244305
 During this week, Wenhong successfully done the work which put "customer" data into DestinationDatabase.mdf for with Adjete on the lab. Our
 plan for coming week is make the customer more perfect such as split the name into first name and last name to make the data more clear, 
 add data source. If the work could be done, we will do it for "order" as well.
+
+Zhaofeng Tan
+P16244825
+In this week, Igho and me finished insert product into DestinationDatabase. Although there were some errors happen, we asked for Tom for help
+and fixed them. The problem is the defination of some parameters in the product table are not correct such as their sizes are too small so that
+the data can not be filled in correctly. We also decided that we need add new column called producecode to the product table.
