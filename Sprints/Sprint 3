@@ -1,1 +1,10 @@
+Sprint 3
 
+Date of sprint start 19/03/18
+Date of sprint end 23/03/18
+
+Zhaofeng Tan
+P16244825
+In this week, Igho Started to create Order table and tried to insert into DestinationDatabase but had some errors and Igho asked me to check
+that code. The error showing that there is a SQL syntax errors happen, so I check every SQL command and try to find some errors there. I found
+some small problem and made some changes but the error still can not be fixed.
