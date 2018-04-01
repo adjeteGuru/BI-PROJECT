@@ -321,6 +321,7 @@ namespace GITTest
                 {
                     //if there are rows, it means the customer exsists so change the exsists variable
                     if (reader.HasRows) exists = true;
+                    Console.WriteLine("Data exsists!");
                 }
 
                 if (exists == false)
