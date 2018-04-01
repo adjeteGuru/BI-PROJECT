@@ -178,6 +178,7 @@ namespace GITTest
 
         }
 
+        //Get Customer Id
         private int GetCustomerId(string Customer)
         {
             //Create a connection to the MDF file
