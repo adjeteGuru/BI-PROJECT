@@ -178,6 +178,43 @@ namespace GITTest
 
         }
 
+        //Get Customer Id
+        private int GetCustomerId(string Customer)
+        {
+            //Create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                // Open the SqlConnection.
+                myConnection.Open();
+                // The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE CustomerID = @CustomerID", myConnection);
+                command.Parameters.Add(new SqlParameter("CustomerID", Customer));
+
+                //Create a variable and assign it to false by default.
+                bool exists = false;
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //If there are rows, it means the date exsists so change the exsists variable. 
+                    if (reader.HasRows)
+                    {
+                        exists = true;
+                        Console.WriteLine("Data exsists!");
+                    }
+                }
+
+                if (exists == false)
+                {
+
+                }
+            }
+            return 0;
+        }   
+
         private void splitDates(string date)
 
         {
