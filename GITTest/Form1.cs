@@ -196,8 +196,8 @@ namespace GITTest
                     insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
 
                     //insert the line
-                    //int recordsAffected = insertCommand.ExecuteNonQuery();
-                    //Console.WriteLine("Records affected: " + recordsAffected);
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
 
                     //insertCommand.ExecuteNonQuery();
 
@@ -334,9 +334,8 @@ namespace GITTest
             }
         }
 
-        private void insertOrderDimension(string orderCode, string orderDate, string customerName, string discount, string quantity, string shipMode, string shipDate)
+        private void insertOrderDimension(string orderCode, string customerName, string discount, string quantity, string shipMode)
         {
-            string dbDate = convertToDbDate(shipDate);
 
             //create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -350,11 +349,9 @@ namespace GITTest
                 SqlCommand command = new SqlCommand("SELECT Id FROM \"Order\" WHERE customername = @customername", myConnection);
                 command.Parameters.Add(new SqlParameter("ordercode", orderCode));
                 command.Parameters.Add(new SqlParameter("customername", customerName));
-                command.Parameters.Add(new SqlParameter("orderdate", convertToDbDate(orderDate)));
                 command.Parameters.Add(new SqlParameter("quantity", quantity));
                 command.Parameters.Add(new SqlParameter("discount", discount));
                 command.Parameters.Add(new SqlParameter("shipmode", shipMode));
-                command.Parameters.Add(new SqlParameter("shipdate", convertToDbDate(shipDate)));
 
 
 
@@ -374,16 +371,14 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO \"Order\" (ordercode, customername, orderdate, quantity, discount, shipmode, shipdate)" +
-                        "VALUES (@ordercode, @customername, @orderdate, @quantity, @discount, @shipmode, @shipdate)", myConnection);
+                        "INSERT INTO \"Order\" (ordercode, customername, quantity, discount, shipmode)" +
+                        "VALUES (@ordercode, @customername, @quantity, @discount, @shipmode)", myConnection);
 
                     insertCommand.Parameters.Add(new SqlParameter("ordercode", orderCode));
                     insertCommand.Parameters.Add(new SqlParameter("customername", customerName));
-                    insertCommand.Parameters.Add(new SqlParameter("orderdate", convertToDbDate(orderDate)));
                     insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
                     insertCommand.Parameters.Add(new SqlParameter("discount", discount));
                     insertCommand.Parameters.Add(new SqlParameter("shipmode", shipMode));
-                    insertCommand.Parameters.Add(new SqlParameter("shipdate", convertToDbDate(shipDate)));
 
 
 
@@ -405,34 +400,24 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], [Order Date], [Customer Name], Discount, Quantity, [Ship Mode], [Ship Date] from Sheet1", connection);
+                OleDbCommand getOrder = new OleDbCommand("SELECT [Order ID], [Customer Name], Discount, Quantity, [Ship Mode] from Sheet1", connection);
                 reader = getOrder.ExecuteReader();
                 while (reader.Read())
                 {
-                    //create an array-variable and assign to the reader arrayposition of the field we want to split
-                    string[] splitOrderDate = reader[1].ToString().Split(' ');
-                    //create a string variable to convert and asign the date field position [] after splitting
-                    string orderDate = Convert.ToString(splitOrderDate[0]);
-                    //create an array variable and assign to the reader arrayposition of the field we want to split
-                    string[] splitShipDate = reader[6].ToString().Split(' ');
-                    //create a string variable to convert to and assign the date field position [] after splitting
-                    string shipDate = Convert.ToString(splitShipDate[0]);
-                    //we enlist the columns to be read
+                    
 
 
-                    Orders.Add(reader[0].ToString() + ", " + orderDate + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + shipDate);
+                    Orders.Add(reader[0].ToString() +  ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString());
 
 
                     string orderCode = (reader[0]).ToString();
-                    string customerName = (reader[2]).ToString();
-                    string orderdate = (reader[1]).ToString();
-                    string quantity = (reader[4]).ToString();
-                    string discount = (reader[3]).ToString();
-                    string shipMode = (reader[5]).ToString();
-                    string shipdate = (reader[6]).ToString();
+                    string customerName = (reader[1]).ToString();
+                    string quantity = (reader[3]).ToString();
+                    string discount = (reader[2]).ToString();
+                    string shipMode = (reader[4]).ToString();
                   
-                    //insertOrderDimension(shipDate, shipMode, quantity, discount, customerName, orderDate, orderCode);
-                    insertOrderDimension(orderCode, orderDate, customerName, discount, quantity, shipMode, shipDate);
+                    //insertOrderDimension(shipMode, quantity, discount, customerName, orderCode);
+                    insertOrderDimension(orderCode, customerName, discount, quantity, shipMode);
                 }
                 }
 
