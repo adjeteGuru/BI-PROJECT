@@ -8,3 +8,9 @@ P16244825
 In this week, Igho Started to create Order table and tried to insert into DestinationDatabase but had some errors and Igho asked me to check
 that code. The error showing that there is a SQL syntax errors happen, so I check every SQL command and try to find some errors there. I found
 some small problem and made some changes but the error still can not be fixed.
+
+Wenhong Bao
+P16244305
+During this week, I successfully done the name split for customer. The main task for this week was display the data from destination 
+database. Adjete was working on the data source to display the data from destination database as well as Igho. I just follow the lab 10 and 
+try display data in this way and done. In the next week, we will working on dashboard.
