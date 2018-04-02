@@ -28,6 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
             this.listBoxProducts = new System.Windows.Forms.ListBox();
@@ -48,11 +57,20 @@
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnLoadData = new System.Windows.Forms.Button();
+            this.BarChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnLoadData1 = new System.Windows.Forms.Button();
+            this.BarChart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
             this.groupBoxDimensionsTables.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BarChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BarChart1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -116,6 +134,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -242,6 +261,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.PieChart);
+            this.tabPage2.Controls.Add(this.BarChart);
             this.tabPage2.Controls.Add(this.btnLoadData);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -257,8 +278,80 @@
             this.btnLoadData.Name = "btnLoadData";
             this.btnLoadData.Size = new System.Drawing.Size(75, 23);
             this.btnLoadData.TabIndex = 0;
-            this.btnLoadData.Text = "button1";
+            this.btnLoadData.Text = "Load data";
             this.btnLoadData.UseVisualStyleBackColor = true;
+            this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
+            // 
+            // BarChart
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.BarChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.BarChart.Legends.Add(legend2);
+            this.BarChart.Location = new System.Drawing.Point(116, 131);
+            this.BarChart.Name = "BarChart";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.BarChart.Series.Add(series2);
+            this.BarChart.Size = new System.Drawing.Size(300, 300);
+            this.BarChart.TabIndex = 1;
+            this.BarChart.Text = "BarChart";
+            // 
+            // PieChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.PieChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.PieChart.Legends.Add(legend1);
+            this.PieChart.Location = new System.Drawing.Point(441, 131);
+            this.PieChart.Name = "PieChart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.PieChart.Series.Add(series1);
+            this.PieChart.Size = new System.Drawing.Size(300, 300);
+            this.PieChart.TabIndex = 2;
+            this.PieChart.Text = "PieChart";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.BarChart1);
+            this.tabPage3.Controls.Add(this.btnLoadData1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1157, 627);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadData1
+            // 
+            this.btnLoadData1.Location = new System.Drawing.Point(0, 0);
+            this.btnLoadData1.Name = "btnLoadData1";
+            this.btnLoadData1.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadData1.TabIndex = 0;
+            this.btnLoadData1.Text = "Load Data";
+            this.btnLoadData1.UseVisualStyleBackColor = true;
+            this.btnLoadData1.Click += new System.EventHandler(this.btnLoadData1_Click);
+            // 
+            // BarChart1
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.BarChart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.BarChart1.Legends.Add(legend3);
+            this.BarChart1.Location = new System.Drawing.Point(49, 89);
+            this.BarChart1.Name = "BarChart1";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.BarChart1.Series.Add(series3);
+            this.BarChart1.Size = new System.Drawing.Size(300, 300);
+            this.BarChart1.TabIndex = 1;
+            this.BarChart1.Text = "BarChart1";
             // 
             // Form1
             // 
@@ -276,6 +369,10 @@
             this.groupBoxDimensionsTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BarChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BarChart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,6 +399,11 @@
         private System.Windows.Forms.Button btnDates;
         private System.Windows.Forms.ListBox listBoxDateFromSource;
         private System.Windows.Forms.Button btnLoadData;
+        private System.Windows.Forms.DataVisualization.Charting.Chart PieChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart BarChart;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart BarChart1;
+        private System.Windows.Forms.Button btnLoadData1;
     }
 }
 

@@ -213,7 +213,7 @@ namespace GITTest
                 }
             }
             return 0;
-        }   
+        }
 
         private void splitDates(string date)
 
@@ -639,7 +639,7 @@ namespace GITTest
             List<string> Dates = new List<string>();
             //clear the listbox 
             //listBoxDates.Items.Clear();
-           //create the database string 
+            //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
@@ -653,9 +653,9 @@ namespace GITTest
                     Dates.Add(reader[0].ToString());
                     Dates.Add(reader[1].ToString());
                 }
-            
+
             }
-       
+
             //create a new list for the formatted data 
             List<string> DatesFormatted = new List<string>();
             foreach (string date in Dates)
@@ -674,6 +674,120 @@ namespace GITTest
                 //Console.WriteLine("splitdates loop OK"); 
             }
         }
+
+        private void btnLoadData_Click(object sender, EventArgs e)
+        {
+            //Create a list to handle the date
+            List<string> datelist = new List<string>(new string[] { "06/01/2014", "07/01/2014", "08/01/2014", "09/01/2014", "10/01/2014", "11/01/2014", "12/01/2014" });
+
+            //Create a dictionary to handle the sale 
+            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+
+
+            //Create a connection to the MDF file. We only need this once so its outside my loop.
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //Run this code once for each date in my list - in my case 7 times.
+            foreach (string date in datelist)
+            {
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+
+                    // Open the SqlConnection.
+                    myConnection.Open();
+                    // The following code uses an SqlCommand based on the SqlConnection.
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Time " +
+                        "ON FactTable.timeId = Time.id WHERE Time.date = @date; ", myConnection);
+                    command.Parameters.Add(new SqlParameter("date", date));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //If there are rows, it means there were sales. 
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                //This line adds a dictionary item with the key of the date, and the value being the sales number.
+                                //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
+                                salesCount.Add(date, Int32.Parse(reader["SalesNumber"].ToString()));
+                            }
+                        }
+                        //If there are no rows it means there were 0 sales, so we also need to handle this!
+                        else
+                        {
+                            salesCount.Add(date, 0);
+                        }
+                    }
+                }
+            }
+            //End of the foreach loop. We now have a (hopefully) filled array.
+
+            //Now to build a bar chart:
+            BarChart.DataSource = salesCount;
+            BarChart.Series[0].XValueMember = "Key";
+            BarChart.Series[0].YValueMembers = "Value";
+            BarChart.DataBind();
+
+
+            //Or a pie chart?
+            PieChart.DataSource = salesCount;
+            PieChart.Series[0].XValueMember = "Key";
+            PieChart.Series[0].YValueMembers = "Value";
+            PieChart.DataBind();
+        }
+
+        private void btnLoadData1_Click(object sender, EventArgs e)
+        {
+            //Create a list to handle the region
+            List<string> regionlist = new List<string>(new string[] { "Central", "East", "West", "South" });
+
+            //Create a dictionary to handle the sale 
+            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+
+            //Create a connection to the MDF file. We only need this once so its outside my loop.
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //Run this code once for each date in my list - in my case 4 times.
+            foreach (string region in regionlist)
+            {
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+
+                    // Open the SqlConnection.
+                    myConnection.Open();
+                    // The following code uses an SqlCommand based on the SqlConnection.
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Customer " +
+                        "ON FactTable.customerId = Customer.id WHERE Customer.region = @region; ", myConnection);
+                    command.Parameters.Add(new SqlParameter("region", region));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //If there are rows, it means there were sales. 
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                //This line adds a dictionary item with the key of the date, and the value being the sales number.
+                                salesCount.Add(region, Int32.Parse(reader["SalesNumber"].ToString()));
+                            }
+                        }
+                        //If there are no rows it means there were 0 sales, so we also need to handle this!
+                        else
+                        {
+                            salesCount.Add(region, 0);
+                        }
+                    }
+                }
+
+                //Now to build a bar chart:
+                BarChart1.DataSource = salesCount;
+                BarChart1.Series[0].XValueMember = "Key";
+                BarChart1.Series[0].YValueMembers = "Value";
+                BarChart1.DataBind();
+            }
+        }
+
+
     }
 }
 
