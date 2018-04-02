@@ -10,3 +10,10 @@ In this week, we went to the drop in session and showed the problems we have to 
 visualsing data, but after I run the program and found that there are no data showed. After I read the code carefully, I found the data are 
 getting from fact table but I did nothing in the fact table in my memory. So I review lab 9 which did something relate to fact table and 
 realise that that is the why the code have finished. I need to carry on lab 9 so that I can design dashboard. 
+
+
+Wenhong Bao
+P16244305
+Our group start to focus the dashboard in this week. I tried to put the data into factTable first but there was an error when it run the 
+GetProductId() function, I spant too much time on this but it still not work. In the next week I will try another way which just use 
+factTable only and not input any data which just like the example.
