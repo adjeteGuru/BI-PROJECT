@@ -509,12 +509,19 @@ namespace GITTest
             //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
+            //create a second connection string to establish connection with a second datasource
+            string connectionString2 = Properties.Settings.Default.DataSet2ConnectionString;
+
             using (OleDbConnection connection = new OleDbConnection(connectionString))
+            
             {
                 connection.Open();
                 OleDbDataReader reader = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                
+
                 reader = getProducts.ExecuteReader();
+                
                 while (reader.Read())
                 {
 
@@ -527,6 +534,32 @@ namespace GITTest
 
                     insertProductDimension(category, subcategory, name, productCode);
                 }
+                connection.Close();
+            }
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                //new select command to pull data from sheet2
+                //rest of code within the block is identical to the previous. allocating variables to array positions
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from Sheet2", connection);
+
+                reader = getProducts.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                    string category = reader[4].ToString();
+                    string subcategory = reader[5].ToString();
+                    string name = reader[1].ToString();
+                    string productCode = reader[0].ToString();
+
+                    insertProductDimension(category, subcategory, name, productCode);
+                }
+
             }
 
 
