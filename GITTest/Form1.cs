@@ -505,7 +505,7 @@ namespace GITTest
             //We create a list for the products 
             List<string> Products = new List<string>();
             //clear the listbox 
-            //listBoxProductFromDbNamed.Items.Clear();                                            /* POSSIBLE RENAMING*/
+            //listBoxProductFromDbNamed.Items.Clear();                                            
             //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
@@ -612,6 +612,8 @@ namespace GITTest
            //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
 
+            string connectionString2 = Properties.Settings.Default.DataSet2ConnectionString;
+
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 connection.Open();
@@ -623,11 +625,25 @@ namespace GITTest
                     Dates.Add(reader[0].ToString());
                     Dates.Add(reader[1].ToString());
                 }
-            
+
+                connection.Close();          
             }
-       
-            //create a new list for the formatted data 
-            List<string> DatesFormatted = new List<string>();
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet2", connection);
+                reader = getDates.ExecuteReader();
+                while (reader.Read())
+                {
+                    Dates.Add(reader[0].ToString());
+                    Dates.Add(reader[1].ToString());
+                }
+            }
+
+                //create a new list for the formatted data 
+                List<string> DatesFormatted = new List<string>();
             foreach (string date in Dates)
             {
                 //split the string on whitespce and remove anything thats blank. 
