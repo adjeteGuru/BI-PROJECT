@@ -613,7 +613,7 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE value = @value", myConnection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE timeId = @timeId", myConnection);
                 command.Parameters.Add(new SqlParameter("value", value));
                 command.Parameters.Add(new SqlParameter("productId", productId));
                 command.Parameters.Add(new SqlParameter("timeId", timeId));
@@ -636,7 +636,7 @@ namespace GITTest
                 {
                     SqlCommand insertCommand = new SqlCommand(
                         "INSERT INTO FactTable (customerId, productId, timeId, value, discount, profit, quantity)" +
-                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity )", myConnection);
+                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
                     insertCommand.Parameters.Add(new SqlParameter("productId", productId));
                     insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
