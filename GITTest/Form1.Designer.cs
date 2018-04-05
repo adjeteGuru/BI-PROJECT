@@ -39,6 +39,7 @@
             this.btnDates = new System.Windows.Forms.Button();
             this.btnGetProductFromDatabase = new System.Windows.Forms.Button();
             this.groupBoxDatabaseTables = new System.Windows.Forms.GroupBox();
+            this.listBoxFactTable = new System.Windows.Forms.ListBox();
             this.listBoxDateFromSource = new System.Windows.Forms.ListBox();
             this.listBoxProductFromDbNamed = new System.Windows.Forms.ListBox();
             this.groupBoxDimensionsTables = new System.Windows.Forms.GroupBox();
@@ -48,8 +49,7 @@
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBoxFactTable = new System.Windows.Forms.ListBox();
+            this.btnGetFactDB = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
@@ -121,7 +121,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.btnGetFactDB);
             this.tabPage1.Controls.Add(this.btnDates);
             this.tabPage1.Controls.Add(this.btnGetProductFromDatabase);
             this.tabPage1.Controls.Add(this.groupBoxDatabaseTables);
@@ -168,6 +168,14 @@
             this.groupBoxDatabaseTables.TabIndex = 14;
             this.groupBoxDatabaseTables.TabStop = false;
             this.groupBoxDatabaseTables.Text = "Database Tables";
+            // 
+            // listBoxFactTable
+            // 
+            this.listBoxFactTable.FormattingEnabled = true;
+            this.listBoxFactTable.Location = new System.Drawing.Point(6, 53);
+            this.listBoxFactTable.Name = "listBoxFactTable";
+            this.listBoxFactTable.Size = new System.Drawing.Size(540, 95);
+            this.listBoxFactTable.TabIndex = 14;
             // 
             // listBoxDateFromSource
             // 
@@ -256,23 +264,15 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnGetFactDB
             // 
-            this.button2.Location = new System.Drawing.Point(1000, 192);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(111, 51);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "GetFactTable";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // listBoxFactTable
-            // 
-            this.listBoxFactTable.FormattingEnabled = true;
-            this.listBoxFactTable.Location = new System.Drawing.Point(6, 53);
-            this.listBoxFactTable.Name = "listBoxFactTable";
-            this.listBoxFactTable.Size = new System.Drawing.Size(540, 95);
-            this.listBoxFactTable.TabIndex = 14;
+            this.btnGetFactDB.Location = new System.Drawing.Point(1000, 191);
+            this.btnGetFactDB.Name = "btnGetFactDB";
+            this.btnGetFactDB.Size = new System.Drawing.Size(113, 52);
+            this.btnGetFactDB.TabIndex = 18;
+            this.btnGetFactDB.Text = "GetFactDatabase";
+            this.btnGetFactDB.UseVisualStyleBackColor = true;
+            this.btnGetFactDB.Click += new System.EventHandler(this.btnGetFactDB_Click);
             // 
             // Form1
             // 
@@ -315,9 +315,9 @@
         private System.Windows.Forms.ListBox listBoxProductFromDbNamed;
         private System.Windows.Forms.Button btnDates;
         private System.Windows.Forms.ListBox listBoxDateFromSource;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListBox listBoxFactTable;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGetFactDB;
     }
 }
 
