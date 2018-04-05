@@ -460,7 +460,7 @@ namespace GITTest
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
                 SqlCommand command2 = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
-                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName country, city, state, postalCode, region from Customer", connection);
+                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode, region from Customer", connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
 
@@ -691,7 +691,7 @@ namespace GITTest
 
         private void btnGetFactDB_Click(object sender, EventArgs e)
         {
-         
+
             //create a fact list
             List<string> Facts = new List<string>();
             // create the database string
