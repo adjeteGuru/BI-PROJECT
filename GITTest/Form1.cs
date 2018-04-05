@@ -521,107 +521,11 @@ namespace GITTest
                 //bing the listbox to the list
                 listBoxCustomer.DataSource = Customer;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    //List<string> Customer = new List<string>();
-                    ////clear the listbox
-                    //listBoxCustomer.Items.Clear();
-
-                    ////create the database connection string
-                    //string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-
-                    //using (OleDbConnection connection = new OleDbConnection(connectionString))
-                    //{
-                    //    connection.Open();
-                    //    OleDbDataReader reader = null;
-                    //    OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from Sheet1", connection);
-                    //    OleDbCommand getProducts = new OleDbCommand("SELECT [Product ID], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
-                    //    OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet1", connection);
-
-                    //    reader = getDates.ExecuteReader();
-                    //    reader = getProducts.ExecuteReader();
-                    //    reader = getCustomer.ExecuteReader();
-
-                    //    while (reader.Read())
-                    //    {//Add Dates
-                    //        Dates.Add(reader[0].ToString());
-                    //        Dates.Add(reader[1].ToString());
-
-
-                    //        //Add Products
-                    //        Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
-
-                    //        string category = reader[4].ToString();
-                    //        string subcategory = reader[5].ToString();
-                    //        string productname = reader[1].ToString();
-                    //        string productCode = reader[0].ToString();
-
-                    //        //insertProductDimension(category, subcategory, productname, productCode);
-
-
-
-                    //        //Add customers
-                    //        Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
-                    //        string CustomerID = Convert.ToString(reader[0]);
-
-                    //        //split name into firstname and lastname
-                    //        string name = Convert.ToString(reader[1]);
-                    //        string[] splitname = name.Split(new char[] { ' ' });
-                    //        string firstName = Convert.ToString(splitname[0]);
-                    //        string lastName = Convert.ToString(splitname[1]);
-                    //        string country = Convert.ToString(reader[2]);
-                    //        string city = Convert.ToString(reader[3]);
-                    //        string state = Convert.ToString(reader[4]);
-                    //        string postalCode = Convert.ToString(reader[5]);
-                    //        string region = Convert.ToString(reader[6]);
-
-
-
-
-
-                    //        //create a new list for the formatted data
-                    //        List<string> DatesFormatted = new List<string>();
-                    //        foreach (string date in Dates)
-                    //        {
-                    //            //split the string on whitespce and remove anything thats blank.
-                    //            var dates = date.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                    //            //grab the first item (we know this is the date) and add it to our new list
-                    //            DatesFormatted.Add(dates[0]);
-                    //        }
-
-                    //        //bind the listbox to the list
-                    //        listBoxDates.DataSource = DatesFormatted;
-                    //        //bind the listbox to the list
-
-                    //        listBoxProducts.DataSource = Products;
-
-                    //        //bind the listbox to the list
-                    //        listBoxCustomer.DataSource = Customer;
-                    //    }
-                    //}
             }
         }
+
+
+
 
         private void btnGetProductFromDatabase_Click(object sender, EventArgs e)
         {
@@ -734,8 +638,152 @@ namespace GITTest
                 //Console.WriteLine("splitdates loop OK"); 
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
+private void btnGetFactFromDatabase_Click(object sender, EventArgs e)
+{
+    //create a fact list
+    List<string> Facts = new List<string>();
+    // create the database string
+    string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+    using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+    {
+
+        connection.Open();
+        SqlCommand command = new SqlCommand("SELECT Id from Product", connection);
+        SqlCommand command2 = new SqlCommand("SELECT Id from Customer", connection);
+        SqlCommand command3 = new SqlCommand("SELECT id from Time", connection);
+
+
+
+        using (SqlDataReader reader = command.ExecuteReader())
+
+            //if there are rows to be 
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Facts.Add(reader["Id"].ToString());
+
+                    string productId = Convert.ToString(reader[0]);
+                    string timeId = Convert.ToString(reader[1]);
+                    string customerId = Convert.ToString(reader[2]);
+                    string value = Convert.ToString(reader[3]);
+                    string discount = Convert.ToString(reader[4]);
+                    string profit = Convert.ToString(reader[5]);
+                    string quantity = Convert.ToString(reader[6]);
+
+                    insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                }
+                connection.Close();
+            }
+
+        using (SqlDataReader reader = command2.ExecuteReader())
+        {
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Facts.Add(reader["Id"].ToString());
+
+                    string productId = Convert.ToString(reader[0]);
+                    string timeId = Convert.ToString(reader[1]);
+                    string customerId = Convert.ToString(reader[2]);
+                    string value = Convert.ToString(reader[3]);
+                    string discount = Convert.ToString(reader[4]);
+                    string profit = Convert.ToString(reader[5]);
+                    string quantity = Convert.ToString(reader[6]);
+
+                    insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+
+                }
+                connection.Close();
+            }
+        }
+        using (SqlDataReader reader = command3.ExecuteReader())
+        {
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Facts.Add(reader["id"].ToString());
+
+                    string productId = Convert.ToString(reader[0]);
+                    string timeId = Convert.ToString(reader[1]);
+                    string customerId = Convert.ToString(reader[2]);
+                    string value = Convert.ToString(reader[3]);
+                    string discount = Convert.ToString(reader[4]);
+                    string profit = Convert.ToString(reader[5]);
+                    string quantity = Convert.ToString(reader[6]);
+
+                    insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+
+                }
+                connection.Close();
+            }
+
+        }
+    }
+}
+
+
+// insert query for fact table
+
+private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
+{
+    //create a connection to the MDF file 
+    string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+    using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+    {
+
+        //open the SqlConnection 
+        myConnection.Open();
+        //The following code uses an SqlCommand based on the SqlConnection. 
+        SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE timeId = @timeId", myConnection);
+        command.Parameters.Add(new SqlParameter("value", value));
+        command.Parameters.Add(new SqlParameter("productId", productId));
+        command.Parameters.Add(new SqlParameter("timeId", timeId));
+        command.Parameters.Add(new SqlParameter("customerId", customerId));
+        command.Parameters.Add(new SqlParameter("discount", discount));
+        command.Parameters.Add(new SqlParameter("profit", profit));
+        command.Parameters.Add(new SqlParameter("quantity", quantity));
+
+        //create a variable and assign it to false by default. 
+        bool exists = false;
+
+        //run the command & read the results 
+        using (SqlDataReader reader = command.ExecuteReader())
+        {
+            //if there are rows, it means the data exists so change the exists variable 
+            if (reader.HasRows) exists = true;
+        }
+
+        if (exists == false)
+        {
+            SqlCommand insertCommand = new SqlCommand(
+                "INSERT INTO FactTable (customerId, productId, timeId, value, discount, profit, quantity)" +
+                "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity)", myConnection);
+            insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
+            insertCommand.Parameters.Add(new SqlParameter("productId", productId));
+            insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
+            insertCommand.Parameters.Add(new SqlParameter("value", value));
+            insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+            insertCommand.Parameters.Add(new SqlParameter("profit", profit));
+            insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+
+            //insert the line 
+            int recordsAffected = insertCommand.ExecuteNonQuery();
+            Console.WriteLine("Records affected: " + recordsAffected);
+        }
+    }
+}
 
 
