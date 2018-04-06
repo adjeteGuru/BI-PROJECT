@@ -749,9 +749,60 @@ namespace GITTest
             }
         }
 
+        private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
+        {
+            //create a connection to the MDF file 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                //open the SqlConnection 
+                myConnection.Open();
+                //The following code uses an SqlCommand based on the SqlConnection. 
+                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE timeId = @timeId", myConnection);
+                command.Parameters.Add(new SqlParameter("value", value));
+                command.Parameters.Add(new SqlParameter("productId", productId));
+                command.Parameters.Add(new SqlParameter("timeId", timeId));
+                command.Parameters.Add(new SqlParameter("customerId", customerId));
+                command.Parameters.Add(new SqlParameter("discount", discount));
+                command.Parameters.Add(new SqlParameter("profit", profit));
+                command.Parameters.Add(new SqlParameter("quantity", quantity));
+
+                //create a variable and assign it to false by default. 
+                bool exists = false;
+
+                //run the command & read the results 
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //if there are rows, it means the data exists so change the exists variable 
+                    if (reader.HasRows) exists = true;
+                }
+
+                if (exists == false)
+                {
+                    SqlCommand insertCommand = new SqlCommand(
+                        "INSERT INTO FactTable (customerId, productId, timeId, value, discount, profit, quantity)" +
+                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
+                    insertCommand.Parameters.Add(new SqlParameter("productId", productId));
+                    insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
+                    insertCommand.Parameters.Add(new SqlParameter("value", value));
+                    insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+                    insertCommand.Parameters.Add(new SqlParameter("profit", profit));
+                    insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+
+                    //insert the line 
+                    int recordsAffected = insertCommand.ExecuteNonQuery();
+                    Console.WriteLine("Records affected: " + recordsAffected);
+                }
+            }
+        }
+
+
     }
 }
-}
+
 
 
 
