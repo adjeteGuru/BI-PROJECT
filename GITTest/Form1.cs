@@ -347,8 +347,6 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            string connectionString2 = Properties.Settings.Default.DataSet2ConnectionString;
-
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 //open the connection
@@ -376,40 +374,12 @@ namespace GITTest
                     // insert properties into the customer table dimension
                     insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
                 }
-                connection.Close();
-            }
-            using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            {
-                //open the connection
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM Sheet2", connection);
-                reader = getCustomer.ExecuteReader();
-                while (reader.Read())
-                {
-                    //we enlist the columns to be read
-                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
-
-                    string CustomerID = Convert.ToString(reader[0]);
-                    //split name into firstname and lastname
-                    string name = Convert.ToString(reader[1]);
-                    string[] splitname = name.Split(new char[] { ' ' });
-                    string firstName = Convert.ToString(splitname[0]);
-                    string lastName = Convert.ToString(splitname[1]);
-                    string country = Convert.ToString(reader[2]);
-                    string city = Convert.ToString(reader[3]);
-                    string state = Convert.ToString(reader[4]);
-                    string postalCode = Convert.ToString(reader[5]);
-                    string region = Convert.ToString(reader[6]);
-
-                    // insert properties into the customer table dimension
-                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
-                }
-
             }
 
-                //Create new list to store the indexed results in.
-                List<string> DestinationCustomersNamed = new List<string>();
+
+
+            //Create new list to store the indexed results in.
+            List<string> DestinationCustomersNamed = new List<string>();
 
             //Create the database string 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
