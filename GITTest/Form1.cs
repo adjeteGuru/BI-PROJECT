@@ -793,8 +793,3 @@ namespace GITTest
     }
 
 
-//private void btnFactTable_Click_1(object sender, EventArgs e)
-//{
-
-//}
-
