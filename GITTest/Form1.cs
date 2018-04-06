@@ -517,7 +517,7 @@ namespace GITTest
             {
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from  Sheet1", connection);
                 
 
                 reader = getProducts.ExecuteReader();
@@ -525,10 +525,10 @@ namespace GITTest
                 while (reader.Read())
                 {
 
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
 
-                    string category = reader[4].ToString();
-                    string subcategory = reader[5].ToString();
+                    string category = reader[2].ToString();
+                    string subcategory = reader[3].ToString();
                     string name = reader[1].ToString();
                     string productCode = reader[0].ToString();
 
@@ -543,17 +543,17 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 //new select command to pull data from sheet2
                 //rest of code within the block is identical to the previous. allocating variables to array positions
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from Sheet2", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from Sheet2", connection);
 
                 reader = getProducts.ExecuteReader();
 
                 while (reader.Read())
                 {
 
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
 
-                    string category = reader[4].ToString();
-                    string subcategory = reader[5].ToString();
+                    string category = reader[2].ToString();
+                    string subcategory = reader[3].ToString();
                     string name = reader[1].ToString();
                     string productCode = reader[0].ToString();
 
