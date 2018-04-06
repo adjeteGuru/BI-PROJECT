@@ -712,6 +712,8 @@ namespace GITTest
                             Facts.Add(reader["Id"].ToString());
 
                             timeId = reader["Id"].ToString();
+                            bool readerHasRow = reader.HasRows;
+                            Console.WriteLine("Reader has row: " + readerHasRow);
                         }
                     }
                 }
@@ -736,15 +738,15 @@ namespace GITTest
                 {
                     oleConnection.Open();
                     OleDbDataReader reader = null;
-                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, value, quantity from Sheet1", oleConnection);
+                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, sales, quantity from Sheet1", oleConnection);
                     reader = getSourceDimensions.ExecuteReader();
                     while (reader.Read())
                     {
-                        Facts.Add(reader["discount"].ToString() + ", " + reader["profit"].ToString() + ", " + reader["value"].ToString() + ", " + reader["quantity"].ToString());
+                        Facts.Add(reader["discount"].ToString() + ", " + reader["profit"].ToString() + ", " + reader["sales"].ToString() + ", " + reader["quantity"].ToString());
 
                         discount = reader["discount"].ToString();
                         profit = reader["profit"].ToString();
-                        value = reader["value"].ToString();
+                        value = reader["sales"].ToString();
                         quantity = reader["quantity"].ToString();
 
                        
@@ -775,7 +777,7 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE timeId = @timeId", myConnection);
+                SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE timeId = @timeId", myConnection);
                 command.Parameters.Add(new SqlParameter("value", value));
                 command.Parameters.Add(new SqlParameter("productId", productId));
                 command.Parameters.Add(new SqlParameter("timeId", timeId));
@@ -798,7 +800,7 @@ namespace GITTest
                 {
                     SqlCommand insertCommand = new SqlCommand(
                         "INSERT INTO FactTable (customerId, productId, timeId, value, discount, profit, quantity)" +
-                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity)", myConnection);
+                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, @quantity)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
                     insertCommand.Parameters.Add(new SqlParameter("productId", productId));
                     insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
