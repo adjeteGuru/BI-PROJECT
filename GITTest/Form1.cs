@@ -557,12 +557,14 @@ namespace GITTest
                     insertFactDimension(productId, Sales, Quantity);
                 }
 
-
             }
-            
+
+            //bind the listbox to the list
+            listBoxFact.DataSource = FactTable;
+
         }
 
-            
+
         // insert query for fact table
 
         private void insertFactDimension(int productId, int Sales, int Quantity)
@@ -577,10 +579,8 @@ namespace GITTest
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
                 SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE Sales = @Sales", myConnection);
-                command.Parameters.Add(new SqlParameter("productId", productId));
                 command.Parameters.Add(new SqlParameter("Sales", Sales));
-                command.Parameters.Add(new SqlParameter("Quantity", Quantity));
-
+                
                 //create a variable and assign it to false by default. 
                 bool exists = false;
 
