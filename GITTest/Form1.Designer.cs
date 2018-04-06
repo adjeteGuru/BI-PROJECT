@@ -36,6 +36,7 @@
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnGetFactDB = new System.Windows.Forms.Button();
             this.btnDates = new System.Windows.Forms.Button();
             this.btnGetProductFromDatabase = new System.Windows.Forms.Button();
             this.groupBoxDatabaseTables = new System.Windows.Forms.GroupBox();
@@ -49,7 +50,6 @@
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnGetFactDB = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
@@ -59,42 +59,49 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 77);
+            this.label2.Location = new System.Drawing.Point(102, 148);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(10, 13);
+            this.label2.Size = new System.Drawing.Size(18, 26);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             // 
             // listBoxDates
             // 
             this.listBoxDates.FormattingEnabled = true;
-            this.listBoxDates.Location = new System.Drawing.Point(9, 55);
+            this.listBoxDates.ItemHeight = 25;
+            this.listBoxDates.Location = new System.Drawing.Point(18, 106);
+            this.listBoxDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxDates.Name = "listBoxDates";
-            this.listBoxDates.Size = new System.Drawing.Size(115, 95);
+            this.listBoxDates.Size = new System.Drawing.Size(226, 179);
             this.listBoxDates.TabIndex = 3;
             // 
             // listBoxProducts
             // 
             this.listBoxProducts.FormattingEnabled = true;
-            this.listBoxProducts.Location = new System.Drawing.Point(0, 190);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxProducts.ItemHeight = 25;
+            this.listBoxProducts.Location = new System.Drawing.Point(0, 365);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBoxProducts.Name = "listBoxProducts";
-            this.listBoxProducts.Size = new System.Drawing.Size(573, 95);
+            this.listBoxProducts.Size = new System.Drawing.Size(1142, 179);
             this.listBoxProducts.TabIndex = 5;
             // 
             // listBoxCustomer
             // 
             this.listBoxCustomer.FormattingEnabled = true;
-            this.listBoxCustomer.Location = new System.Drawing.Point(142, 55);
+            this.listBoxCustomer.ItemHeight = 25;
+            this.listBoxCustomer.Location = new System.Drawing.Point(284, 106);
+            this.listBoxCustomer.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxCustomer.Name = "listBoxCustomer";
-            this.listBoxCustomer.Size = new System.Drawing.Size(431, 95);
+            this.listBoxCustomer.Size = new System.Drawing.Size(858, 179);
             this.listBoxCustomer.TabIndex = 9;
             // 
             // btnGetCustomerFromDatabase
             // 
-            this.btnGetCustomerFromDatabase.Location = new System.Drawing.Point(605, 191);
+            this.btnGetCustomerFromDatabase.Location = new System.Drawing.Point(1210, 367);
+            this.btnGetCustomerFromDatabase.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnGetCustomerFromDatabase.Name = "btnGetCustomerFromDatabase";
-            this.btnGetCustomerFromDatabase.Size = new System.Drawing.Size(147, 52);
+            this.btnGetCustomerFromDatabase.Size = new System.Drawing.Size(294, 100);
             this.btnGetCustomerFromDatabase.TabIndex = 10;
             this.btnGetCustomerFromDatabase.Text = "GetCustomerFromDatabase";
             this.btnGetCustomerFromDatabase.UseVisualStyleBackColor = true;
@@ -103,9 +110,11 @@
             // listBoxCustomerFromDbNamed
             // 
             this.listBoxCustomerFromDbNamed.FormattingEnabled = true;
-            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(6, 341);
+            this.listBoxCustomerFromDbNamed.ItemHeight = 25;
+            this.listBoxCustomerFromDbNamed.Location = new System.Drawing.Point(12, 656);
+            this.listBoxCustomerFromDbNamed.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxCustomerFromDbNamed.Name = "listBoxCustomerFromDbNamed";
-            this.listBoxCustomerFromDbNamed.Size = new System.Drawing.Size(540, 82);
+            this.listBoxCustomerFromDbNamed.Size = new System.Drawing.Size(1076, 154);
             this.listBoxCustomerFromDbNamed.TabIndex = 11;
             this.listBoxCustomerFromDbNamed.SelectedIndexChanged += new System.EventHandler(this.listBoxCustomerFromDbNamed_SelectedIndexChanged);
             // 
@@ -113,10 +122,11 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, -2);
+            this.tabControl1.Location = new System.Drawing.Point(0, -4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1165, 707);
+            this.tabControl1.Size = new System.Drawing.Size(2330, 1360);
             this.tabControl1.TabIndex = 12;
             // 
             // tabPage1
@@ -128,19 +138,32 @@
             this.tabPage1.Controls.Add(this.groupBoxDimensionsTables);
             this.tabPage1.Controls.Add(this.btnDimension);
             this.tabPage1.Controls.Add(this.btnGetCustomerFromDatabase);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 34);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1157, 681);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPage1.Size = new System.Drawing.Size(2322, 1322);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnGetFactDB
+            // 
+            this.btnGetFactDB.Location = new System.Drawing.Point(2000, 367);
+            this.btnGetFactDB.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGetFactDB.Name = "btnGetFactDB";
+            this.btnGetFactDB.Size = new System.Drawing.Size(226, 100);
+            this.btnGetFactDB.TabIndex = 18;
+            this.btnGetFactDB.Text = "GetFactDatabase";
+            this.btnGetFactDB.UseVisualStyleBackColor = true;
+            this.btnGetFactDB.Click += new System.EventHandler(this.btnGetFactDB_Click);
+            // 
             // btnDates
             // 
-            this.btnDates.Location = new System.Drawing.Point(919, 191);
+            this.btnDates.Location = new System.Drawing.Point(1838, 367);
+            this.btnDates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnDates.Name = "btnDates";
-            this.btnDates.Size = new System.Drawing.Size(75, 52);
+            this.btnDates.Size = new System.Drawing.Size(150, 100);
             this.btnDates.TabIndex = 17;
             this.btnDates.Text = "GetDates";
             this.btnDates.UseVisualStyleBackColor = true;
@@ -148,9 +171,10 @@
             // 
             // btnGetProductFromDatabase
             // 
-            this.btnGetProductFromDatabase.Location = new System.Drawing.Point(758, 191);
+            this.btnGetProductFromDatabase.Location = new System.Drawing.Point(1516, 367);
+            this.btnGetProductFromDatabase.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnGetProductFromDatabase.Name = "btnGetProductFromDatabase";
-            this.btnGetProductFromDatabase.Size = new System.Drawing.Size(155, 52);
+            this.btnGetProductFromDatabase.Size = new System.Drawing.Size(310, 100);
             this.btnGetProductFromDatabase.TabIndex = 16;
             this.btnGetProductFromDatabase.Text = "GetProductFromDatabase";
             this.btnGetProductFromDatabase.UseVisualStyleBackColor = true;
@@ -162,9 +186,11 @@
             this.groupBoxDatabaseTables.Controls.Add(this.listBoxDateFromSource);
             this.groupBoxDatabaseTables.Controls.Add(this.listBoxProductFromDbNamed);
             this.groupBoxDatabaseTables.Controls.Add(this.listBoxCustomerFromDbNamed);
-            this.groupBoxDatabaseTables.Location = new System.Drawing.Point(599, 249);
+            this.groupBoxDatabaseTables.Location = new System.Drawing.Point(1198, 479);
+            this.groupBoxDatabaseTables.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBoxDatabaseTables.Name = "groupBoxDatabaseTables";
-            this.groupBoxDatabaseTables.Size = new System.Drawing.Size(552, 429);
+            this.groupBoxDatabaseTables.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxDatabaseTables.Size = new System.Drawing.Size(1104, 825);
             this.groupBoxDatabaseTables.TabIndex = 14;
             this.groupBoxDatabaseTables.TabStop = false;
             this.groupBoxDatabaseTables.Text = "Database Tables";
@@ -172,25 +198,31 @@
             // listBoxFactTable
             // 
             this.listBoxFactTable.FormattingEnabled = true;
-            this.listBoxFactTable.Location = new System.Drawing.Point(6, 53);
+            this.listBoxFactTable.ItemHeight = 25;
+            this.listBoxFactTable.Location = new System.Drawing.Point(12, 102);
+            this.listBoxFactTable.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxFactTable.Name = "listBoxFactTable";
-            this.listBoxFactTable.Size = new System.Drawing.Size(540, 95);
+            this.listBoxFactTable.Size = new System.Drawing.Size(1076, 179);
             this.listBoxFactTable.TabIndex = 14;
             // 
             // listBoxDateFromSource
             // 
             this.listBoxDateFromSource.FormattingEnabled = true;
-            this.listBoxDateFromSource.Location = new System.Drawing.Point(6, 154);
+            this.listBoxDateFromSource.ItemHeight = 25;
+            this.listBoxDateFromSource.Location = new System.Drawing.Point(12, 296);
+            this.listBoxDateFromSource.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxDateFromSource.Name = "listBoxDateFromSource";
-            this.listBoxDateFromSource.Size = new System.Drawing.Size(120, 95);
+            this.listBoxDateFromSource.Size = new System.Drawing.Size(236, 179);
             this.listBoxDateFromSource.TabIndex = 13;
             // 
             // listBoxProductFromDbNamed
             // 
             this.listBoxProductFromDbNamed.FormattingEnabled = true;
-            this.listBoxProductFromDbNamed.Location = new System.Drawing.Point(6, 253);
+            this.listBoxProductFromDbNamed.ItemHeight = 25;
+            this.listBoxProductFromDbNamed.Location = new System.Drawing.Point(12, 487);
+            this.listBoxProductFromDbNamed.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listBoxProductFromDbNamed.Name = "listBoxProductFromDbNamed";
-            this.listBoxProductFromDbNamed.Size = new System.Drawing.Size(539, 82);
+            this.listBoxProductFromDbNamed.Size = new System.Drawing.Size(1074, 154);
             this.listBoxProductFromDbNamed.TabIndex = 12;
             // 
             // groupBoxDimensionsTables
@@ -201,9 +233,11 @@
             this.groupBoxDimensionsTables.Controls.Add(this.listBoxDates);
             this.groupBoxDimensionsTables.Controls.Add(this.listBoxProducts);
             this.groupBoxDimensionsTables.Controls.Add(this.listBoxCustomer);
-            this.groupBoxDimensionsTables.Location = new System.Drawing.Point(3, 390);
+            this.groupBoxDimensionsTables.Location = new System.Drawing.Point(6, 750);
+            this.groupBoxDimensionsTables.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBoxDimensionsTables.Name = "groupBoxDimensionsTables";
-            this.groupBoxDimensionsTables.Size = new System.Drawing.Size(579, 285);
+            this.groupBoxDimensionsTables.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxDimensionsTables.Size = new System.Drawing.Size(1158, 548);
             this.groupBoxDimensionsTables.TabIndex = 13;
             this.groupBoxDimensionsTables.TabStop = false;
             this.groupBoxDimensionsTables.Text = "Dimensions Tables";
@@ -211,35 +245,39 @@
             // lblProducts
             // 
             this.lblProducts.AutoSize = true;
-            this.lblProducts.Location = new System.Drawing.Point(6, 172);
+            this.lblProducts.Location = new System.Drawing.Point(12, 331);
+            this.lblProducts.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblProducts.Name = "lblProducts";
-            this.lblProducts.Size = new System.Drawing.Size(49, 13);
+            this.lblProducts.Size = new System.Drawing.Size(98, 26);
             this.lblProducts.TabIndex = 12;
             this.lblProducts.Text = "Products";
             // 
             // lblCustomers
             // 
             this.lblCustomers.AutoSize = true;
-            this.lblCustomers.Location = new System.Drawing.Point(152, 39);
+            this.lblCustomers.Location = new System.Drawing.Point(304, 75);
+            this.lblCustomers.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCustomers.Name = "lblCustomers";
-            this.lblCustomers.Size = new System.Drawing.Size(56, 13);
+            this.lblCustomers.Size = new System.Drawing.Size(118, 26);
             this.lblCustomers.TabIndex = 11;
             this.lblCustomers.Text = "Customers";
             // 
             // lblDates
             // 
             this.lblDates.AutoSize = true;
-            this.lblDates.Location = new System.Drawing.Point(19, 37);
+            this.lblDates.Location = new System.Drawing.Point(38, 71);
+            this.lblDates.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDates.Name = "lblDates";
-            this.lblDates.Size = new System.Drawing.Size(35, 13);
+            this.lblDates.Size = new System.Drawing.Size(69, 26);
             this.lblDates.TabIndex = 10;
             this.lblDates.Text = "Dates";
             // 
             // btnDimension
             // 
-            this.btnDimension.Location = new System.Drawing.Point(177, 313);
+            this.btnDimension.Location = new System.Drawing.Point(354, 602);
+            this.btnDimension.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnDimension.Name = "btnDimension";
-            this.btnDimension.Size = new System.Drawing.Size(139, 52);
+            this.btnDimension.Size = new System.Drawing.Size(278, 100);
             this.btnDimension.TabIndex = 12;
             this.btnDimension.Text = "Get Dimensions Tables";
             this.btnDimension.UseVisualStyleBackColor = true;
@@ -247,10 +285,11 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1157, 681);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPage2.Size = new System.Drawing.Size(2322, 1322);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -258,30 +297,22 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(150, 44);
             this.button1.TabIndex = 13;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // btnGetFactDB
-            // 
-            this.btnGetFactDB.Location = new System.Drawing.Point(1000, 191);
-            this.btnGetFactDB.Name = "btnGetFactDB";
-            this.btnGetFactDB.Size = new System.Drawing.Size(113, 52);
-            this.btnGetFactDB.TabIndex = 18;
-            this.btnGetFactDB.Text = "GetFactDatabase";
-            this.btnGetFactDB.UseVisualStyleBackColor = true;
-            this.btnGetFactDB.Click += new System.EventHandler(this.btnGetFactDB_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1177, 717);
+            this.ClientSize = new System.Drawing.Size(2354, 1379);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
