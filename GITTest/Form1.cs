@@ -668,6 +668,13 @@ namespace GITTest
             List<string> Facts = new List<string>();
             // create the database string
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+            string productId;
+            string timeId;
+            string customerId;
+            string value;
+            string discount;
+            string profit;
+            string quantity;
 
             using (SqlConnection connection = new SqlConnection(connectionStringDestination))
             {
@@ -688,19 +695,9 @@ namespace GITTest
                         {
                             Facts.Add(reader["Id"].ToString());
 
-                            string productId = Convert.ToString(reader[0]);
-                            string timeId = Convert.ToString(reader[1]);
-                            string customerId = Convert.ToString(reader[2]);
-                            string value = Convert.ToString(reader[3]);
-                            string discount = Convert.ToString(reader[4]);
-                            string profit = Convert.ToString(reader[5]);
-                            string quantity = Convert.ToString(reader[6]);
-
-                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                            productId = reader["Id"].ToString();
                         }
-                        connection.Close();
                     }
-
                 using (SqlDataReader reader = command2.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -709,20 +706,24 @@ namespace GITTest
                         {
                             Facts.Add(reader["Id"].ToString());
 
-                            string productId = Convert.ToString(reader[0]);
-                            string timeId = Convert.ToString(reader[1]);
-                            string customerId = Convert.ToString(reader[2]);
-                            string value = Convert.ToString(reader[3]);
-                            string discount = Convert.ToString(reader[4]);
-                            string profit = Convert.ToString(reader[5]);
-                            string quantity = Convert.ToString(reader[6]);
+                            timeId = reader["Id"].ToString();
+                        }
+                    }
+                }
+                using (SqlDataReader reader = command3.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Facts.Add(reader["id"].ToString());
 
-                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
-
+                            customerId = reader["id"].ToString();
                         }
                         connection.Close();
                     }
-                }
+
+                
                 using (SqlDataReader reader = command3.ExecuteReader())
                 {
                     if (reader.HasRows)
