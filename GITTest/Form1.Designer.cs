@@ -36,7 +36,7 @@
             this.listBoxCustomerFromDbNamed = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnFactDimension = new System.Windows.Forms.Button();
+            this.btnFactTable = new System.Windows.Forms.Button();
             this.btnGetFactFromDatabase = new System.Windows.Forms.Button();
             this.btnDates = new System.Windows.Forms.Button();
             this.btnGetProductFromDatabase = new System.Windows.Forms.Button();
@@ -122,7 +122,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.btnFactDimension);
+            this.tabPage1.Controls.Add(this.btnFactTable);
             this.tabPage1.Controls.Add(this.btnGetFactFromDatabase);
             this.tabPage1.Controls.Add(this.btnDates);
             this.tabPage1.Controls.Add(this.btnGetProductFromDatabase);
@@ -138,15 +138,15 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnFactDimension
+            // btnFactTable
             // 
-            this.btnFactDimension.Location = new System.Drawing.Point(423, 313);
-            this.btnFactDimension.Name = "btnFactDimension";
-            this.btnFactDimension.Size = new System.Drawing.Size(108, 52);
-            this.btnFactDimension.TabIndex = 19;
-            this.btnFactDimension.Text = "Get Fact Table";
-            this.btnFactDimension.UseVisualStyleBackColor = true;
-            this.btnFactDimension.Click += new System.EventHandler(this.btnFactDimension_Click);
+            this.btnFactTable.Location = new System.Drawing.Point(423, 313);
+            this.btnFactTable.Name = "btnFactTable";
+            this.btnFactTable.Size = new System.Drawing.Size(108, 52);
+            this.btnFactTable.TabIndex = 19;
+            this.btnFactTable.Text = "Get Fact Table";
+            this.btnFactTable.UseVisualStyleBackColor = true;
+            //this.btnFactTable.Click += new System.EventHandler(this.btnFactTable_Click_1);
             // 
             // btnGetFactFromDatabase
             // 
@@ -328,7 +328,7 @@
         private System.Windows.Forms.ListBox listBoxDateFromSource;
         private System.Windows.Forms.Button btnGetFactFromDatabase;
         private System.Windows.Forms.ListBox listBoxFactFrtomDatabase;
-        private System.Windows.Forms.Button btnFactDimension;
+        private System.Windows.Forms.Button btnFactTable;
         private System.Windows.Forms.ListBox listBoxFact;
     }
 }

@@ -527,82 +527,45 @@ namespace GITTest
             }
         }
 
-        //
-        private void btnFactDimension_Click(object sender, EventArgs e)
+        //Begining of fact dimension
+        private void btnFactTable_Click(object sender, EventArgs e)
         {
+                    //FactDimension
+            List<string> FactTable = new List<string>();
+            //clear listbox
+            listBoxFact.Items.Clear();
 
-            //FactDimension
-            List<string> FactDimension = new List<string>();
             //create a string connection
-            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
-
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT customerId, productId, timeId, value, discount, profit, quantity From FactTable", connection);
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    //if there is a row it mean s the fact object exist so change the existing variable
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            FactDimension.Add(reader["customerId"].ToString() + ", " + reader["productId"].ToString() + ", " + reader["timeId"].ToString() + ", " + reader["value"].ToString() + ", " + reader["discount"].ToString() + ", " + reader["profit"].ToString() + ", " + reader["quantity"].ToString());
-
-                        }
-
-                    }
-
-                    else
-                    {
-                        FactDimension.Add("No data present");
-                    }
-
-                }
-
-                //bind the listbox to the list
-                listBoxFact.DataSource = FactDimension;
-
-            }
-        }
-
-
-        //TODO: CRASHING OCCURED HERE IN THE LINE 575 
-        private void btnGetFactFromDatabase_Click(object sender, EventArgs e)
-        {
-            //create a fact list
-            List<string> Facts = new List<string>();
-            // create the database string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            using (OleDbConnection connection = new OleDbConnection())
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
-                //ERROR MESSAGE IN THIS LINE???
+                //open the connection
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getFacts = new OleDbCommand("SELECT [product Id], [time Id], [customer Id], value, discount, profit, quantity From Sheet1", connection);
-                reader = getFacts.ExecuteReader();
-                while (reader.Read())
-                {
-                    Facts.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
-                    
-                    string productId = Convert.ToString(reader[0]);
-                    string timeId = Convert.ToString(reader[1]);
-                    string customerId = Convert.ToString(reader[2]);
-                    string value = Convert.ToString(reader[3]);
-                    string discount = Convert.ToString(reader[4]);
-                    string profit = Convert.ToString(reader[5]);
-                    string quantity = Convert.ToString(reader[6]);
 
-                    insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                OleDbCommand getFactTable = new OleDbCommand("SELECT [Product ID], Sales, Quantity From Sheet1", connection);
+                reader = getFactTable.ExecuteReader();
+               
+                    while (reader.Read())
+                        {
+                    FactTable.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString());
+
+                    int productId = Convert.ToInt32(reader[0]);
+                    int Sales = Convert.ToInt32(reader[1]);
+                    int Quantity = Convert.ToInt32(reader[2]);
+
+                    insertFactDimension(productId, Sales, Quantity);
                 }
-            }
 
+
+            }
+            
         }
 
-       
+            
         // insert query for fact table
 
-        private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
+        private void insertFactDimension(int productId, int Sales, int Quantity)
         {
             //create a connection to the MDF file 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -613,14 +576,10 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE timeId = @timeId", myConnection);
-                command.Parameters.Add(new SqlParameter("value", value));
+                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE Sales = @Sales", myConnection);
                 command.Parameters.Add(new SqlParameter("productId", productId));
-                command.Parameters.Add(new SqlParameter("timeId", timeId));
-                command.Parameters.Add(new SqlParameter("customerId", customerId));
-                command.Parameters.Add(new SqlParameter("discount", discount));
-                command.Parameters.Add(new SqlParameter("profit", profit));
-                command.Parameters.Add(new SqlParameter("quantity", quantity));
+                command.Parameters.Add(new SqlParameter("Sales", Sales));
+                command.Parameters.Add(new SqlParameter("Quantity", Quantity));
 
                 //create a variable and assign it to false by default. 
                 bool exists = false;
@@ -635,15 +594,11 @@ namespace GITTest
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand(
-                        "INSERT INTO FactTable (customerId, productId, timeId, value, discount, profit, quantity)" +
-                        "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, quantity)", myConnection);
-                    insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
-                    insertCommand.Parameters.Add(new SqlParameter("productId", productId));
-                    insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
-                    insertCommand.Parameters.Add(new SqlParameter("value", value));
-                    insertCommand.Parameters.Add(new SqlParameter("discount", discount));
-                    insertCommand.Parameters.Add(new SqlParameter("profit", profit));
-                    insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+                        "INSERT INTO FactTable ( productId, Sales, Quantity)" +
+                        "VALUES ( @productId, @Sales, Quantity)", myConnection);
+                insertCommand.Parameters.Add(new SqlParameter("productId", productId));
+                insertCommand.Parameters.Add(new SqlParameter("Sales", Sales));
+                insertCommand.Parameters.Add(new SqlParameter("Quantity", Quantity));
 
                     //insert the line 
                     int recordsAffected = insertCommand.ExecuteNonQuery();
@@ -651,11 +606,75 @@ namespace GITTest
                 }
             }
         }
+        //TODO: 
+        private void btnGetFactFromDatabase_Click(object sender, EventArgs e)
+        {
+            //create a fact list
+            List<string> Facts = new List<string>();
+            //clear the listbox
+            //listBoxFact.Items.Clear();
+
+            // create the database string
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection())
+            {
+                //
+                connection.Open();
+                OleDbDataReader reader = null;
+
+                OleDbCommand getFacts = new OleDbCommand("SELECT [Product ID], Sales, Quantity FROM Sheet1", connection);
+                reader = getFacts.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Facts.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString());
+
+                    int productId = Convert.ToInt32(reader[0]);
+                    int Sales = Convert.ToInt32(reader[1]);
+                    int Quantity = Convert.ToInt32(reader[2]);
+
+                    insertFactDimension(productId, Sales, Quantity);
+
+                }
+            }
+
+            //create new list to store the named results in 
+            List<string> DestinationFacts = new List<string>();
+
+            //create the database string 
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    //if there are rows, it means the date exists so change the exists variable 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DestinationFacts.Add(reader["category"].ToString() + ", " + reader["subcategory"].ToString() + ", " + reader["productname"].ToString() + ", " + reader["productcode"].ToString());
+                        }
+
+                    }
+                    else
+                    {
+                        DestinationFacts.Add("No data present");
+                    }
+
+                //bind the listbox to the list 
+                listBoxProductFromDbNamed.DataSource = DestinationFacts;
+
+            }
+        }
+
+    
 
 
-        //
+    //
 
-        private void btnGetProductFromDatabase_Click(object sender, EventArgs e)
+    private void btnGetProductFromDatabase_Click(object sender, EventArgs e)
         {
             //We create a list for the products 
             List<string> Products = new List<string>();
@@ -683,6 +702,7 @@ namespace GITTest
                     insertProductDimension(category, subcategory, name, productCode);
                 }
             }
+
 
 
             //create new list to store the named results in 
@@ -767,11 +787,14 @@ namespace GITTest
             }
         }
 
-
+        
     }
       
     }
 
 
+//private void btnFactTable_Click_1(object sender, EventArgs e)
+//{
 
+//}
 
