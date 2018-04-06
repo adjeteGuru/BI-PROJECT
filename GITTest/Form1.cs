@@ -663,18 +663,21 @@ namespace GITTest
 
         private void btnGetFactDB_Click(object sender, EventArgs e)
         {
-                    
+
             //create a fact list
             List<string> Facts = new List<string>();
             // create the database string
+            
+            string connectionString2 = Properties.Settings.Default.DataSet2ConnectionString;
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
-            string productId;
-            string timeId;
-            string customerId;
-            string value;
-            string discount;
-            string profit;
-            string quantity;
+
+            string productId = "";
+            string timeId = "";
+            string customerId = "";
+            string value = "";
+            string discount = "";
+            string profit = "";
+            string quantity = "";
 
             using (SqlConnection connection = new SqlConnection(connectionStringDestination))
             {
@@ -696,6 +699,8 @@ namespace GITTest
                             Facts.Add(reader["Id"].ToString());
 
                             productId = reader["Id"].ToString();
+
+
                         }
                     }
                 using (SqlDataReader reader = command2.ExecuteReader())
@@ -720,35 +725,44 @@ namespace GITTest
 
                             customerId = reader["id"].ToString();
                         }
-                        connection.Close();
+
                     }
+                    connection.Close();
+                }
 
-                
-                using (SqlDataReader reader = command3.ExecuteReader())
+                string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+
+                using (OleDbConnection oleConnection = new OleDbConnection(connectionString))
                 {
-                    if (reader.HasRows)
+                    oleConnection.Open();
+                    OleDbDataReader reader = null;
+                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, value, quantity from Sheet1", oleConnection);
+                    reader = getSourceDimensions.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            Facts.Add(reader["id"].ToString());
+                        Facts.Add(reader["discount"].ToString() + ", " + reader["profit"].ToString() + ", " + reader["value"].ToString() + ", " + reader["quantity"].ToString());
 
-                            string productId = Convert.ToString(reader[0]);
-                            string timeId = Convert.ToString(reader[1]);
-                            string customerId = Convert.ToString(reader[2]);
-                            string value = Convert.ToString(reader[3]);
-                            string discount = Convert.ToString(reader[4]);
-                            string profit = Convert.ToString(reader[5]);
-                            string quantity = Convert.ToString(reader[6]);
+                        discount = reader["discount"].ToString();
+                        profit = reader["profit"].ToString();
+                        value = reader["value"].ToString();
+                        quantity = reader["quantity"].ToString();
 
-                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                       
 
-                        }
-                        connection.Close();
+                        insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+
+
                     }
 
                 }
+                
             }
+
+
         }
+
+
+
 
         private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
         {
@@ -795,7 +809,7 @@ namespace GITTest
 
                     //insert the line 
                     int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("Records affected: " + recordsAffected);
+                    Console.WriteLine("Fact Records affected: " + recordsAffected);
                 }
             }
         }
