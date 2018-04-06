@@ -663,9 +663,94 @@ namespace GITTest
 
         private void btnGetFactDB_Click(object sender, EventArgs e)
         {
+                    
+            //create a fact list
+            List<string> Facts = new List<string>();
+            // create the database string
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
+            using (SqlConnection connection = new SqlConnection(connectionStringDestination))
+            {
+
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT Id from Product", connection);
+                SqlCommand command2 = new SqlCommand("SELECT Id from Customer", connection);
+                SqlCommand command3 = new SqlCommand("SELECT id from Time", connection);
+
+
+
+                using (SqlDataReader reader = command.ExecuteReader())
+
+                    //if there are rows to be 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Facts.Add(reader["Id"].ToString());
+
+                            string productId = Convert.ToString(reader[0]);
+                            string timeId = Convert.ToString(reader[1]);
+                            string customerId = Convert.ToString(reader[2]);
+                            string value = Convert.ToString(reader[3]);
+                            string discount = Convert.ToString(reader[4]);
+                            string profit = Convert.ToString(reader[5]);
+                            string quantity = Convert.ToString(reader[6]);
+
+                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                        }
+                        connection.Close();
+                    }
+
+                using (SqlDataReader reader = command2.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Facts.Add(reader["Id"].ToString());
+
+                            string productId = Convert.ToString(reader[0]);
+                            string timeId = Convert.ToString(reader[1]);
+                            string customerId = Convert.ToString(reader[2]);
+                            string value = Convert.ToString(reader[3]);
+                            string discount = Convert.ToString(reader[4]);
+                            string profit = Convert.ToString(reader[5]);
+                            string quantity = Convert.ToString(reader[6]);
+
+                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+
+                        }
+                        connection.Close();
+                    }
+                }
+                using (SqlDataReader reader = command3.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Facts.Add(reader["id"].ToString());
+
+                            string productId = Convert.ToString(reader[0]);
+                            string timeId = Convert.ToString(reader[1]);
+                            string customerId = Convert.ToString(reader[2]);
+                            string value = Convert.ToString(reader[3]);
+                            string discount = Convert.ToString(reader[4]);
+                            string profit = Convert.ToString(reader[5]);
+                            string quantity = Convert.ToString(reader[6]);
+
+                            insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+
+                        }
+                        connection.Close();
+                    }
+
+                }
+            }
         }
+
     }
+}
 }
 
 
