@@ -307,6 +307,32 @@ namespace GITTest
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
         }
+
+        private void btnFactTable_Click(object sender, EventArgs e)
+        {
+            List<string> FactTable = new List<string>();
+
+            //
+            listBoxFactTable.Items.Clear();
+            //
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getFactTable = new OleDbCommand("SELECT [Product ID], [Customer ID], [Time ID], Discount, Profit, Quantity FROM Sheet1", connection);
+                reader = getFactTable.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    FactTable.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+
+                }
+            }
+
+            //bind the listbox to the list
+            listBoxFactTable.DataSource = FactTable;
+        }
     }
 
 

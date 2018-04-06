@@ -38,6 +38,8 @@
             this.listBoxOrder = new System.Windows.Forms.ListBox();
             this.btnCustomer = new System.Windows.Forms.Button();
             this.listBoxCustomer = new System.Windows.Forms.ListBox();
+            this.btnFactTable = new System.Windows.Forms.Button();
+            this.listBoxFactTable = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -120,7 +122,7 @@
             // 
             this.btnCustomer.Location = new System.Drawing.Point(665, 39);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnCustomer.Size = new System.Drawing.Size(99, 23);
             this.btnCustomer.TabIndex = 8;
             this.btnCustomer.Text = "GetCustomer";
             this.btnCustomer.UseVisualStyleBackColor = true;
@@ -134,11 +136,31 @@
             this.listBoxCustomer.Size = new System.Drawing.Size(120, 95);
             this.listBoxCustomer.TabIndex = 9;
             // 
+            // btnFactTable
+            // 
+            this.btnFactTable.Location = new System.Drawing.Point(892, 39);
+            this.btnFactTable.Name = "btnFactTable";
+            this.btnFactTable.Size = new System.Drawing.Size(99, 23);
+            this.btnFactTable.TabIndex = 10;
+            this.btnFactTable.Text = "GetFactTable";
+            this.btnFactTable.UseVisualStyleBackColor = true;
+            this.btnFactTable.Click += new System.EventHandler(this.btnFactTable_Click);
+            // 
+            // listBoxFactTable
+            // 
+            this.listBoxFactTable.FormattingEnabled = true;
+            this.listBoxFactTable.Location = new System.Drawing.Point(812, 77);
+            this.listBoxFactTable.Name = "listBoxFactTable";
+            this.listBoxFactTable.Size = new System.Drawing.Size(248, 95);
+            this.listBoxFactTable.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 332);
+            this.ClientSize = new System.Drawing.Size(1093, 352);
+            this.Controls.Add(this.listBoxFactTable);
+            this.Controls.Add(this.btnFactTable);
             this.Controls.Add(this.listBoxCustomer);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.listBoxOrder);
@@ -168,6 +190,8 @@
         private System.Windows.Forms.ListBox listBoxOrder;
         private System.Windows.Forms.Button btnCustomer;
         private System.Windows.Forms.ListBox listBoxCustomer;
+        private System.Windows.Forms.Button btnFactTable;
+        private System.Windows.Forms.ListBox listBoxFactTable;
     }
 }
 
