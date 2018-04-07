@@ -568,7 +568,7 @@ namespace GITTest
 
         // insert query for fact table
 
-        private void insertFactDimension(string productId, string timeId, string customerId, string Discount, string Profit, string Quantity)
+        private void insertFactDimension(int productId, int timeId, int customerId, double discount, decimal Profit, int quantity)
         {
             //create a connection to the MDF file 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -579,8 +579,8 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT Id FROM FactTable WHERE productId = @productId", myConnection);
-                command.Parameters.Add(new SqlParameter("productId", productId));
+                SqlCommand command = new SqlCommand("SELECT id FROM FactTable WHERE timeId = @timeId", myConnection);
+                command.Parameters.Add(new SqlParameter("timeId", timeId));
                 
                 //create a variable and assign it to false by default. 
                 bool exists = false;
@@ -600,9 +600,9 @@ namespace GITTest
                 insertCommand.Parameters.Add(new SqlParameter("productId", productId));
                     insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
                     insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
-                    insertCommand.Parameters.Add(new SqlParameter("discount", Discount));
+                    insertCommand.Parameters.Add(new SqlParameter("discount", discount));
                     insertCommand.Parameters.Add(new SqlParameter("profit", Profit));
-                    insertCommand.Parameters.Add(new SqlParameter("quantity", Quantity));
+                    insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
 
                     //insert the line 
                     int recordsAffected = insertCommand.ExecuteNonQuery();
@@ -633,14 +633,14 @@ namespace GITTest
                     //we enlist the columns to be read
                     FactTable.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString());
 
-                    string productId = Convert.ToString(reader[0]);
-                    string timeId = Convert.ToString(reader[1]);
-                    string customerId = Convert.ToString(reader[2]);
-                    string discount = Convert.ToString(reader[3]);
-                    string profit = Convert.ToString(reader[4]);
-                    string quantity = Convert.ToString(reader[5]);
+                    //string productId = Convert.ToString(reader[0]);
+                    //string timeId = Convert.ToString(reader[1]);
+                    //string customerId = Convert.ToString(reader[2]);
+                    //string discount = Convert.ToString(reader[3]);
+                    //string profit = Convert.ToString(reader[4]);
+                    //string quantity = Convert.ToString(reader[5]);
 
-                    insertFactDimension(productId, timeId, customerId, discount, profit, quantity);
+                   // insertFactDimension(productId, timeId, customerId, discount, profit, quantity);
 
                 }
             }
