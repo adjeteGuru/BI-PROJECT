@@ -729,6 +729,7 @@ namespace GITTest
                         }
 
                     }
+
                     connection.Close();
                 }
 
@@ -738,7 +739,7 @@ namespace GITTest
                 {
                     oleConnection.Open();
                     OleDbDataReader reader = null;
-                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, sales, quantity from Sheet1", oleConnection);
+                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, value, quantity from Sheet1", oleConnection);
                     reader = getSourceDimensions.ExecuteReader();
                     while (reader.Read())
                     {
@@ -746,10 +747,9 @@ namespace GITTest
 
                         discount = reader["discount"].ToString();
                         profit = reader["profit"].ToString();
-                        value = reader["sales"].ToString();
+                        value = reader["value"].ToString();
                         quantity = reader["quantity"].ToString();
-
-                       
+                      
 
                         insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
 
@@ -760,10 +760,7 @@ namespace GITTest
                 
             }
 
-
         }
-
-
 
 
         private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
