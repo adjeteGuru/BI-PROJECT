@@ -1,0 +1,10 @@
+Sprint 5
+
+Date of sprint start 02/04/18
+Date of sprint end 06/04/18
+
+P16244305
+Wenhong Bao
+In this week, I continued working on database. I tried another way because insert data into fact table was fail in last week. Just follow
+the lab and work on customer in same way but can saw the X only and no data present on Y, so dashboard still unfinish. The data I choose 
+for dashboard was region and sale. It can show the sale condition for each region.
