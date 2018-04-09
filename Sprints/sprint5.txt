@@ -1,0 +1,1 @@
+this week i have focused fully on adding a second datasource for all 3 dimensions. having got that to work sucessfully i am now stuck with trying to read from multiple datasources which seems fine now but for the missing column name 'value'. as it is not present in the access database yet present in the fact table.
