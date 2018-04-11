@@ -696,9 +696,10 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["productId"].ToString());
-
                             productId = reader["productId"].ToString();
+                            Facts.Add(productId);
+
+                           
 
 
                         }
@@ -709,9 +710,10 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["customerId"].ToString());
-
                             TimeId = reader["customerId"].ToString();
+                            Facts.Add(customerId);
+
+                            
                             bool readerHasRow = reader.HasRows;
                             Console.WriteLine("Reader has row: " + readerHasRow);
                         }
@@ -723,9 +725,10 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["TimeId"].ToString());
-
                             customerId = reader["TimeId"].ToString();
+                            Facts.Add(TimeId);
+
+                           
                         }
 
                     }
@@ -739,19 +742,21 @@ namespace GITTest
                 {
                     oleConnection.Open();
                     OleDbDataReader reader = null;
-                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT Discount, Profit, Value, Quantity from Sheet1", oleConnection);
+                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT productId, TimeId, customerId, Discount, Profit, Value, Quantity from Sheet1", oleConnection);
                     reader = getSourceDimensions.ExecuteReader();
                     while (reader.Read())
                     {
-                        Facts.Add(reader["Discount"].ToString() + ", " + reader["Profit"].ToString() + ", " + reader["Value"].ToString() + ", " + reader["Quantity"].ToString());
-
+                        Facts.Add(reader["productId"].ToString() + ", " + reader["TimeId"].ToString() + ", " + reader["customerId"].ToString() + ", " + reader["Discount"].ToString() + ", " + reader["Profit"].ToString() + ", " + reader["Value"].ToString() + ", " + reader["Quantity"].ToString());
+                        productId = reader["productId"].ToString();
+                        TimeId = reader["TimeId"].ToString();
+                        customerId = reader["customerId"].ToString();
                         discount = reader["Discount"].ToString();
                         profit = reader["Profit"].ToString();
                         value = reader["Value"].ToString();
                         quantity = reader["Quantity"].ToString();
                       
 
-                        insertFactDimension(productId, TimeId, customerId, value, discount, profit, quantity);
+                        insertFactDimension(productId, TimeId, customerId, discount, profit, value,  quantity);
 
 
                     }
