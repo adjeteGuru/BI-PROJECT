@@ -187,7 +187,7 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
+                SqlCommand command = new SqlCommand("SELECT TimeId FROM Time Where date = @date", myConnection);
                 command.Parameters.Add(new SqlParameter("date", date));
 
                 //create a variable and assign it to false by default. 
@@ -234,7 +234,7 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE productname = @productname", myConnection);
+                SqlCommand command = new SqlCommand("SELECT productId FROM Product WHERE productname = @productname", myConnection);
                 command.Parameters.Add(new SqlParameter("productcode", productCode));
                 command.Parameters.Add(new SqlParameter("productname", productname));
                 command.Parameters.Add(new SqlParameter("subcategory", subcategory));
@@ -269,7 +269,7 @@ namespace GITTest
 
 
 
-        private void insertCustomerDimension(string CustomerID, string firstName, string lastName, string country, string city, string state, string postalCode, string region)
+        private void insertCustomerDimension(string CustomerCode, string firstName, string lastName, string country, string city, string state, string postalCode, string region)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -283,7 +283,7 @@ namespace GITTest
                 //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
 
                 //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@firstName", myConnection);
+                SqlCommand command = new SqlCommand("SELECT CustomerId FROM Customer WHERE firstName=@firstName", myConnection);
 
                 //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
                 command.Parameters.Add(new SqlParameter("firstName", firstName));
@@ -300,9 +300,9 @@ namespace GITTest
 
                 if (exists == false)
                 {
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerID, firstName, lastName, country, city, state, postalCode, region)" +
-                        " VALUES (@CustomerID, @firstName, @lastName, @country, @city, @state, @postalCode, @region)", myConnection);
-                    insertCommand.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
+                    SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerCode, firstName, lastName, country, city, state, postalCode, region)" +
+                        " VALUES (@CustomerCode, @firstName, @lastName, @country, @city, @state, @postalCode, @region)", myConnection);
+                    insertCommand.Parameters.Add(new SqlParameter("CustomerCode", CustomerCode));
                     insertCommand.Parameters.Add(new SqlParameter("firstName", firstName));
                     insertCommand.Parameters.Add(new SqlParameter("lastName", lastName));
                     insertCommand.Parameters.Add(new SqlParameter("country", country));
@@ -359,7 +359,7 @@ namespace GITTest
                     //we enlist the columns to be read
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
-                    string CustomerID = Convert.ToString(reader[0]);
+                    string CustomerCode = Convert.ToString(reader[0]);
                     //split name into firstname and lastname
                     string name = Convert.ToString(reader[1]);
                     string[] splitname = name.Split(new char[] { ' ' });
@@ -372,7 +372,7 @@ namespace GITTest
                     string region = Convert.ToString(reader[6]);
 
                     // insert properties into the customer table dimension
-                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+                    insertCustomerDimension(CustomerCode, firstName, lastName, country, city, state, postalCode, region);
                 }
             }
 
@@ -387,7 +387,7 @@ namespace GITTest
             using (SqlConnection connection = new SqlConnection(connectionStringDestination))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode,region FROM Customer", connection);
+                SqlCommand command = new SqlCommand("SELECT CustomerCode, FirstName, LastName, country, city, state, postalCode,region FROM Customer", connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -397,7 +397,7 @@ namespace GITTest
                         while (reader.Read())
                         {
                             //TrimEnd() function use to delete all the space which in the end
-                            DestinationCustomersNamed.Add(reader["CustomerID"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " +
+                            DestinationCustomersNamed.Add(reader["CustomerCode"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " +
                               reader["LastName"].ToString().TrimEnd() + ", " + reader["country"].ToString().TrimEnd() + ", " + reader["city"].ToString().TrimEnd() +
                               ", " + reader["state"].ToString().TrimEnd() + ", " + reader["postalCode"].ToString().TrimEnd() + ", " + reader["region"].ToString().TrimEnd());
 
@@ -435,7 +435,7 @@ namespace GITTest
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
                 SqlCommand command2 = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
-                SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode, region from Customer", connection);
+                SqlCommand command3 = new SqlCommand("SELECT CustomerCode, FirstName, LastName, country, city, state, postalCode, region from Customer", connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -484,7 +484,7 @@ namespace GITTest
                         while (reader.Read())
                         {
                             //TrimEnd function used to delete all the spaces after each record
-                            Customer.Add(reader["CustomerID"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " + reader["LastName"].ToString().TrimEnd() + ", " + reader["country"].ToString().TrimEnd() + ", " + reader["city"].ToString().TrimEnd() + ", " + reader["state"].ToString().TrimEnd() + ", " + reader["postalCode"].ToString().TrimEnd() + ", " + reader["region"].ToString().TrimEnd());
+                            Customer.Add(reader["CustomerCode"].ToString().TrimEnd() + ", " + reader["FirstName"].ToString().TrimEnd() + ", " + reader["LastName"].ToString().TrimEnd() + ", " + reader["country"].ToString().TrimEnd() + ", " + reader["city"].ToString().TrimEnd() + ", " + reader["state"].ToString().TrimEnd() + ", " + reader["postalCode"].ToString().TrimEnd() + ", " + reader["region"].ToString().TrimEnd());
                         }
                     }
 
@@ -672,7 +672,7 @@ namespace GITTest
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
             string productId = "";
-            string timeId = "";
+            string TimeId = "";
             string customerId = "";
             string value = "";
             string discount = "";
@@ -683,9 +683,9 @@ namespace GITTest
             {
 
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT Id from Product", connection);
-                SqlCommand command2 = new SqlCommand("SELECT Id from Customer", connection);
-                SqlCommand command3 = new SqlCommand("SELECT id from Time", connection);
+                SqlCommand command = new SqlCommand("SELECT productId from Product", connection);
+                SqlCommand command2 = new SqlCommand("SELECT customerId from Customer", connection);
+                SqlCommand command3 = new SqlCommand("SELECT TimeId from Time", connection);
 
 
 
@@ -696,9 +696,9 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["Id"].ToString());
+                            Facts.Add(reader["productId"].ToString());
 
-                            productId = reader["Id"].ToString();
+                            productId = reader["productId"].ToString();
 
 
                         }
@@ -709,9 +709,9 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["Id"].ToString());
+                            Facts.Add(reader["customerId"].ToString());
 
-                            timeId = reader["Id"].ToString();
+                            TimeId = reader["customerId"].ToString();
                             bool readerHasRow = reader.HasRows;
                             Console.WriteLine("Reader has row: " + readerHasRow);
                         }
@@ -723,9 +723,9 @@ namespace GITTest
                     {
                         while (reader.Read())
                         {
-                            Facts.Add(reader["id"].ToString());
+                            Facts.Add(reader["TimeId"].ToString());
 
-                            customerId = reader["id"].ToString();
+                            customerId = reader["TimeId"].ToString();
                         }
 
                     }
@@ -739,19 +739,19 @@ namespace GITTest
                 {
                     oleConnection.Open();
                     OleDbDataReader reader = null;
-                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT discount, profit, value, quantity from Sheet1", oleConnection);
+                    OleDbCommand getSourceDimensions = new OleDbCommand("SELECT Discount, Profit, Value, Quantity from Sheet1", oleConnection);
                     reader = getSourceDimensions.ExecuteReader();
                     while (reader.Read())
                     {
-                        Facts.Add(reader["discount"].ToString() + ", " + reader["profit"].ToString() + ", " + reader["sales"].ToString() + ", " + reader["quantity"].ToString());
+                        Facts.Add(reader["Discount"].ToString() + ", " + reader["Profit"].ToString() + ", " + reader["Value"].ToString() + ", " + reader["Quantity"].ToString());
 
-                        discount = reader["discount"].ToString();
-                        profit = reader["profit"].ToString();
-                        value = reader["value"].ToString();
-                        quantity = reader["quantity"].ToString();
+                        discount = reader["Discount"].ToString();
+                        profit = reader["Profit"].ToString();
+                        value = reader["Value"].ToString();
+                        quantity = reader["Quantity"].ToString();
                       
 
-                        insertFactDimension(productId, timeId, customerId, value, discount, profit, quantity);
+                        insertFactDimension(productId, TimeId, customerId, value, discount, profit, quantity);
 
 
                     }
@@ -763,7 +763,7 @@ namespace GITTest
         }
 
 
-        private void insertFactDimension(string productId, string timeId, string customerId, string value, string discount, string profit, string quantity)
+        private void insertFactDimension(string productId, string TimeId, string customerId, string value, string discount, string profit, string quantity)
         {
             //create a connection to the MDF file 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -774,10 +774,10 @@ namespace GITTest
                 //open the SqlConnection 
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection. 
-                SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE timeId = @timeId", myConnection);
+                SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE TimeId = @TimeId", myConnection);
                 command.Parameters.Add(new SqlParameter("value", value));
                 command.Parameters.Add(new SqlParameter("productId", productId));
-                command.Parameters.Add(new SqlParameter("timeId", timeId));
+                command.Parameters.Add(new SqlParameter("TimeId", TimeId));
                 command.Parameters.Add(new SqlParameter("customerId", customerId));
                 command.Parameters.Add(new SqlParameter("discount", discount));
                 command.Parameters.Add(new SqlParameter("profit", profit));
@@ -800,7 +800,7 @@ namespace GITTest
                         "VALUES (@customerId, @productId, @timeId, @value, @discount, @profit, @quantity)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
                     insertCommand.Parameters.Add(new SqlParameter("productId", productId));
-                    insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
+                    insertCommand.Parameters.Add(new SqlParameter("TimeId", TimeId));
                     insertCommand.Parameters.Add(new SqlParameter("value", value));
                     insertCommand.Parameters.Add(new SqlParameter("discount", discount));
                     insertCommand.Parameters.Add(new SqlParameter("profit", profit));
