@@ -142,6 +142,7 @@ namespace GITTest
                     {
                         exists = true;
                         Console.WriteLine("Data exists!");
+                        SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable timeId VALUES @timeId", myConnection);
                     }
                 }
                 if(exists == false)
