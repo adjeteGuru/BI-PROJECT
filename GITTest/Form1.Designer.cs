@@ -31,12 +31,12 @@ namespace GITTest
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
@@ -63,11 +63,11 @@ namespace GITTest
             this.listBoxFromDb = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.GetFactTable = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.barChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonLoadData = new System.Windows.Forms.Button();
+            this.listBoxProductFromDestinationDb = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
@@ -84,10 +84,9 @@ namespace GITTest
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 19);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(5, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(199, 15);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Git clone and pull test!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -95,10 +94,9 @@ namespace GITTest
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(68, 89);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(51, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(15, 15);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = ".";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -107,20 +105,17 @@ namespace GITTest
             // 
             this.listBoxDates.FormattingEnabled = true;
             this.listBoxDates.HorizontalScrollbar = true;
-            this.listBoxDates.ItemHeight = 15;
-            this.listBoxDates.Location = new System.Drawing.Point(7, 110);
-            this.listBoxDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.listBoxDates.Location = new System.Drawing.Point(5, 95);
             this.listBoxDates.Name = "listBoxDates";
             this.listBoxDates.ScrollAlwaysVisible = true;
-            this.listBoxDates.Size = new System.Drawing.Size(187, 109);
+            this.listBoxDates.Size = new System.Drawing.Size(141, 95);
             this.listBoxDates.TabIndex = 3;
             // 
             // btnGetDates
             // 
-            this.btnGetDates.Location = new System.Drawing.Point(7, 63);
-            this.btnGetDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnGetDates.Location = new System.Drawing.Point(5, 55);
             this.btnGetDates.Name = "btnGetDates";
-            this.btnGetDates.Size = new System.Drawing.Size(100, 27);
+            this.btnGetDates.Size = new System.Drawing.Size(75, 23);
             this.btnGetDates.TabIndex = 2;
             this.btnGetDates.Text = "GetDates";
             this.btnGetDates.UseVisualStyleBackColor = true;
@@ -128,10 +123,10 @@ namespace GITTest
             // 
             // btnGetProducts
             // 
-            this.btnGetProducts.Location = new System.Drawing.Point(492, 63);
-            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGetProducts.Location = new System.Drawing.Point(369, 55);
+            this.btnGetProducts.Margin = new System.Windows.Forms.Padding(2);
             this.btnGetProducts.Name = "btnGetProducts";
-            this.btnGetProducts.Size = new System.Drawing.Size(136, 27);
+            this.btnGetProducts.Size = new System.Drawing.Size(102, 23);
             this.btnGetProducts.TabIndex = 4;
             this.btnGetProducts.Text = "GetProducts";
             this.btnGetProducts.UseVisualStyleBackColor = true;
@@ -141,12 +136,11 @@ namespace GITTest
             // 
             this.listBoxProducts.FormattingEnabled = true;
             this.listBoxProducts.HorizontalScrollbar = true;
-            this.listBoxProducts.ItemHeight = 15;
-            this.listBoxProducts.Location = new System.Drawing.Point(492, 110);
-            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxProducts.Location = new System.Drawing.Point(369, 95);
+            this.listBoxProducts.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.ScrollAlwaysVisible = true;
-            this.listBoxProducts.Size = new System.Drawing.Size(188, 109);
+            this.listBoxProducts.Size = new System.Drawing.Size(142, 95);
             this.listBoxProducts.TabIndex = 5;
             // 
             // productBindingSource
@@ -217,10 +211,9 @@ namespace GITTest
             // 
             // btnOrder
             // 
-            this.btnOrder.Location = new System.Drawing.Point(10, 252);
-            this.btnOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnOrder.Location = new System.Drawing.Point(8, 218);
             this.btnOrder.Name = "btnOrder";
-            this.btnOrder.Size = new System.Drawing.Size(121, 27);
+            this.btnOrder.Size = new System.Drawing.Size(91, 23);
             this.btnOrder.TabIndex = 6;
             this.btnOrder.Text = "GetOrder";
             this.btnOrder.UseVisualStyleBackColor = true;
@@ -230,20 +223,17 @@ namespace GITTest
             // 
             this.listBoxOrder.FormattingEnabled = true;
             this.listBoxOrder.HorizontalScrollbar = true;
-            this.listBoxOrder.ItemHeight = 15;
-            this.listBoxOrder.Location = new System.Drawing.Point(10, 300);
-            this.listBoxOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.listBoxOrder.Location = new System.Drawing.Point(8, 260);
             this.listBoxOrder.Name = "listBoxOrder";
             this.listBoxOrder.ScrollAlwaysVisible = true;
-            this.listBoxOrder.Size = new System.Drawing.Size(187, 109);
+            this.listBoxOrder.Size = new System.Drawing.Size(141, 95);
             this.listBoxOrder.TabIndex = 7;
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(249, 252);
-            this.btnCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnCustomer.Location = new System.Drawing.Point(187, 218);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(100, 27);
+            this.btnCustomer.Size = new System.Drawing.Size(75, 23);
             this.btnCustomer.TabIndex = 8;
             this.btnCustomer.Text = "GetCustomer";
             this.btnCustomer.UseVisualStyleBackColor = true;
@@ -253,19 +243,18 @@ namespace GITTest
             // 
             this.listBoxCustomer.FormattingEnabled = true;
             this.listBoxCustomer.HorizontalScrollbar = true;
-            this.listBoxCustomer.ItemHeight = 15;
-            this.listBoxCustomer.Location = new System.Drawing.Point(249, 298);
-            this.listBoxCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.listBoxCustomer.Location = new System.Drawing.Point(187, 258);
             this.listBoxCustomer.Name = "listBoxCustomer";
             this.listBoxCustomer.ScrollAlwaysVisible = true;
-            this.listBoxCustomer.Size = new System.Drawing.Size(181, 109);
+            this.listBoxCustomer.Size = new System.Drawing.Size(137, 95);
             this.listBoxCustomer.TabIndex = 9;
             // 
             // buttonGetFromDestinationDb
             // 
-            this.buttonGetFromDestinationDb.Location = new System.Drawing.Point(249, 49);
+            this.buttonGetFromDestinationDb.Location = new System.Drawing.Point(187, 42);
+            this.buttonGetFromDestinationDb.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonGetFromDestinationDb.Name = "buttonGetFromDestinationDb";
-            this.buttonGetFromDestinationDb.Size = new System.Drawing.Size(146, 55);
+            this.buttonGetFromDestinationDb.Size = new System.Drawing.Size(110, 48);
             this.buttonGetFromDestinationDb.TabIndex = 10;
             this.buttonGetFromDestinationDb.Text = "Get from Destination Db";
             this.buttonGetFromDestinationDb.UseVisualStyleBackColor = true;
@@ -276,26 +265,27 @@ namespace GITTest
             this.listBoxFromDb.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxFromDb.FormattingEnabled = true;
             this.listBoxFromDb.HorizontalScrollbar = true;
-            this.listBoxFromDb.ItemHeight = 15;
-            this.listBoxFromDb.Location = new System.Drawing.Point(249, 110);
+            this.listBoxFromDb.Location = new System.Drawing.Point(187, 95);
+            this.listBoxFromDb.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.listBoxFromDb.Name = "listBoxFromDb";
             this.listBoxFromDb.ScrollAlwaysVisible = true;
-            this.listBoxFromDb.Size = new System.Drawing.Size(181, 109);
+            this.listBoxFromDb.Size = new System.Drawing.Size(137, 95);
             this.listBoxFromDb.TabIndex = 11;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 34);
+            this.tabControl1.Location = new System.Drawing.Point(9, 29);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(771, 454);
+            this.tabControl1.Size = new System.Drawing.Size(578, 393);
             this.tabControl1.TabIndex = 12;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.GetFactTable);
+            this.tabPage1.Controls.Add(this.listBoxProductFromDestinationDb);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.listBoxProducts);
             this.tabPage1.Controls.Add(this.listBoxCustomer);
@@ -307,88 +297,92 @@ namespace GITTest
             this.tabPage1.Controls.Add(this.listBoxDates);
             this.tabPage1.Controls.Add(this.btnOrder);
             this.tabPage1.Controls.Add(this.listBoxOrder);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(763, 425);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tabPage1.Size = new System.Drawing.Size(570, 367);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // GetFactTable
-            // 
-            this.GetFactTable.Location = new System.Drawing.Point(492, 252);
-            this.GetFactTable.Name = "GetFactTable";
-            this.GetFactTable.Size = new System.Drawing.Size(136, 27);
-            this.GetFactTable.TabIndex = 12;
-            this.GetFactTable.Text = "GetFactTable";
-            this.GetFactTable.UseVisualStyleBackColor = true;
-            this.GetFactTable.Click += new System.EventHandler(this.GetFactTable_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.barChart);
             this.tabPage2.Controls.Add(this.pieChart);
             this.tabPage2.Controls.Add(this.buttonLoadData);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(763, 425);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tabPage2.Size = new System.Drawing.Size(570, 367);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // barChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.barChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.barChart.Legends.Add(legend3);
-            this.barChart.Location = new System.Drawing.Point(23, 98);
+            chartArea1.Name = "ChartArea1";
+            this.barChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.barChart.Legends.Add(legend1);
+            this.barChart.Location = new System.Drawing.Point(17, 85);
+            this.barChart.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.barChart.Name = "barChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.barChart.Series.Add(series3);
-            this.barChart.Size = new System.Drawing.Size(350, 280);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.barChart.Series.Add(series1);
+            this.barChart.Size = new System.Drawing.Size(262, 243);
             this.barChart.TabIndex = 2;
             this.barChart.Text = "chart2";
             // 
             // pieChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.pieChart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.pieChart.Legends.Add(legend4);
-            this.pieChart.Location = new System.Drawing.Point(441, 98);
+            chartArea2.Name = "ChartArea1";
+            this.pieChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.pieChart.Legends.Add(legend2);
+            this.pieChart.Location = new System.Drawing.Point(331, 85);
+            this.pieChart.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pieChart.Name = "pieChart";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.pieChart.Series.Add(series4);
-            this.pieChart.Size = new System.Drawing.Size(279, 280);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.pieChart.Series.Add(series2);
+            this.pieChart.Size = new System.Drawing.Size(209, 243);
             this.pieChart.TabIndex = 1;
             this.pieChart.Text = "chart1";
             // 
             // buttonLoadData
             // 
-            this.buttonLoadData.Location = new System.Drawing.Point(23, 18);
+            this.buttonLoadData.Location = new System.Drawing.Point(17, 16);
+            this.buttonLoadData.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonLoadData.Name = "buttonLoadData";
-            this.buttonLoadData.Size = new System.Drawing.Size(106, 39);
+            this.buttonLoadData.Size = new System.Drawing.Size(80, 34);
             this.buttonLoadData.TabIndex = 0;
             this.buttonLoadData.Text = "Load Data";
             this.buttonLoadData.UseVisualStyleBackColor = true;
             this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
             // 
+            // listBoxProductFromDestinationDb
+            // 
+            this.listBoxProductFromDestinationDb.FormattingEnabled = true;
+            this.listBoxProductFromDestinationDb.HorizontalScrollbar = true;
+            this.listBoxProductFromDestinationDb.Location = new System.Drawing.Point(369, 258);
+            this.listBoxProductFromDestinationDb.Name = "listBoxProductFromDestinationDb";
+            this.listBoxProductFromDestinationDb.ScrollAlwaysVisible = true;
+            this.listBoxProductFromDestinationDb.Size = new System.Drawing.Size(142, 95);
+            this.listBoxProductFromDestinationDb.TabIndex = 12;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 533);
+            this.ClientSize = new System.Drawing.Size(612, 462);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -446,7 +440,7 @@ namespace GITTest
         private System.Windows.Forms.Button buttonLoadData;
         private System.Windows.Forms.DataVisualization.Charting.Chart barChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart pieChart;
-        private System.Windows.Forms.Button GetFactTable;
+        private System.Windows.Forms.ListBox listBoxProductFromDestinationDb;
     }
 }
 
