@@ -72,12 +72,12 @@ namespace GITTest
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    
+
                     //if there are rows, it means the date exists so change the exists variable.
                     if (reader.HasRows) exists = true;
                 }
 
-                if(exists == false)
+                if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO Time (dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear)" +
                         "VALUES (@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear)", myConnection);
@@ -109,10 +109,12 @@ namespace GITTest
         private int GetDateId(string date)
         {
             //Split the date down and assign it to variables for later use.
-            string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[2]);
+            string[] dateWithoutTime = date.Split(' ');
+
+            string[] arrayDate = dateWithoutTime[0].Split('/');
+            int year = Convert.ToInt32(arrayDate[0]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[0]);
+            int day = Convert.ToInt32(arrayDate[2]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -130,26 +132,24 @@ namespace GITTest
                 SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
                 command.Parameters.Add(new SqlParameter("date", date));
 
-                //create a variable and assign it to false by default.
-                bool exists = false;
+
 
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-
+                    int dateId = 0;
                     //if there are rows, it means the date exists so change the exists variable.
-                    if (reader.HasRows) 
+                    if (reader.HasRows)
                     {
-                        exists = true;
-                        Console.WriteLine("Data exists!");
+                        while (reader.Read())
+                        {
+                            dateId = Convert.ToInt32(reader["id"].ToString());
+                        }
                     }
+                    return dateId;
                 }
-                if(exists == false)
-                {
 
-                }
             }
-            return 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -197,9 +197,9 @@ namespace GITTest
 
         }
 
-      
 
-       
+
+
 
         private void btnGetProducts_Click_1(object sender, EventArgs e)
         {
@@ -216,8 +216,8 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Quantity, Discount, Category, [Sub-Category] from  Sheet1", connection);
 
-               
-                
+
+
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
@@ -235,7 +235,7 @@ namespace GITTest
             //bind the listbox to the list
             listBoxProducts.DataSource = Products;
 
-          
+
         }
 
 
@@ -286,7 +286,7 @@ namespace GITTest
             }
         }
 
-        private int GetProductId(string name)
+        private int GetProductId(string productCode)
         {
             //create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -297,32 +297,29 @@ namespace GITTest
                 //open the SqlConnection
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
-                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE name = @name", myConnection);
-                //command.Parameters.Add(new SqlParameter("productcode", productCode));
-                command.Parameters.Add(new SqlParameter("name", name));
+                SqlCommand command = new SqlCommand("SELECT Id FROM Product WHERE productcode = @productcode", myConnection);
+                command.Parameters.Add(new SqlParameter("productcode", productCode));
+                //command.Parameters.Add(new SqlParameter("name", name));
                 //command.Parameters.Add(new SqlParameter("subcategory", subcategory));
                 //command.Parameters.Add(new SqlParameter("category", category));
-
-                //create a variable and assign it to false by default.
-                bool exists = false;
 
                 //run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-
+                    int productId = 0;
                     //if there are rows, it means the data exists so change the exists variable
                     if (reader.HasRows)
                     {
-                        exists = true;
-                        Console.WriteLine("Data exists!");
+                        while (reader.Read())
+                        {
+                            productId = Convert.ToInt32(reader["Id"].ToString());
+                        }
                     }
+                    return productId;
                 }
-                if (exists == false)
-                {
 
-                }
-            }          
-            return 0;
+            }
+
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
@@ -479,7 +476,45 @@ namespace GITTest
             //bind the listbox to the list
             listBoxCustomer.DataSource = Customer;
 
-            
+
+        }
+
+        //Get Customer Id
+        private int GetCustomerId(string Customer)
+        {
+            //Create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+
+                // Open the SqlConnection.
+                myConnection.Open();
+                // The following code uses an SqlCommand based on the SqlConnection.
+                SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE CustomerID = @CustomerID", myConnection);
+                command.Parameters.Add(new SqlParameter("CustomerID", Customer));
+
+        
+                
+
+                //Run the command & read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    int customerId = 0;
+                    //If there are rows, it means the date exsists so change the exsists variable. 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            customerId = Convert.ToInt32(reader["Id"].ToString());
+                        }
+                    }
+                    return customerId;
+                }
+
+
+            }
         }
 
         private void buttonGetFromDestinationDb_Click(object sender, EventArgs e)
@@ -501,7 +536,7 @@ namespace GITTest
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     //if there are rows, it means the date exists so change the exists variable.
-                    if(reader.HasRows)
+                    if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
@@ -526,7 +561,7 @@ namespace GITTest
                 }
             }
 
-            
+
         }
 
         private void buttonLoadData_Click(object sender, EventArgs e)
@@ -534,7 +569,7 @@ namespace GITTest
             //This is a hardcoded week - the lowest grade.
             //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
-            List<string> datelist = new List<string>(new string[] { "06/01/2014", "07/01/2014", "08/01/2014", "09/01/2014", "10/01/2014", "11/01/2014", "12/01/2014" });
+            List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
 
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
@@ -545,26 +580,26 @@ namespace GITTest
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
             //run this code once for each date in my list - in my case 7 times
-            foreach(string date in datelist)
+            foreach (string date in datelist)
             {
                 using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
                 {
                     //open the SqlConnection
                     myConnection.Open();
                     //the following code uses an SqlCommand base on the SqlConnection
-                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SaleNumber FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS quantity FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
                     command.Parameters.Add(new SqlParameter("date", date));
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         //if there are rows, it means there were sales
-                        if(reader.HasRows)
+                        if (reader.HasRows)
                         {
-                            while(reader.Read())
+                            while (reader.Read())
                             {
                                 //this line adds a dictionary item with the key of the date, and the value being the sales number
                                 //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
-                                salesCount.Add(date, Int32.Parse(reader["SaleNumber"].ToString()));
+                                salesCount.Add(date, Int32.Parse(reader["quantity"].ToString()));
                             }
                         }
                         //if there are no rows it means there were 0 sales, so we also need to handle this!
@@ -588,14 +623,69 @@ namespace GITTest
                     }
                 }
 
-                
+
             }
         }
+
+        private void GetFactTable_Click(object sender, EventArgs e)
+        {
+            List<string> Fact = new List<string>();
+            string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
+                reader = getFact.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+                    int productId = GetProductId(reader[2].ToString());
+                    int TimeId = GetDateId(reader[0].ToString());
+                    int CustomerId = GetCustomerId(reader[1].ToString());
+                    double sales = Convert.ToDouble(reader[3]);
+                    double discount = Convert.ToDouble(reader[5]);
+                    double profit = Convert.ToDouble(reader[6]);
+                    int quantity = Convert.ToInt32(reader[4]);
+                    //double value = (sales / discount - profit) / quantity;
+                    double value = sales / quantity;
+
+
+                    // insert properties into the customer table dimension
+                    insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                }
+            }
+        }
+
+        private void insertFactTableDimension(int productId, int timeId, int customerId, double value, double discount, double profit, int quantity)
+        {
+            //Create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+            {
+                //Open the SqlConnection
+                myConnection.Open();
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
+                        " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
+                insertCommand.Parameters.Add(new SqlParameter("productId", productId));
+                insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
+                insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
+                insertCommand.Parameters.Add(new SqlParameter("value", value));
+                insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+                insertCommand.Parameters.Add(new SqlParameter("profit", profit));
+                insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+                //insert the line
+                int recordsAffected = insertCommand.ExecuteNonQuery();
+                Console.WriteLine("build Fact Table Records affected: " + recordsAffected);
+            }
+            
+           
+
+        }
     }
-
-
-        
-
-    
 }
 
