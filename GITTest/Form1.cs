@@ -666,6 +666,8 @@ namespace GITTest
 
             //create a fact list
             List<string> Facts = new List<string>();
+            int factNo = Facts.Count();
+            Console.WriteLine("Facts + ", factNo);
             // create the database string
             
             string connectionString2 = Properties.Settings.Default.DataSet2ConnectionString;
@@ -711,9 +713,8 @@ namespace GITTest
                         {
                             Facts.Add(reader["customerId"].ToString());
 
-                            TimeId = reader["customerId"].ToString();
-                            bool readerHasRow = reader.HasRows;
-                            Console.WriteLine("Reader has row: " + readerHasRow);
+                            customerId = reader["customerId"].ToString();
+                            
                         }
                     }
                 }
@@ -725,7 +726,7 @@ namespace GITTest
                         {
                             Facts.Add(reader["TimeId"].ToString());
 
-                            customerId = reader["TimeId"].ToString();
+                            TimeId = reader["TimeId"].ToString();
                         }
 
                     }
