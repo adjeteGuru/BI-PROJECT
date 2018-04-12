@@ -25,8 +25,10 @@ namespace GITTest
 
 
             //Split the date down and assign it to variables for later use. 
+            string[] dateWithoutTime = date.Split(' ');
+            
+            string[] arrayDate = dateWithoutTime[0].Split('/');
 
-            string[] arrayDate = date.Split('/');
 
             int year = Convert.ToInt32(arrayDate[2]);
 
@@ -61,50 +63,30 @@ namespace GITTest
                 command.Parameters.Add(new SqlParameter("date", dbDate));
 
 
-                //create a variable and assign it to false by default. 
-
-                bool exists = false;
-
-
                 //Run the command & read the results 
-
                 using (SqlDataReader reader = command.ExecuteReader())
 
                 {
 
-
+                    int timeId = 0;
                     //if there are rows, it means the date exists so change the exists variable. 
 
                     if (reader.HasRows)
 
                     {
+                        while (reader.Read())
+                        {
+                            timeId = Convert.ToInt32(reader["id"].ToString());
 
-                        exists = true;
-
-
-                        Console.WriteLine("Data exists!");
-
+                        }
 
                     }
-
+                    return timeId;
                 }
-
-
-                if (exists == false)
-
-                {
-
-
-                }
-
-
-                //string getDateIDExists = GetDateId(date).ToString(); 
-
-                //Console.WriteLine("Yes: " + getDateIDExists); 
 
             }
 
-            return 0;
+            
 
         }
 
@@ -133,48 +115,28 @@ namespace GITTest
                 command.Parameters.Add(new SqlParameter("productcode", product));
 
 
-                //create a variable and assign it to false by default. 
-
-                bool exists = false;
-
-
                 //Run the command & read the results 
 
                 using (SqlDataReader reader = command.ExecuteReader())
 
                 {
-
+                    int productId = 0;
 
                     //if there are rows, it means the date exists so change the exists variable. 
 
                     if (reader.HasRows)
 
                     {
-
-                        exists = true;
-
-                        Console.WriteLine("Data exists!");
-
+                        while (reader.Read())
+                        {
+                            productId = Convert.ToInt32(reader["Id"].ToString());
+                        }
+                        
                     }
-
+                    return productId;
                 }
-
-
-                if (exists == false)
-
-                {
-
-
-                }
-
 
             }
-
-            string getProductIDExists = GetProductId(product).ToString();
-
-            Console.WriteLine("Yes: " + getProductIDExists);
-
-            return 0;
 
         }
 
@@ -199,20 +161,21 @@ namespace GITTest
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
+
+                    int customerId = 0;
                     //If there are rows, it means the date exsists so change the exsists variable. 
                     if (reader.HasRows)
                     {
-                        exists = true;
-                        Console.WriteLine("Data exsists!");
+                        while (reader.Read())
+                        {
+                            customerId = Convert.ToInt32(reader["Id"].ToString());
+                        }
                     }
+                    return customerId;
                 }
 
-                if (exists == false)
-                {
 
-                }
             }
-            return 0;
         }
 
         private void splitDates(string date)
@@ -396,6 +359,7 @@ namespace GITTest
                 //YOU MISSED TO REAJUST THIS LINE OF CODE 'select id from customer where firstName=@firstName
                 //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
 
+                /*no idea what this is doing
                 //the following code uses an SqlCommand based on the SqlConnection
                 SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE productId=@productId", myConnection);
 
@@ -405,6 +369,8 @@ namespace GITTest
                 //Create a variable and assign it to false by defult
                 bool exists = false;
 
+                
+
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -412,8 +378,8 @@ namespace GITTest
                     if (reader.HasRows) exists = true;
                 }
 
-                if (exists == false)
-                {
+                */
+
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
                         " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
                     insertCommand.Parameters.Add(new SqlParameter("productId", productId));
@@ -428,8 +394,8 @@ namespace GITTest
                     // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
                     //insert the line
                     int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("Records affected: " + recordsAffected);
-                }
+                    Console.WriteLine("build Fact Table Records affected: " + recordsAffected);
+                
 
             }
         }
@@ -738,21 +704,22 @@ namespace GITTest
                 //open the connection
                 connection.Open();
                 OleDbDataReader reader = null;
-                OleDbCommand getCustomer = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
-                reader = getCustomer.ExecuteReader();
+                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
+                reader = getFact.ExecuteReader();
                 while (reader.Read())
                 {
                     //we enlist the columns to be read
                     Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
-                    int productId = Convert.ToInt32(GetProductId(reader[2].ToString()));
-                    int TimeId = Convert.ToInt32(GetDateId(reader[0].ToString()));
-                    int CustomerId = Convert.ToInt32(GetCustomerId(reader[1].ToString()));
+                    int productId = GetProductId(reader[2].ToString());
+                    int TimeId = GetDateId(reader[0].ToString());
+                    int CustomerId = GetCustomerId(reader[1].ToString());
                     double sales = Convert.ToDouble(reader[3]);
                     double discount = Convert.ToDouble(reader[5]);
                     double profit = Convert.ToDouble(reader[6]);
                     int quantity = Convert.ToInt32(reader[4]);
-                    double value = (sales / discount - profit) / quantity;
+                    //double value = (sales / discount - profit) / quantity;
+                    double value = sales/ quantity;
 
 
                     // insert properties into the customer table dimension
