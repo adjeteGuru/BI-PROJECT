@@ -8,59 +8,78 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GITTest.Properties {
-    
-    
+namespace GITTest.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Databases\\Des" +
             "tinationDatabase.mdf;Integrated Security=True;Connect Timeout=30")]
-        public string DestinationDatabaseConnectionString {
-            get {
+        public string DestinationDatabaseConnectionString
+        {
+            get
+            {
                 return ((string)(this["DestinationDatabaseConnectionString"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"|DataDirectory|\\Databases\\Data set" +
             " 1.accdb\";Persist Security Info=True")]
-        public string Data_set_1ConnectionString {
-            get {
+        public string Data_set_1ConnectionString
+        {
+            get
+            {
                 return ((string)(this["Data_set_1ConnectionString"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\bin\\Debug\\Dat" +
             "abases\\DestinationDatabase.mdf;Integrated Security=True;Connect Timeout=30")]
-        public string DestinationDatabaseConnectionString1 {
-            get {
+        public string DestinationDatabaseConnectionString1
+        {
+            get
+            {
                 return ((string)(this["DestinationDatabaseConnectionString1"]));
             }
         }
+
+        
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Databases\\DataSet2." +
+            "accdb")]
 
         public string Dataset2ConnectionString
         {
             get
             {
-                return ((string)(this["Dataset2ConnectionString"]));
+                return ((string)(this["DataSet2ConnectionString"]));
             }
         }
 

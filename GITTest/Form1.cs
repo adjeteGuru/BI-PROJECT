@@ -617,7 +617,7 @@ namespace GITTest
                 OleDbDataReader reader = null;
                 //new select command to pull data from sheet2
                 
-                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from Student Sample 2 - Sheet1", connection);
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from [Student Sample 2 - Sheet1]", connection);
 
                 reader = getProducts.ExecuteReader();
 
