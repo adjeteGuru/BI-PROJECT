@@ -725,6 +725,8 @@ namespace GITTest
                     // insert properties into the customer table dimension
                     insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
                 }
+                //display the records being inserted to the fact table
+                listBoxFactTableSource.DataSource = Fact;
             }
         }
 
