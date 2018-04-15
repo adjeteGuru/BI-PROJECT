@@ -55,5 +55,14 @@ namespace GITTest.Properties {
                 return ((string)(this["DestinationDatabaseConnectionString1"]));
             }
         }
+
+        public string Dataset2ConnectionString
+        {
+            get
+            {
+                return ((string)(this["Dataset2ConnectionString"]));
+            }
+        }
+
     }
 }
