@@ -816,11 +816,11 @@ namespace GITTest
                     double value = sales/ quantity;
 
 
-                    // insert properties into the customer table dimension
+                    // insert properties into the fact table dimension
                     insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
                 }
                 //display the records being inserted to the fact table
-                //listBoxFactTableSource.DataSource = Fact;
+                listBoxFactTableSource.DataSource = Fact;
             }
 
             //using (OleDbConnection connection = new OleDbConnection(connectionString2))
