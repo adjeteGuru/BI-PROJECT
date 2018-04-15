@@ -426,6 +426,8 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 //open the connection
@@ -453,12 +455,41 @@ namespace GITTest
                     // insert properties into the customer table dimension
                     insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
                 }
+                connection.Close();
+
             }
+            //pull data from the second data source and add to the customer list
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getCustomer = new OleDbCommand("SELECT [Customer ID], [Customer Name], Country, City, State, [Postal Code], Region FROM [Student Sample 2 - Sheet1]", connection);
+                reader = getCustomer.ExecuteReader();
+                while (reader.Read())
+                {
+                    //we enlist the columns to be read
+                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
+                    string CustomerID = Convert.ToString(reader[0]);
+                    //split name into firstname and lastname
+                    string name = Convert.ToString(reader[1]);
+                    string[] splitname = name.Split(new char[] { ' ' });
+                    string firstName = Convert.ToString(splitname[0]);
+                    string lastName = Convert.ToString(splitname[1]);
+                    string country = Convert.ToString(reader[2]);
+                    string city = Convert.ToString(reader[3]);
+                    string state = Convert.ToString(reader[4]);
+                    string postalCode = Convert.ToString(reader[5]);
+                    string region = Convert.ToString(reader[6]);
 
-
-            //Create new list to store the indexed results in.
-            List<string> DestinationCustomersNamed = new List<string>();
+                    // insert properties into the customer table dimension
+                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+                }
+            }
+            
+                //Create new list to store the indexed results in.
+                List<string> DestinationCustomersNamed = new List<string>();
 
             //Create the database string 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -494,8 +525,6 @@ namespace GITTest
 
 
 
-
-
         private void btnDimension_Click(object sender, EventArgs e)
         {
 
@@ -505,6 +534,8 @@ namespace GITTest
             List<string> Dates = new List<string>();
 
             List<string> Customer = new List<string>();
+
+            List<string> Fact = new List<string>();
             
 
             //create the database string 
@@ -516,6 +547,7 @@ namespace GITTest
                 SqlCommand command = new SqlCommand("SELECT category, subcategory, productname, productcode from Product", connection);
                 SqlCommand command2 = new SqlCommand("SELECT dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear from Time", connection);
                 SqlCommand command3 = new SqlCommand("SELECT CustomerID, FirstName, LastName, country, city, state, postalCode, region from Customer", connection);
+                SqlCommand command4 = new SqlCommand("SELECT productId, customerId, timeId, value, quantity, discount, profit FROM FactTable", connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -577,6 +609,25 @@ namespace GITTest
                 }
                 //bing the listbox to the list
                 listBoxCustomer.DataSource = Customer;
+
+                using (SqlDataReader reader = command4.ExecuteReader())
+                {
+                    //if there are rows, it means the date exists so change the exists variable
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            //trimend function used to delete all the spaces after each record
+                            Fact.Add(reader["productId"].ToString().TrimEnd() + ", " + reader["customerId"].ToString().TrimEnd() + ", " + reader["timeId"].ToString().TrimEnd() + ", " + reader["value"].ToString().TrimEnd() + ", " + reader["discount"].ToString().TrimEnd() + ", " + reader["quantity"].ToString().TrimEnd() + ", " + reader["profit"].ToString().TrimEnd());
+                        }
+                    }
+                    else
+                    {
+                        Fact.Add("No data present");
+                    }
+                }
+                listBoxFactable.DataSource = Fact;
+
             }
         }
 
@@ -610,7 +661,7 @@ namespace GITTest
                 }
                 connection.Close();
             }
-
+            //begin reading from the second data source  and add to the products list
             using (OleDbConnection connection = new OleDbConnection(connectionString2))
             {
                 connection.Open();
@@ -676,7 +727,7 @@ namespace GITTest
 
         }
 
-
+        
         private void btnDates_Click(object sender, EventArgs e)
         {
             List<string> Dates = new List<string>();
@@ -684,6 +735,7 @@ namespace GITTest
             //listBoxDates.Items.Clear();
            //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -693,12 +745,26 @@ namespace GITTest
                 reader = getDates.ExecuteReader();
                 while (reader.Read())
                 {
+                    Dates.Add(reader[0].ToString());            
+                    Dates.Add(reader[1].ToString());
+                }
+                connection.Close();
+            }
+            //pull data from the second data source and add to the dates list
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getDates = new OleDbCommand("SELECT [Order Date], [Ship Date] from [Student Sample 2 - Sheet1]", connection);
+                reader = getDates.ExecuteReader();
+                while (reader.Read())
+                {
                     Dates.Add(reader[0].ToString());
                     Dates.Add(reader[1].ToString());
                 }
-            
+
             }
-       
+
             //create a new list for the formatted data 
             List<string> DatesFormatted = new List<string>();
             foreach (string date in Dates)
@@ -762,7 +828,7 @@ namespace GITTest
             //    //open the connection
             //    connection.Open();
             //    OleDbDataReader reader = null;
-            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
+            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
             //    reader = getFact.ExecuteReader();
             //    while (reader.Read())
             //    {
