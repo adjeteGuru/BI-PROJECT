@@ -588,6 +588,7 @@ namespace GITTest
             //listBoxProductFromDbNamed.Items.Clear();                                            /* POSSIBLE RENAMING*/
             //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -607,8 +608,33 @@ namespace GITTest
 
                     insertProductDimension(category, subcategory, name, productCode);
                 }
+                connection.Close();
             }
 
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                //new select command to pull data from sheet2
+                
+                OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from Student Sample 2 - Sheet1", connection);
+
+                reader = getProducts.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString());
+
+                    string category = reader[2].ToString();
+                    string subcategory = reader[3].ToString();
+                    string name = reader[1].ToString();
+                    string productCode = reader[0].ToString();
+
+                    insertProductDimension(category, subcategory, name, productCode);
+                }
+
+            }
 
             //create new list to store the named results in 
             List<string> DestinationProducts = new List<string>();
@@ -699,7 +725,7 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+            //string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -731,35 +757,35 @@ namespace GITTest
                 //listBoxFactTableSource.DataSource = Fact;
             }
 
-            using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            {
-                //open the connection
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
-                reader = getFact.ExecuteReader();
-                while (reader.Read())
-                {
-                    //we enlist the columns to be read
-                    Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+            //using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            //{
+            //    //open the connection
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM Sheet1", connection);
+            //    reader = getFact.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        //we enlist the columns to be read
+            //        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
-                    int productId = GetProductId(reader[2].ToString());
-                    int TimeId = GetDateId(reader[0].ToString());
-                    int CustomerId = GetCustomerId(reader[1].ToString());
-                    double sales = Convert.ToDouble(reader[3]);
-                    double discount = Convert.ToDouble(reader[5]);
-                    double profit = Convert.ToDouble(reader[6]);
-                    int quantity = Convert.ToInt32(reader[4]);
-                    //double value = (sales / discount - profit) / quantity;
-                    double value = sales / quantity;
+            //        int productId = GetProductId(reader[2].ToString());
+            //        int TimeId = GetDateId(reader[0].ToString());
+            //        int CustomerId = GetCustomerId(reader[1].ToString());
+            //        double sales = Convert.ToDouble(reader[3]);
+            //        double discount = Convert.ToDouble(reader[5]);
+            //        double profit = Convert.ToDouble(reader[6]);
+            //        int quantity = Convert.ToInt32(reader[4]);
+            //        //double value = (sales / discount - profit) / quantity;
+            //        double value = sales / quantity;
 
 
-                    // insert properties into the customer table dimension
-                    insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
-                }
-                //display the records being inserted to the fact table
-                listBoxFactTableSource.DataSource = Fact;
-            }
+            //        // insert properties into the customer table dimension
+            //        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+            //    }
+            //    //display the records being inserted to the fact table
+            //    listBoxFactTableSource.DataSource = Fact;
+            //}
         }
 
 
