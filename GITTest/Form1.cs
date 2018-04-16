@@ -35,9 +35,9 @@ namespace GITTest
         {
             //Split the date down and assign it to variables for later use.
             string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
+            int year = Convert.ToInt32(arrayDate[2]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
+            int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -112,9 +112,9 @@ namespace GITTest
             string[] dateWithoutTime = date.Split(' ');
 
             string[] arrayDate = dateWithoutTime[0].Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
+            int year = Convert.ToInt32(arrayDate[2]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
+            int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -130,10 +130,9 @@ namespace GITTest
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
-                command.Parameters.Add(new SqlParameter("date", date));
+                command.Parameters.Add(new SqlParameter("date", dbDate));
 
-                //create a variable and assign it to false by default.
-                bool exists = false;
+              
 
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -606,7 +605,8 @@ namespace GITTest
             //This is a hardcoded week - the lowest grade.
             //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
-            List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+            //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+            List<string> datelist = new List<string>(new string[] { "06/01/2014", "07/01/2014", "08/01/2014", "09/01/2014", "10/01/2014", "11/01/2014", "12/01/2014" });
 
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
