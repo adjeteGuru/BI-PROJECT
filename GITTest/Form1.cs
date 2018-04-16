@@ -822,7 +822,7 @@ namespace GITTest
                 //display the records being inserted to the fact table
                 listBoxFactTableSource.DataSource = Fact;
             }
-
+            //begin to read data from the second data source
             //using (OleDbConnection connection = new OleDbConnection(connectionString2))
             //{
             //    //open the connection
