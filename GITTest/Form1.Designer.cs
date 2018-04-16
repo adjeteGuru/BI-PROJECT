@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
             this.listBoxProducts = new System.Windows.Forms.ListBox();
@@ -44,17 +50,23 @@
             this.listBoxDateFromSource = new System.Windows.Forms.ListBox();
             this.listBoxProductFromDbNamed = new System.Windows.Forms.ListBox();
             this.groupBoxDimensionsTables = new System.Windows.Forms.GroupBox();
+            this.listBoxFactable = new System.Windows.Forms.ListBox();
+            this.lblFactable = new System.Windows.Forms.Label();
             this.lblProducts = new System.Windows.Forms.Label();
             this.lblCustomers = new System.Windows.Forms.Label();
             this.lblDates = new System.Windows.Forms.Label();
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblFactable = new System.Windows.Forms.Label();
-            this.listBoxFactable = new System.Windows.Forms.ListBox();
+            this.btnLoadDataSaleRegion = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
             this.groupBoxDimensionsTables.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -220,6 +232,23 @@
             this.groupBoxDimensionsTables.TabStop = false;
             this.groupBoxDimensionsTables.Text = "Dimensions Tables";
             // 
+            // listBoxFactable
+            // 
+            this.listBoxFactable.FormattingEnabled = true;
+            this.listBoxFactable.Location = new System.Drawing.Point(3, 39);
+            this.listBoxFactable.Name = "listBoxFactable";
+            this.listBoxFactable.Size = new System.Drawing.Size(567, 95);
+            this.listBoxFactable.TabIndex = 20;
+            // 
+            // lblFactable
+            // 
+            this.lblFactable.AutoSize = true;
+            this.lblFactable.Location = new System.Drawing.Point(6, 16);
+            this.lblFactable.Name = "lblFactable";
+            this.lblFactable.Size = new System.Drawing.Size(48, 13);
+            this.lblFactable.TabIndex = 19;
+            this.lblFactable.Text = "Factable";
+            // 
             // lblProducts
             // 
             this.lblProducts.AutoSize = true;
@@ -259,6 +288,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chart2);
+            this.tabPage2.Controls.Add(this.chart1);
+            this.tabPage2.Controls.Add(this.btnLoadDataSaleRegion);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -267,22 +299,48 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lblFactable
+            // btnLoadDataSaleRegion
             // 
-            this.lblFactable.AutoSize = true;
-            this.lblFactable.Location = new System.Drawing.Point(6, 16);
-            this.lblFactable.Name = "lblFactable";
-            this.lblFactable.Size = new System.Drawing.Size(48, 13);
-            this.lblFactable.TabIndex = 19;
-            this.lblFactable.Text = "Factable";
+            this.btnLoadDataSaleRegion.Location = new System.Drawing.Point(8, 6);
+            this.btnLoadDataSaleRegion.Name = "btnLoadDataSaleRegion";
+            this.btnLoadDataSaleRegion.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadDataSaleRegion.TabIndex = 0;
+            this.btnLoadDataSaleRegion.Text = "Load Data";
+            this.btnLoadDataSaleRegion.UseVisualStyleBackColor = true;
+            this.btnLoadDataSaleRegion.Click += new System.EventHandler(this.btnLoadDataSaleRegion_Click);
             // 
-            // listBoxFactable
+            // chart1
             // 
-            this.listBoxFactable.FormattingEnabled = true;
-            this.listBoxFactable.Location = new System.Drawing.Point(3, 39);
-            this.listBoxFactable.Name = "listBoxFactable";
-            this.listBoxFactable.Size = new System.Drawing.Size(567, 95);
-            this.listBoxFactable.TabIndex = 20;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(8, 57);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(300, 308);
+            this.chart1.TabIndex = 1;
+            this.chart1.Text = "chart1";
+            // 
+            // chart2
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
+            this.chart2.Location = new System.Drawing.Point(426, 174);
+            this.chart2.Name = "chart2";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart2.Series.Add(series1);
+            this.chart2.Size = new System.Drawing.Size(8, 8);
+            this.chart2.TabIndex = 2;
+            this.chart2.Text = "chart2";
             // 
             // Form1
             // 
@@ -299,6 +357,9 @@
             this.groupBoxDatabaseTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,6 +389,9 @@
         private System.Windows.Forms.ListBox listBoxFactTableSource;
         private System.Windows.Forms.ListBox listBoxFactable;
         private System.Windows.Forms.Label lblFactable;
+        private System.Windows.Forms.Button btnLoadDataSaleRegion;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 
