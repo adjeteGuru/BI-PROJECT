@@ -901,6 +901,54 @@ namespace GITTest
             chart1.DataBind();
 
         }
+
+        private void btnSalesProductType_Click(object sender, EventArgs e)
+        {
+            //Create a list to handle the region
+            List<string> dateList = new List<string>(new string[] { "Central", "East", "West", "South" });
+            //Create a dictionary to habdle salesCount
+            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+
+            //Create a connection to the MDF file
+            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
+            //run the code once for each date in the list
+            foreach (string region in regionList)
+            {
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+                    //Open the SqlConnection
+                    myConnection.Open();
+                    //The following code use an SqlCommand based on the SqlConnection
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Customer " +
+                        "ON FactTable.customerId = Customer.Id WHERE Customer.region = @region; ", myConnection);
+                    command.Parameters.Add(new SqlParameter("region", region));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //If there are rows, it means there were sales
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                salesCount.Add(region, Int32.Parse(reader["SalesNumber"].ToString()));
+                            }
+                        }
+                        //if there are no rows it means there were 0 sales
+                        else
+                        {
+                            salesCount.Add(region, 0);
+                        }
+                    }
+                }
+            }
+            //End foreach
+            chart1.DataSource = salesCount;
+            chart1.Series[0].XValueMember = "Key";
+            chart1.Series[0].YValueMembers = "Value";
+            chart1.DataBind();
+
+        }
     }
 }
 
