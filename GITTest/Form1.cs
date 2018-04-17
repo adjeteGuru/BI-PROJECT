@@ -789,7 +789,7 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            //string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -823,24 +823,26 @@ namespace GITTest
 
 
 
-                    if (error == true)
+                    if (error == false)
+                    {
 
-                    //we enlist the columns to be read
-                    Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                        //we enlist the columns to be read
+                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
-                    int productId = GetProductId(reader[2].ToString());
-                    int TimeId = GetDateId(reader[0].ToString());
-                    int CustomerId = GetCustomerId(reader[1].ToString());
-                    double sales = Convert.ToDouble(reader[3]);
-                    double discount = Convert.ToDouble(reader[5]);
-                    double profit = Convert.ToDouble(reader[6]);
-                    int quantity = Convert.ToInt32(reader[4]);
-                    //double value = (sales / discount - profit) / quantity;
-                    double value = sales / quantity;
+                        int productId = GetProductId(reader[2].ToString());
+                        int TimeId = GetDateId(reader[0].ToString());
+                        int CustomerId = GetCustomerId(reader[1].ToString());
+                        double sales = Convert.ToDouble(reader[3]);
+                        double discount = Convert.ToDouble(reader[5]);
+                        double profit = Convert.ToDouble(reader[6]);
+                        int quantity = Convert.ToInt32(reader[4]);
+                        //double value = (sales / discount - profit) / quantity;
+                        double value = sales / quantity;
 
 
-                    // insert properties into the fact table dimension
-                    insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                        // insert properties into the fact table dimension
+                        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                    }
                 }
                 //display the records being inserted to the fact table
                 listBoxFactTableSource.DataSource = Fact;
@@ -849,37 +851,78 @@ namespace GITTest
 
 
             //begin to read data from the second data source
-            //using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            //{
-            //    //open the connection
-            //    connection.Open();
-            //    OleDbDataReader reader = null;
-            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
-            //    reader = getFact.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        //we enlist the columns to be read
-            //        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
+                reader = getFact.ExecuteReader();
+                while (reader.Read())
+                {
+                    bool error = false;
 
-            //        int productId = GetProductId(reader[2].ToString());
-            //        int TimeId = GetDateId(reader[0].ToString());
-            //        int CustomerId = GetCustomerId(reader[1].ToString());
-            //        double sales = Convert.ToDouble(reader[3]);
-            //        double discount = Convert.ToDouble(reader[5]);
-            //        double profit = Convert.ToDouble(reader[6]);
-            //        int quantity = Convert.ToInt32(reader[4]);
-            //        //double value = (sales / discount - profit) / quantity;
-            //        double value = sales / quantity;
+                    //Check Order Date
+                    try
+                    {
+                        DateTime tempDate;
+                        tempDate = Convert.ToDateTime(reader[0].ToString());
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
 
 
-            //        // insert properties into the customer table dimension
-            //        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
-            //    }
-            //    //display the records being inserted to the fact table
-            //    listBoxFactTableSource.DataSource = Fact;
-            //}
+                    //Check Customer ID
+                    if (VerifyCustomerId(reader[1].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+
+                    //if error == false;
+                    //
+                    //check for sales
+                    try
+                    {
+                        decimal tempSales;
+                        tempSales = Convert.ToDecimal(reader[3].ToString());
+
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
+
+
+
+                    if (error == false)
+                    {
+                        //we enlist the columns to be read
+                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+                        int productId = GetProductId(reader[2].ToString());
+                        int TimeId = GetDateId(reader[0].ToString());
+                        int CustomerId = GetCustomerId(reader[1].ToString());
+                        double sales = Convert.ToDouble(reader[3]);
+                        double discount = Convert.ToDouble(reader[5]);
+                        double profit = Convert.ToDouble(reader[6]);
+                        int quantity = Convert.ToInt32(reader[4]);
+                        //double value = (sales / discount - profit) / quantity;
+                        double value = sales / quantity;
+
+
+                        // insert properties into the customer table dimension
+                        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                    }
+                }
+                //display the records being inserted to the fact table
+                listBoxFactTableSource.DataSource = Fact;
+            }
         }
-        private static readonly Regex customerIDCheck = new Regex(@"^(\w+\)-(\d{5})$");   /* @"^\d-\d{5}$"*/   /*@"[A-Z]{2}-[0-9]\d{5}"*/
+        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");   /* @"^\d-\d{5}$"*/   /*@"[A-Z]{2}-[0-9]\d{5}"*/
 
         public static bool VerifyCustomerId(string customerID)
         {
