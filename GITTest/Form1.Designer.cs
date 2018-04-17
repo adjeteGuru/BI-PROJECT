@@ -28,15 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxDates = new System.Windows.Forms.ListBox();
             this.listBoxProducts = new System.Windows.Forms.ListBox();
@@ -60,22 +66,29 @@
             this.lblDates = new System.Windows.Forms.Label();
             this.btnDimension = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnLoadDataSaleRegion = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnQuantityWeekly = new System.Windows.Forms.Button();
             this.btnSalesProductType = new System.Windows.Forms.Button();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button1 = new System.Windows.Forms.Button();
+            this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxDatabaseTables.SuspendLayout();
             this.groupBoxDimensionsTables.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart5)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -135,8 +148,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -299,6 +310,16 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.chart5);
+            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.btnSalesProductType);
+            this.tabPage2.Controls.Add(this.btnQuantityWeekly);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.chart3);
+            this.tabPage2.Controls.Add(this.chart4);
+            this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.chart2);
             this.tabPage2.Controls.Add(this.chart1);
             this.tabPage2.Controls.Add(this.btnLoadDataSaleRegion);
@@ -310,35 +331,96 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(789, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Sale categrory";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(412, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Weekly quantity";
+            // 
+            // chart3
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea2);
+            this.chart3.Cursor = System.Windows.Forms.Cursors.Default;
+            legend2.Name = "Legend1";
+            this.chart3.Legends.Add(legend2);
+            this.chart3.Location = new System.Drawing.Point(748, 65);
+            this.chart3.Name = "chart3";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart3.Series.Add(series2);
+            this.chart3.Size = new System.Drawing.Size(300, 300);
+            this.chart3.TabIndex = 5;
+            this.chart3.Text = "chart3";
+            // 
+            // chart4
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart4.Legends.Add(legend3);
+            this.chart4.Location = new System.Drawing.Point(365, 57);
+            this.chart4.Name = "chart4";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart4.Series.Add(series3);
+            this.chart4.Size = new System.Drawing.Size(300, 300);
+            this.chart4.TabIndex = 4;
+            this.chart4.Text = "chart4";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(89, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Sale by region";
+            // 
             // chart2
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart2.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart2.Legends.Add(legend4);
             this.chart2.Location = new System.Drawing.Point(426, 174);
             this.chart2.Name = "chart2";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart2.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart2.Series.Add(series4);
             this.chart2.Size = new System.Drawing.Size(8, 8);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(8, 57);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart1.Series.Add(series5);
             this.chart1.Size = new System.Drawing.Size(300, 308);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
@@ -353,55 +435,60 @@
             this.btnLoadDataSaleRegion.UseVisualStyleBackColor = true;
             this.btnLoadDataSaleRegion.Click += new System.EventHandler(this.btnLoadDataSaleRegion_Click);
             // 
-            // tabPage3
+            // btnQuantityWeekly
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1157, 681);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.chart3);
-            this.tabPage4.Controls.Add(this.btnSalesProductType);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1157, 681);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.btnQuantityWeekly.Location = new System.Drawing.Point(331, 6);
+            this.btnQuantityWeekly.Name = "btnQuantityWeekly";
+            this.btnQuantityWeekly.Size = new System.Drawing.Size(75, 23);
+            this.btnQuantityWeekly.TabIndex = 8;
+            this.btnQuantityWeekly.Text = "Load Data";
+            this.btnQuantityWeekly.UseVisualStyleBackColor = true;
+            this.btnQuantityWeekly.Click += new System.EventHandler(this.btnQuantityWeekly_Click_1);
             // 
             // btnSalesProductType
             // 
-            this.btnSalesProductType.Location = new System.Drawing.Point(8, 6);
+            this.btnSalesProductType.Location = new System.Drawing.Point(708, 6);
             this.btnSalesProductType.Name = "btnSalesProductType";
             this.btnSalesProductType.Size = new System.Drawing.Size(75, 23);
-            this.btnSalesProductType.TabIndex = 0;
+            this.btnSalesProductType.TabIndex = 9;
             this.btnSalesProductType.Text = "Load Data";
             this.btnSalesProductType.UseVisualStyleBackColor = true;
-            this.btnSalesProductType.Click += new System.EventHandler(this.btnSalesProductType_Click);
+            this.btnSalesProductType.Click += new System.EventHandler(this.btnSalesProductType_Click_1);
             // 
-            // chart3
+            // button1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea3);
-            this.chart3.Cursor = System.Windows.Forms.Cursors.Default;
-            legend3.Name = "Legend1";
-            this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(50, 57);
-            this.chart3.Name = "chart3";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart3.Series.Add(series3);
-            this.chart3.Size = new System.Drawing.Size(300, 300);
-            this.chart3.TabIndex = 1;
-            this.chart3.Text = "chart3";
+            this.button1.Location = new System.Drawing.Point(8, 361);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Load Data";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // chart5
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart5.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart5.Legends.Add(legend1);
+            this.chart5.Location = new System.Drawing.Point(8, 390);
+            this.chart5.Name = "chart5";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart5.Series.Add(series1);
+            this.chart5.Size = new System.Drawing.Size(300, 300);
+            this.chart5.TabIndex = 11;
+            this.chart5.Text = "chart5";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(89, 374);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Sale by state";
             // 
             // Form1
             // 
@@ -419,10 +506,12 @@
             this.groupBoxDimensionsTables.ResumeLayout(false);
             this.groupBoxDimensionsTables.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -455,10 +544,16 @@
         private System.Windows.Forms.Button btnLoadDataSaleRegion;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button btnSalesProductType;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.Button btnSalesProductType;
+        private System.Windows.Forms.Button btnQuantityWeekly;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart5;
+        private System.Windows.Forms.Button button1;
     }
 }
 
