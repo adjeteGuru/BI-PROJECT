@@ -63,12 +63,14 @@ namespace GITTest
             this.listBoxFromDb = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnGetFactTable = new System.Windows.Forms.Button();
             this.listBoxProductFromDestinationDb = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.barChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.pieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonLoadData = new System.Windows.Forms.Button();
-            this.btnGetFactTable = new System.Windows.Forms.Button();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.labelStartAt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
@@ -78,8 +80,8 @@ namespace GITTest
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lineChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barChart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pieChart)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -317,6 +319,16 @@ namespace GITTest
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnGetFactTable
+            // 
+            this.btnGetFactTable.Location = new System.Drawing.Point(492, 252);
+            this.btnGetFactTable.Name = "btnGetFactTable";
+            this.btnGetFactTable.Size = new System.Drawing.Size(136, 27);
+            this.btnGetFactTable.TabIndex = 13;
+            this.btnGetFactTable.Text = "GetFactTable";
+            this.btnGetFactTable.UseVisualStyleBackColor = true;
+            this.btnGetFactTable.Click += new System.EventHandler(this.btnGetFactTable_Click);
+            // 
             // listBoxProductFromDestinationDb
             // 
             this.listBoxProductFromDestinationDb.FormattingEnabled = true;
@@ -328,8 +340,10 @@ namespace GITTest
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.labelStartAt);
+            this.tabPage2.Controls.Add(this.dateTimePicker);
+            this.tabPage2.Controls.Add(this.lineChart);
             this.tabPage2.Controls.Add(this.barChart);
-            this.tabPage2.Controls.Add(this.pieChart);
             this.tabPage2.Controls.Add(this.buttonLoadData);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
@@ -339,38 +353,38 @@ namespace GITTest
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // barChart
+            // lineChart
             // 
             chartArea1.Name = "ChartArea1";
-            this.barChart.ChartAreas.Add(chartArea1);
+            this.lineChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.barChart.Legends.Add(legend1);
-            this.barChart.Location = new System.Drawing.Point(23, 98);
-            this.barChart.Name = "barChart";
+            this.lineChart.Legends.Add(legend1);
+            this.lineChart.Location = new System.Drawing.Point(398, 98);
+            this.lineChart.Name = "lineChart";
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.barChart.Series.Add(series1);
+            this.lineChart.Series.Add(series1);
+            this.lineChart.Size = new System.Drawing.Size(300, 300);
+            this.lineChart.TabIndex = 3;
+            this.lineChart.Text = "chart1";
+            // 
+            // barChart
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.barChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.barChart.Legends.Add(legend2);
+            this.barChart.Location = new System.Drawing.Point(23, 98);
+            this.barChart.Name = "barChart";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.barChart.Series.Add(series2);
             this.barChart.Size = new System.Drawing.Size(349, 280);
             this.barChart.TabIndex = 2;
             this.barChart.Text = "chart2";
-            // 
-            // pieChart
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.pieChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.pieChart.Legends.Add(legend2);
-            this.pieChart.Location = new System.Drawing.Point(441, 98);
-            this.pieChart.Name = "pieChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.pieChart.Series.Add(series2);
-            this.pieChart.Size = new System.Drawing.Size(279, 280);
-            this.pieChart.TabIndex = 1;
-            this.pieChart.Text = "chart1";
             // 
             // buttonLoadData
             // 
@@ -382,15 +396,21 @@ namespace GITTest
             this.buttonLoadData.UseVisualStyleBackColor = true;
             this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
             // 
-            // btnGetFactTable
+            // dateTimePicker
             // 
-            this.btnGetFactTable.Location = new System.Drawing.Point(492, 252);
-            this.btnGetFactTable.Name = "btnGetFactTable";
-            this.btnGetFactTable.Size = new System.Drawing.Size(136, 27);
-            this.btnGetFactTable.TabIndex = 13;
-            this.btnGetFactTable.Text = "GetFactTable";
-            this.btnGetFactTable.UseVisualStyleBackColor = true;
-            this.btnGetFactTable.Click += new System.EventHandler(this.btnGetFactTable_Click);
+            this.dateTimePicker.Location = new System.Drawing.Point(427, 32);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(200, 25);
+            this.dateTimePicker.TabIndex = 4;
+            // 
+            // labelStartAt
+            // 
+            this.labelStartAt.AutoSize = true;
+            this.labelStartAt.Location = new System.Drawing.Point(350, 39);
+            this.labelStartAt.Name = "labelStartAt";
+            this.labelStartAt.Size = new System.Drawing.Size(71, 15);
+            this.labelStartAt.TabIndex = 5;
+            this.labelStartAt.Text = "Start at";
             // 
             // Form1
             // 
@@ -413,8 +433,9 @@ namespace GITTest
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lineChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barChart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pieChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,9 +477,11 @@ namespace GITTest
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button buttonLoadData;
         private System.Windows.Forms.DataVisualization.Charting.Chart barChart;
-        private System.Windows.Forms.DataVisualization.Charting.Chart pieChart;
         private System.Windows.Forms.ListBox listBoxProductFromDestinationDb;
         private System.Windows.Forms.Button btnGetFactTable;
+        private System.Windows.Forms.DataVisualization.Charting.Chart lineChart;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Label labelStartAt;
     }
 }
 

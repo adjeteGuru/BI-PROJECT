@@ -606,12 +606,25 @@ namespace GITTest
             //This is a hardcoded week - the lowest grade.
             //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
-            List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+            //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
 
+            string selectedDate = Convert.ToDateTime(dateTimePicker.Text).ToString();
+            string[] splitedDate = selectedDate.Split(' ');
+
+            string[] arrayDate = splitedDate[0].Split('/');
+            int year = Convert.ToInt32(arrayDate[0]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[2]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            List<string> datelist = new List<string>(new string[] { dateTime.ToString("M/dd/yyyy"), dateTime.AddDays(1).ToString("M/dd/yyyy"), dateTime.AddDays(2).ToString("M/dd/yyyy"), dateTime.AddDays(3).ToString("M/dd/yyyy"), dateTime.AddDays(4).ToString("M/dd/yyyy"), dateTime.AddDays(5).ToString("M/dd/yyyy"), dateTime.AddDays(6).ToString("M/dd/yyyy") });
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
             //The dictionary type is string, int - date, number of sales.
-            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+            Dictionary<string, double> salesCount = new Dictionary<string, double>();
 
             //Create aconnectionto the MDF file. We only need this ince so its outside my loop
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -624,20 +637,51 @@ namespace GITTest
                     //open the SqlConnection
                     myConnection.Open();
                     //the following code uses an SqlCommand base on the SqlConnection
-                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS quantity FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    SqlCommand command = new SqlCommand("SELECT profit FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
                     command.Parameters.Add(new SqlParameter("date", date));
+                    //SqlCommand command2 = new SqlCommand("SELECT COUNT(*) AS numberOfRecord  FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    //command2.Parameters.Add(new SqlParameter("date", date));
+
+                    //List<int> numberOfRecord = new List<int>();
+                    //using (SqlDataReader reader2 = command2.ExecuteReader())
+                    //{
+                    //    if(reader2.HasRows)
+                    //    {
+                    //        while(reader2.Read())
+                    //        {
+                    //            numberOfRecord.Add(Convert.ToInt32(reader2["numberOfRecord"].ToString()));
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        numberOfRecord.Add(0);
+                    //    }
+                        
+                    //}
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         //if there are rows, it means there were sales
                         if (reader.HasRows)
                         {
+                            double gain = 0;
                             while (reader.Read())
                             {
+
                                 //this line adds a dictionary item with the key of the date, and the value being the sales number
                                 //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
-                                salesCount.Add(date, Int32.Parse(reader["quantity"].ToString()));
+                                
+                                gain = Convert.ToDouble(reader[0].ToString()) + gain;
+                                //int n = 0;
+                                //double gain = 0;
+                                //for (int i = 0; i < numberOfRecord[n]; i++)
+                                //{
+                                //    
+                                //}
+                                
+                                //n++;
                             }
+                            salesCount.Add(date, gain);
                         }
                         //if there are no rows it means there were 0 sales, so we also need to handle this!
                         else
@@ -652,11 +696,16 @@ namespace GITTest
                         barChart.Series[0].YValueMembers = "Value";
                         barChart.DataBind();
 
-                        //or a pie chart                      
-                        pieChart.DataSource = salesCount;
-                        pieChart.Series[0].XValueMember = "Key";
-                        pieChart.Series[0].YValueMembers = "Value";
-                        pieChart.DataBind();
+                        ////or a pie chart                      
+                        //pieChart.DataSource = salesCount;
+                        //pieChart.Series[0].XValueMember = "Key";
+                        //pieChart.Series[0].YValueMembers = "Value";
+                        //pieChart.DataBind();
+
+                        lineChart.DataSource = salesCount;
+                        lineChart.Series[0].XValueMember = "Key";
+                        lineChart.Series[0].YValueMembers = "Value";
+                        lineChart.DataBind();
                     }
                 }
 
