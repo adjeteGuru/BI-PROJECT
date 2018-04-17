@@ -620,10 +620,15 @@ namespace GITTest
             string dbDate = dateTime.ToString("M/dd/yyyy");
 
             List<string> datelist = new List<string>(new string[] { dateTime.ToString("M/dd/yyyy"), dateTime.AddDays(1).ToString("M/dd/yyyy"), dateTime.AddDays(2).ToString("M/dd/yyyy"), dateTime.AddDays(3).ToString("M/dd/yyyy"), dateTime.AddDays(4).ToString("M/dd/yyyy"), dateTime.AddDays(5).ToString("M/dd/yyyy"), dateTime.AddDays(6).ToString("M/dd/yyyy") });
+
+            List<string> productType = new List<string>(new string[] { "Office Supplies", "Furniture", "Technology" });
+
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
             //The dictionary type is string, int - date, number of sales.
             Dictionary<string, double> salesCount = new Dictionary<string, double>();
+
+            Dictionary<string, double> salesByProductType = new Dictionary<string, double>();
 
             //Create aconnectionto the MDF file. We only need this ince so its outside my loop
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -631,6 +636,7 @@ namespace GITTest
             //run this code once for each date in my list - in my case 7 times
             foreach (string date in datelist)
             {
+                
                 using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
                 {
                     //open the SqlConnection
@@ -701,13 +707,58 @@ namespace GITTest
                         //pieChart.Series[0].YValueMembers = "Value";
                         //pieChart.DataBind();
 
-                        lineChart.DataSource = salesCount;
-                        lineChart.Series[0].XValueMember = "Key";
-                        lineChart.Series[0].YValueMembers = "Value";
-                        lineChart.DataBind();
+                       
                     }
                 }
 
+
+            }
+
+            foreach (string category in productType)
+            {
+                double gain = 0;
+
+                foreach (string date in datelist)
+                {
+                    using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                    {
+                        //open the SqlConnection
+                        myConnection.Open();
+                        //the following code uses an SqlCommand base on the SqlConnection
+                        SqlCommand command = new SqlCommand("SELECT profit FROM FactTable JOIN Product ON FactTable.productId = Product.Id JOIN Time ON FactTable.timeId = Time.id WHERE Product.category = @category AND Time.date = @date;", myConnection);
+                        command.Parameters.Add(new SqlParameter("category", category));
+                        command.Parameters.Add(new SqlParameter("date", date));
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            //if there are rows, it means there were sales
+                            if (reader.HasRows)
+                            {
+                                
+                                while (reader.Read())
+                                {
+                                    gain = Convert.ToDouble(reader[0].ToString()) + gain;
+                                }
+                                
+                            }
+                            //if there are no rows it means there were 0 sales, so we also need to handle this!
+                            else
+                            {
+                                
+                            }
+
+                         
+                        }
+
+                    }
+                }
+
+                salesByProductType.Add(category, gain);
+
+                barChart2.DataSource = salesByProductType;
+                barChart2.Series[0].XValueMember = "Key";
+                barChart2.Series[0].YValueMembers = "Value";
+                barChart2.DataBind();
 
             }
         }

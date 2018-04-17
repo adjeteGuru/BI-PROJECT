@@ -68,7 +68,7 @@ namespace GITTest
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelStartAt = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.lineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.barChart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.barChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonLoadData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -80,7 +80,7 @@ namespace GITTest
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lineChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barChart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -342,7 +342,7 @@ namespace GITTest
             // 
             this.tabPage2.Controls.Add(this.labelStartAt);
             this.tabPage2.Controls.Add(this.dateTimePicker);
-            this.tabPage2.Controls.Add(this.lineChart);
+            this.tabPage2.Controls.Add(this.barChart2);
             this.tabPage2.Controls.Add(this.barChart);
             this.tabPage2.Controls.Add(this.buttonLoadData);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -370,22 +370,21 @@ namespace GITTest
             this.dateTimePicker.TabIndex = 4;
             this.dateTimePicker.Value = new System.DateTime(2014, 1, 6, 5, 57, 0, 0);
             // 
-            // lineChart
+            // barChart2
             // 
             chartArea1.Name = "ChartArea1";
-            this.lineChart.ChartAreas.Add(chartArea1);
+            this.barChart2.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.lineChart.Legends.Add(legend1);
-            this.lineChart.Location = new System.Drawing.Point(398, 98);
-            this.lineChart.Name = "lineChart";
+            this.barChart2.Legends.Add(legend1);
+            this.barChart2.Location = new System.Drawing.Point(398, 98);
+            this.barChart2.Name = "barChart2";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.lineChart.Series.Add(series1);
-            this.lineChart.Size = new System.Drawing.Size(300, 300);
-            this.lineChart.TabIndex = 3;
-            this.lineChart.Text = "chart1";
+            this.barChart2.Series.Add(series1);
+            this.barChart2.Size = new System.Drawing.Size(300, 300);
+            this.barChart2.TabIndex = 3;
+            this.barChart2.Text = "chart1";
             // 
             // barChart
             // 
@@ -417,7 +416,7 @@ namespace GITTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 533);
+            this.ClientSize = new System.Drawing.Size(1238, 533);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -435,7 +434,7 @@ namespace GITTest
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lineChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barChart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -480,7 +479,7 @@ namespace GITTest
         private System.Windows.Forms.DataVisualization.Charting.Chart barChart;
         private System.Windows.Forms.ListBox listBoxProductFromDestinationDb;
         private System.Windows.Forms.Button btnGetFactTable;
-        private System.Windows.Forms.DataVisualization.Charting.Chart lineChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart barChart2;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Label labelStartAt;
     }
