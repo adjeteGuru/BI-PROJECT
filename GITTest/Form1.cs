@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -799,6 +800,31 @@ namespace GITTest
                 reader = getFact.ExecuteReader();
                 while (reader.Read())
                 {
+                    bool error = false;
+
+                    //Check Order Date
+                    try
+                    {
+                        DateTime tempDate;
+                        tempDate = Convert.ToDateTime(reader[0].ToString());
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
+
+
+                    //Check Customer ID
+                    if (VerifyCustomerId(reader[1].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+
+
+                    if (error == true)
+
                     //we enlist the columns to be read
                     Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
@@ -810,7 +836,7 @@ namespace GITTest
                     double profit = Convert.ToDouble(reader[6]);
                     int quantity = Convert.ToInt32(reader[4]);
                     //double value = (sales / discount - profit) / quantity;
-                    double value = sales/ quantity;
+                    double value = sales / quantity;
 
 
                     // insert properties into the fact table dimension
@@ -819,6 +845,9 @@ namespace GITTest
                 //display the records being inserted to the fact table
                 listBoxFactTableSource.DataSource = Fact;
             }
+
+
+
             //begin to read data from the second data source
             //using (OleDbConnection connection = new OleDbConnection(connectionString2))
             //{
@@ -849,6 +878,12 @@ namespace GITTest
             //    //display the records being inserted to the fact table
             //    listBoxFactTableSource.DataSource = Fact;
             //}
+        }
+        private static readonly Regex customerIDCheck = new Regex(@"^(\w+\)-(\d{5})$");   /* @"^\d-\d{5}$"*/   /*@"[A-Z]{2}-[0-9]\d{5}"*/
+
+        public static bool VerifyCustomerId(string customerID)
+        {
+            return customerIDCheck.IsMatch(customerID);
         }
 
         private void btnLoadDataSaleRegion_Click(object sender, EventArgs e)
