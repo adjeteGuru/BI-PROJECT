@@ -35,9 +35,9 @@ namespace GITTest
         {
             //Split the date down and assign it to variables for later use.
             string[] arrayDate = date.Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
+            int year = Convert.ToInt32(arrayDate[2]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
+            int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -112,9 +112,9 @@ namespace GITTest
             string[] dateWithoutTime = date.Split(' ');
 
             string[] arrayDate = dateWithoutTime[0].Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
+            int year = Convert.ToInt32(arrayDate[2]);
             int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
+            int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime dateTime = new DateTime(year, month, day);
 
@@ -130,10 +130,9 @@ namespace GITTest
                 myConnection.Open();
                 //The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT id FROM Time Where date = @date", myConnection);
-                command.Parameters.Add(new SqlParameter("date", date));
+                command.Parameters.Add(new SqlParameter("date", dbDate));
 
-                //create a variable and assign it to false by default.
-                bool exists = false;
+              
 
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
