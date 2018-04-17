@@ -66,11 +66,11 @@ namespace GITTest
             this.btnGetFactTable = new System.Windows.Forms.Button();
             this.listBoxProductFromDestinationDb = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelStartAt = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.lineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.barChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonLoadData = new System.Windows.Forms.Button();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.labelStartAt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinationDatabaseDataSet2)).BeginInit();
@@ -353,6 +353,23 @@ namespace GITTest
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // labelStartAt
+            // 
+            this.labelStartAt.AutoSize = true;
+            this.labelStartAt.Location = new System.Drawing.Point(350, 39);
+            this.labelStartAt.Name = "labelStartAt";
+            this.labelStartAt.Size = new System.Drawing.Size(71, 15);
+            this.labelStartAt.TabIndex = 5;
+            this.labelStartAt.Text = "Start at";
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(427, 32);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(200, 25);
+            this.dateTimePicker.TabIndex = 4;
+            this.dateTimePicker.Value = new System.DateTime(2014, 1, 6, 5, 57, 0, 0);
+            // 
             // lineChart
             // 
             chartArea1.Name = "ChartArea1";
@@ -395,22 +412,6 @@ namespace GITTest
             this.buttonLoadData.Text = "Load Data";
             this.buttonLoadData.UseVisualStyleBackColor = true;
             this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Location = new System.Drawing.Point(427, 32);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(200, 25);
-            this.dateTimePicker.TabIndex = 4;
-            // 
-            // labelStartAt
-            // 
-            this.labelStartAt.AutoSize = true;
-            this.labelStartAt.Location = new System.Drawing.Point(350, 39);
-            this.labelStartAt.Name = "labelStartAt";
-            this.labelStartAt.Size = new System.Drawing.Size(71, 15);
-            this.labelStartAt.TabIndex = 5;
-            this.labelStartAt.Text = "Start at";
             // 
             // Form1
             // 
