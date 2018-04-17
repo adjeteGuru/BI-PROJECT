@@ -646,7 +646,7 @@ namespace GITTest
                 reader = getProducts.ExecuteReader();
                 while (reader.Read())
                 {
-
+                    //
                     Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
 
                     string category = reader[4].ToString();
