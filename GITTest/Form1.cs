@@ -902,6 +902,10 @@ namespace GITTest
                         error = true;
                     }
 
+                    //if (error == true )
+                    //{
+                    //    Fact.Add(reader.);
+                    //}
 
 
                     if (error == false)
