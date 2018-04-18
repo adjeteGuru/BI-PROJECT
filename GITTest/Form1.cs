@@ -881,6 +881,12 @@ namespace GITTest
                         error = true;
                     }
 
+                    //check productID
+
+                    if (VerifyProductId(reader[2].ToString()) == false)
+                    {
+                        error = true;
+                    }
 
                     //if error == false;
                     //
@@ -928,6 +934,17 @@ namespace GITTest
         {
             return customerIDCheck.IsMatch(customerID);
         }
+
+
+
+        private static readonly Regex productIDCheck = new Regex(@"^\w+\w+\-\d{8}$");  
+
+        public static bool VerifyProductId(string productID)
+        {
+            return productIDCheck.IsMatch(productID);
+        }
+
+
 
         private void btnLoadDataSaleRegion_Click(object sender, EventArgs e)
         {
