@@ -27,7 +27,7 @@ namespace GITTest
 
             //Split the date down and assign it to variables for later use. 
             string[] dateWithoutTime = date.Split(' ');
-            
+
             string[] arrayDate = dateWithoutTime[0].Split('/');
 
 
@@ -87,7 +87,7 @@ namespace GITTest
 
             }
 
-            
+
 
         }
 
@@ -132,7 +132,7 @@ namespace GITTest
                         {
                             productId = Convert.ToInt32(reader["Id"].ToString());
                         }
-                        
+
                     }
                     return productId;
                 }
@@ -354,29 +354,29 @@ namespace GITTest
                 //Open the SqlConnection
                 myConnection.Open();
 
-                
-
-                    SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
-                        " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
-                    insertCommand.Parameters.Add(new SqlParameter("productId", productId));
-                    insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
-                    insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
-                    insertCommand.Parameters.Add(new SqlParameter("value", value));
-                    insertCommand.Parameters.Add(new SqlParameter("discount", discount));
-                    insertCommand.Parameters.Add(new SqlParameter("profit", profit));
-                    insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
 
 
-                    // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
-                    //insert the line
-                    int recordsAffected = insertCommand.ExecuteNonQuery();
-                    Console.WriteLine("build Fact Table Records affected: " + recordsAffected);
-                
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
+                    " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
+                insertCommand.Parameters.Add(new SqlParameter("productId", productId));
+                insertCommand.Parameters.Add(new SqlParameter("timeId", timeId));
+                insertCommand.Parameters.Add(new SqlParameter("customerId", customerId));
+                insertCommand.Parameters.Add(new SqlParameter("value", value));
+                insertCommand.Parameters.Add(new SqlParameter("discount", discount));
+                insertCommand.Parameters.Add(new SqlParameter("profit", profit));
+                insertCommand.Parameters.Add(new SqlParameter("quantity", quantity));
+
+
+                // FINALLY THESE TWO LINES OF CODES MUST BE COMMENT OUT
+                //insert the line
+                int recordsAffected = insertCommand.ExecuteNonQuery();
+                Console.WriteLine("build Fact Table Records affected: " + recordsAffected);
+
 
             }
         }
 
-        
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -439,7 +439,7 @@ namespace GITTest
 
                     bool error = false;
 
-                   
+
                     //Check Customer ID for irregular data
                     if (VerifyCustomerId(reader[0].ToString()) == false)
 
@@ -447,36 +447,36 @@ namespace GITTest
                         error = true;
                     }
 
-                    
+
                     if (error == false)
                     {
 
-                    
 
-                    //we enlist the columns to be read
-                    Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
-                    string CustomerID = Convert.ToString(reader[0]);
-                    //split name into firstname and lastname
-                    string name = Convert.ToString(reader[1]);
-                    string[] splitname = name.Split(new char[] { ' ' });
-                    string firstName = Convert.ToString(splitname[0]);
-                    string lastName = Convert.ToString(splitname[1]);
-                    string country = Convert.ToString(reader[2]);
-                    string city = Convert.ToString(reader[3]);
-                    string state = Convert.ToString(reader[4]);
-                    string postalCode = Convert.ToString(reader[5]);
-                    string region = Convert.ToString(reader[6]);
+                        //we enlist the columns to be read
+                        Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
-                    // insert properties into the customer table dimension
-                    insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+                        string CustomerID = Convert.ToString(reader[0]);
+                        //split name into firstname and lastname
+                        string name = Convert.ToString(reader[1]);
+                        string[] splitname = name.Split(new char[] { ' ' });
+                        string firstName = Convert.ToString(splitname[0]);
+                        string lastName = Convert.ToString(splitname[1]);
+                        string country = Convert.ToString(reader[2]);
+                        string city = Convert.ToString(reader[3]);
+                        string state = Convert.ToString(reader[4]);
+                        string postalCode = Convert.ToString(reader[5]);
+                        string region = Convert.ToString(reader[6]);
+
+                        // insert properties into the customer table dimension
+                        insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
 
                     }
                 }
             }
-            
-                //Create new list to store the indexed results in.
-                List<string> DestinationCustomersNamed = new List<string>();
+
+            //Create new list to store the indexed results in.
+            List<string> DestinationCustomersNamed = new List<string>();
 
             //Create the database string 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -523,7 +523,7 @@ namespace GITTest
             List<string> Customer = new List<string>();
 
             List<string> Fact = new List<string>();
-            
+
 
             //create the database string 
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -654,7 +654,7 @@ namespace GITTest
                 connection.Open();
                 OleDbDataReader reader = null;
                 //new select command to pull data from sheet2
-                
+
                 OleDbCommand getProducts = new OleDbCommand("SELECT [Product Id], [Product Name], Category, [Sub-Category] from [Student Sample 2 - Sheet1]", connection);
 
                 reader = getProducts.ExecuteReader();
@@ -714,13 +714,13 @@ namespace GITTest
 
         }
 
-        
+
         private void btnDates_Click(object sender, EventArgs e)
         {
             List<string> Dates = new List<string>();
             //clear the listbox 
             //listBoxDates.Items.Clear();
-           //create the database string 
+            //create the database string 
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
             string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
@@ -732,7 +732,7 @@ namespace GITTest
                 reader = getDates.ExecuteReader();
                 while (reader.Read())
                 {
-                    Dates.Add(reader[0].ToString());            
+                    Dates.Add(reader[0].ToString());
                     Dates.Add(reader[1].ToString());
                 }
                 connection.Close();
@@ -877,7 +877,7 @@ namespace GITTest
                         error = true;
                     }
 
-                    
+
                     //check for sales
                     try
                     {
@@ -915,9 +915,9 @@ namespace GITTest
                         }
                         else
                         {
-               
+
                             error = true;
-                           
+
                         }
                     }
                 }
@@ -927,7 +927,7 @@ namespace GITTest
         }
 
         //declaring a regex variable to allow for use in validating customerID and the acceptable format in regular expression
-        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");   
+        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");
 
         public static bool VerifyCustomerId(string customerID)
         {
@@ -937,7 +937,7 @@ namespace GITTest
 
 
         //declaring a regex variable to allow for use in validating productID and the acceptable format in regular expression
-        private static readonly Regex productIDCheck = new Regex(@"^\w+\-\w+\-\d{8}$");  
+        private static readonly Regex productIDCheck = new Regex(@"^\w+\-\w+\-\d{8}$");
 
         public static bool VerifyProductId(string productID)
         {
@@ -957,9 +957,9 @@ namespace GITTest
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
             //run the code once for each date in the list
-            foreach(string region in regionList)
+            foreach (string region in regionList)
             {
-                using(SqlConnection myConnection=new SqlConnection(connectionStringDestination))
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
                 {
                     //Open the SqlConnection
                     myConnection.Open();
@@ -968,7 +968,7 @@ namespace GITTest
                         "ON FactTable.customerId = Customer.Id WHERE Customer.region = @region; ", myConnection);
                     command.Parameters.Add(new SqlParameter("region", region));
 
-                    using(SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         //If there are rows, it means there were sales
                         if (reader.HasRows)
@@ -992,11 +992,9 @@ namespace GITTest
             chart1.Series[0].YValueMembers = "Value";
             chart1.DataBind();
 
+            ///-------------------------------------------------------------------------------------------------------------
+            ///
 
-        }
-
-        private void btnQuantityWeekly_Click_1(object sender, EventArgs e)
-        {
             //This is a hardcoded week - the lowest grade.
             //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
@@ -1006,10 +1004,10 @@ namespace GITTest
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
             //The dictionary type is string, int - date, number of sales.
-            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+            Dictionary<string, int> quantity = new Dictionary<string, int>();
 
             //Create aconnectionto the MDF file. We only need this ince so its outside my loop
-            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+            // string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
 
             //run this code once for each date in my list - in my case 7 times
             foreach (string date in datelist)
@@ -1031,82 +1029,33 @@ namespace GITTest
                             {
                                 //this line adds a dictionary item with the key of the date, and the value being the sales number
                                 //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
-                                salesCount.Add(date, Int32.Parse(reader["quantity"].ToString()));
+                                quantity.Add(date, Int32.Parse(reader["quantity"].ToString()));
                             }
                         }
                         //if there are no rows it means there were 0 sales, so we also need to handle this!
                         else
                         {
-                            salesCount.Add(date, 0);
+                            quantity.Add(date, 0);
                         }
                         //end of the foreach loop. we now have a (hopefully) filled array
 
                         //now to bulid a bar chart
-                        chart4.DataSource = salesCount;
+                        chart4.DataSource = quantity;
                         chart4.Series[0].XValueMember = "Key";
                         chart4.Series[0].YValueMembers = "Value";
                         chart4.DataBind();
                     }
                 }
             }
-        }
 
-        private void btnSalesProductType_Click_1(object sender, EventArgs e)
-        {
-            //Create a list to handle the region
-            List<string> categoryList = new List<string>(new string[] { "Office Supplies", "Furniture", "Technology" });
-            //Create a dictionary to habdle salesCount
-            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+            //--------------------------------------------------------------------------------------------
 
-            //Create a connection to the MDF file
-            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
-
-            //run the code once for each date in the list
-            foreach (string category in categoryList)
-            {
-                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
-                {
-                    //Open the SqlConnection
-                    myConnection.Open();
-                    //The following code use an SqlCommand based on the SqlConnection
-                    SqlCommand command = new SqlCommand("SELECT COUNT(*) AS SalesNumber FROM FactTable JOIN Product " +
-                        "ON FactTable.productId = Product.Id WHERE Product.category = @category; ", myConnection);
-                    command.Parameters.Add(new SqlParameter("category", category));
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        //If there are rows, it means there were sales
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                salesCount.Add(category, Int32.Parse(reader["SalesNumber"].ToString()));
-                            }
-                        }
-                        //if there are no rows it means there were 0 sales
-                        else
-                        {
-                            salesCount.Add(category, 0);
-                        }
-                    }
-                }
-            }
-            //End foreach
-            chart3.DataSource = salesCount;
-            chart3.Series[0].XValueMember = "Key";
-            chart3.Series[0].YValueMembers = "Value";
-            chart3.DataBind();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
             //Create a list to handle the region
             List<string> stateList = new List<string>(new string[] { "Texas", "Illinois", "Pennsylvania", "California", "Georgia", "Kentucky", "Virginia", "Delaware", "Louisiana", "South Carolina" });
             //Create a dictionary to habdle salesCount
-            Dictionary<string, int> salesCount = new Dictionary<string, int>();
+            Dictionary<string, int> SaleByState = new Dictionary<string, int>();
 
-            //Create a connection to the MDF file
-            string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
+
 
             //run the code once for each date in the list
             foreach (string state in stateList)
@@ -1127,22 +1076,175 @@ namespace GITTest
                         {
                             while (reader.Read())
                             {
-                                salesCount.Add(state, Int32.Parse(reader["SalesNumber"].ToString()));
+                                SaleByState.Add(state, Int32.Parse(reader["SalesNumber"].ToString()));
                             }
                         }
                         //if there are no rows it means there were 0 sales
                         else
                         {
-                            salesCount.Add(state, 0);
+                            SaleByState.Add(state, 0);
                         }
                     }
                 }
             }
             //End foreach
-            chart5.DataSource = salesCount;
+            chart5.DataSource = SaleByState;
             chart5.Series[0].XValueMember = "Key";
             chart5.Series[0].YValueMembers = "Value";
             chart5.DataBind();
+
+            //-----------------------------------------------------------------------------------------------------
+
+            //This is a hardcoded week - the lowest grade.
+            //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
+            //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
+            //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+
+            string selectedDate = Convert.ToDateTime(dateTimePicker.Text).ToString();
+            string[] splitedDate = selectedDate.Split(' ');
+
+            string[] arrayDate = splitedDate[0].Split('/');
+            int year = Convert.ToInt32(arrayDate[0]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[2]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            List<string> datelist2 = new List<string>(new string[] { dateTime.ToString("M/dd/yyyy"), dateTime.AddDays(1).ToString("M/dd/yyyy"), dateTime.AddDays(2).ToString("M/dd/yyyy"), dateTime.AddDays(3).ToString("M/dd/yyyy"), dateTime.AddDays(4).ToString("M/dd/yyyy"), dateTime.AddDays(5).ToString("M/dd/yyyy"), dateTime.AddDays(6).ToString("M/dd/yyyy") });
+
+            List<string> productType = new List<string>(new string[] { "Office Supplies", "Furniture", "Technology" });
+
+            //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
+            //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
+            //The dictionary type is string, int - date, number of sales.
+            Dictionary<string, double> Sale = new Dictionary<string, double>();
+
+            Dictionary<string, double> salesByProductType = new Dictionary<string, double>();
+
+
+
+            //run this code once for each date in my list - in my case 7 times
+            foreach (string date in datelist2)
+            {
+
+                using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                {
+                    //open the SqlConnection
+                    myConnection.Open();
+                    //the following code uses an SqlCommand base on the SqlConnection
+                    SqlCommand command = new SqlCommand("SELECT profit FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
+                    command.Parameters.Add(new SqlParameter("date", date));
+
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //if there are rows, it means there were sales
+                        if (reader.HasRows)
+                        {
+                            double gain = 0;
+                            while (reader.Read())
+                            {
+
+                                //this line adds a dictionary item with the key of the date, and the value being the sales number
+                                //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
+
+                                gain = Convert.ToDouble(reader[0].ToString()) + gain;
+
+                            }
+                            Sale.Add(date, gain);
+                        }
+                        //if there are no rows it means there were 0 sales, so we also need to handle this!
+                        else
+                        {
+                            Sale.Add(date, 0);
+                        }
+                        //end of the foreach loop. we now have a (hopefully) filled array
+
+                        //now to bulid a bar chart
+                        chart6.DataSource = Sale;
+                        chart6.Series[0].XValueMember = "Key";
+                        chart6.Series[0].YValueMembers = "Value";
+                        chart6.DataBind();
+
+                        ////or a pie chart                      
+                        //pieChart.DataSource = salesCount;
+                        //pieChart.Series[0].XValueMember = "Key";
+                        //pieChart.Series[0].YValueMembers = "Value";
+                        //pieChart.DataBind();
+
+
+                    }
+                }
+
+
+            }
+
+            foreach (string category in productType)
+            {
+                double gain = 0;
+
+                foreach (string date in datelist2)
+                {
+                    using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
+                    {
+                        //open the SqlConnection
+                        myConnection.Open();
+                        //the following code uses an SqlCommand base on the SqlConnection
+                        SqlCommand command = new SqlCommand("SELECT profit FROM FactTable JOIN Product ON FactTable.productId = Product.Id JOIN Time ON FactTable.timeId = Time.id WHERE Product.category = @category AND Time.date = @date;", myConnection);
+                        command.Parameters.Add(new SqlParameter("category", category));
+                        command.Parameters.Add(new SqlParameter("date", date));
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            //if there are rows, it means there were sales
+                            if (reader.HasRows)
+                            {
+
+                                while (reader.Read())
+                                {
+                                    gain = Convert.ToDouble(reader[0].ToString()) + gain;
+                                }
+
+                            }
+                            //if there are no rows it means there were 0 sales, so we also need to handle this!
+                            else
+                            {
+
+                            }
+
+
+                        }
+
+                    }
+                }
+
+                salesByProductType.Add(category, gain);
+
+                chart7.DataSource = salesByProductType;
+                chart7.Series[0].XValueMember = "Key";
+                chart7.Series[0].YValueMembers = "Value";
+                chart7.DataBind();
+
+            }
+        }
+    
+
+
+        private void btnQuantityWeekly_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnSalesProductType_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void buttonProfit_Click(object sender, EventArgs e)
@@ -1306,6 +1408,11 @@ namespace GITTest
                 chart7.DataBind();
 
             }
+        }
+
+        private void buttonProfit_Click_1(object sender, EventArgs e)
+        {
+            
         }
     }
 }
