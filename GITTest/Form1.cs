@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -91,7 +92,7 @@ namespace GITTest
         }
 
         //Get Product ID
-        private int GetProductId(string product)
+        private int GetProductId(string productcode)
 
         {
 
@@ -112,7 +113,7 @@ namespace GITTest
 
                 SqlCommand command = new SqlCommand("SELECT Id FROM Product Where productcode = @productcode", myConnection);
 
-                command.Parameters.Add(new SqlParameter("productcode", product));
+                command.Parameters.Add(new SqlParameter("productcode", productcode));
 
 
                 //Run the command & read the results 
@@ -122,7 +123,7 @@ namespace GITTest
                 {
                     int productId = 0;
 
-                    //if there are rows, it means the date exists so change the exists variable. 
+                    //if there are rows, it means the product exists so change the exists variable. 
 
                     if (reader.HasRows)
 
@@ -141,7 +142,7 @@ namespace GITTest
         }
 
         //Get Customer Id
-        private int GetCustomerId(string Customer)
+        private int GetCustomerId(string CustomerID)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -153,7 +154,7 @@ namespace GITTest
                 myConnection.Open();
                 // The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE CustomerID = @CustomerID", myConnection);
-                command.Parameters.Add(new SqlParameter("CustomerID", Customer));
+                command.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
 
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -353,29 +354,7 @@ namespace GITTest
                 //Open the SqlConnection
                 myConnection.Open();
 
-                //YOU MISSED TO REAJUST THIS LINE OF CODE 'select id from customer where firstName=@firstName
-                //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
-
-                /*no idea what this is doing
-                //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE productId=@productId", myConnection);
-
-                //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
-                command.Parameters.Add(new SqlParameter("productId", productId));
-
-                //Create a variable and assign it to false by defult
-                bool exists = false;
-
                 
-
-                //Run the command & read the results
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    //if there are rows, it means the customer exsists so change the exsists variable
-                    if (reader.HasRows) exists = true;
-                }
-
-                */
 
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
                         " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
@@ -397,15 +376,7 @@ namespace GITTest
             }
         }
 
-        //TODO: I MESSED UP THIS PIECES OF CODE IN THE FORM1 DESIGN VIEW (accidently delete the settu on the form1) so please re do them again
-
-        //private void customerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        //{
-        //    this.Validate();
-        //    this.customerBindingSource.EndEdit();
-        //    this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
-
-        //}
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -465,6 +436,23 @@ namespace GITTest
                 reader = getCustomer.ExecuteReader();
                 while (reader.Read())
                 {
+
+                    bool error = false;
+
+                   
+                    //Check Customer ID for irregular data
+                    if (VerifyCustomerId(reader[0].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+                    
+                    if (error == false)
+                    {
+
+                    
+
                     //we enlist the columns to be read
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
@@ -482,6 +470,8 @@ namespace GITTest
 
                     // insert properties into the customer table dimension
                     insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+
+                    }
                 }
             }
             
@@ -647,7 +637,7 @@ namespace GITTest
                 while (reader.Read())
                 {
 
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    Products.Add(reader[0].ToString().TrimEnd() + ", " + reader[1].ToString().TrimEnd() + ", " + reader[2].ToString().TrimEnd() + ", " + reader[3].ToString().TrimEnd() + ", " + reader[4].ToString().TrimEnd() + ", " + reader[5].ToString().TrimEnd());
 
                     string category = reader[4].ToString();
                     string subcategory = reader[5].ToString();
@@ -788,7 +778,7 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            //string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -799,57 +789,162 @@ namespace GITTest
                 reader = getFact.ExecuteReader();
                 while (reader.Read())
                 {
-                    //we enlist the columns to be read
-                    Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                    bool error = false;
 
-                    int productId = GetProductId(reader[2].ToString());
-                    int TimeId = GetDateId(reader[0].ToString());
-                    int CustomerId = GetCustomerId(reader[1].ToString());
-                    double sales = Convert.ToDouble(reader[3]);
-                    double discount = Convert.ToDouble(reader[5]);
-                    double profit = Convert.ToDouble(reader[6]);
-                    int quantity = Convert.ToInt32(reader[4]);
-                    //double value = (sales / discount - profit) / quantity;
-                    double value = sales/ quantity;
+                    //Check Order Date column for incorrect date format
+                    try
+                    {
+                        DateTime tempDate;
+                        tempDate = Convert.ToDateTime(reader[0].ToString());
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
 
 
-                    // insert properties into the fact table dimension
-                    insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                    //Check customerID column for incorrect customerID format
+                    if (VerifyCustomerId(reader[1].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+
+                    //go ahead to insert only when there are no errors
+                    if (error == false)
+                    {
+
+                        //we enlist the columns to be read
+                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+                        int productId = GetProductId(reader[2].ToString());
+                        int TimeId = GetDateId(reader[0].ToString());
+                        int CustomerId = GetCustomerId(reader[1].ToString());
+                        double sales = Convert.ToDouble(reader[3]);
+                        double discount = Convert.ToDouble(reader[5]);
+                        double profit = Convert.ToDouble(reader[6]);
+                        int quantity = Convert.ToInt32(reader[4]);
+                        //double value = (sales / discount - profit) / quantity;
+                        double value = sales / quantity;
+
+
+                        // insert properties into the fact table dimension
+                        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                    }
                 }
                 //display the records being inserted to the fact table
                 listBoxFactTableSource.DataSource = Fact;
             }
+
+
+
             //begin to read data from the second data source
-            //using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            //{
-            //    //open the connection
-            //    connection.Open();
-            //    OleDbDataReader reader = null;
-            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
-            //    reader = getFact.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        //we enlist the columns to be read
-            //        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
+                reader = getFact.ExecuteReader();
+                while (reader.Read())
+                {
+                    bool error = false;
 
-            //        int productId = GetProductId(reader[2].ToString());
-            //        int TimeId = GetDateId(reader[0].ToString());
-            //        int CustomerId = GetCustomerId(reader[1].ToString());
-            //        double sales = Convert.ToDouble(reader[3]);
-            //        double discount = Convert.ToDouble(reader[5]);
-            //        double profit = Convert.ToDouble(reader[6]);
-            //        int quantity = Convert.ToInt32(reader[4]);
-            //        //double value = (sales / discount - profit) / quantity;
-            //        double value = sales / quantity;
+                    //Check Order Date for incorrect date format
+                    try
+                    {
+                        DateTime tempDate;
+                        tempDate = Convert.ToDateTime(reader[0].ToString());
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
 
 
-            //        // insert properties into the customer table dimension
-            //        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
-            //    }
-            //    //display the records being inserted to the fact table
-            //    listBoxFactTableSource.DataSource = Fact;
-            //}
+                    //Check Customer ID for incorrect customerID format
+                    if (VerifyCustomerId(reader[1].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+                    //check productID for incorrect productID format
+
+                    if (VerifyProductId(reader[2].ToString()) == false)
+                    {
+                        error = true;
+                    }
+
+                    
+                    //check for sales
+                    try
+                    {
+                        decimal tempSales;
+                        tempSales = Convert.ToDecimal(reader[3].ToString());
+
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
+
+
+                    //if there are no errors, proceed to insert the row.
+                    if (error == false)
+                    {
+                        //we enlist the columns to be read
+                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+                        int productId = GetProductId(reader[2].ToString());
+                        int TimeId = GetDateId(reader[0].ToString());
+                        int CustomerId = GetCustomerId(reader[1].ToString());
+                        double sales = Convert.ToDouble(reader[3]);
+                        double discount = Convert.ToDouble(reader[5]);
+                        double profit = Convert.ToDouble(reader[6]);
+                        int quantity = Convert.ToInt32(reader[4]);
+                        //double value = (sales / discount - profit) / quantity;
+                        double value = sales / quantity;
+
+                        //check to ensure all 3 foreign keys have valid values
+                        if (productId > 0 & CustomerId > 0 & TimeId > 0)
+                        {
+                            // insert properties into the customer table dimension
+                            insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                        }
+                        else
+                        {
+               
+                            error = true;
+                           
+                        }
+                    }
+                }
+                //display the records being inserted to the fact table
+                listBoxFactTableSource.DataSource = Fact;
+            }
         }
+
+        //declaring a regex variable to allow for use in validating customerID and the acceptable format in regular expression
+        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");   
+
+        public static bool VerifyCustomerId(string customerID)
+        {
+            //return value
+            return customerIDCheck.IsMatch(customerID);
+        }
+
+
+        //declaring a regex variable to allow for use in validating productID and the acceptable format in regular expression
+        private static readonly Regex productIDCheck = new Regex(@"^\w+\-\w+\-\d{8}$");  
+
+        public static bool VerifyProductId(string productID)
+        {
+            //return value
+            return productIDCheck.IsMatch(productID);
+        }
+
 
         private void btnLoadDataSaleRegion_Click(object sender, EventArgs e)
         {
