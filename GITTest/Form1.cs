@@ -123,7 +123,7 @@ namespace GITTest
                 {
                     int productId = 0;
 
-                    //if there are rows, it means the date exists so change the exists variable. 
+                    //if there are rows, it means the product exists so change the exists variable. 
 
                     if (reader.HasRows)
 
@@ -398,15 +398,7 @@ namespace GITTest
             }
         }
 
-        //TODO: I MESSED UP THIS PIECES OF CODE IN THE FORM1 DESIGN VIEW (accidently delete the settu on the form1) so please re do them again
-
-        //private void customerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        //{
-        //    this.Validate();
-        //    this.customerBindingSource.EndEdit();
-        //    this.tableAdapterManager.UpdateAll(this.destinationDatabaseDataSet1);
-
-        //}
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -469,46 +461,15 @@ namespace GITTest
 
                     bool error = false;
 
-                    //Check Order Date
-                    //try
-                    //{
-                    //    DateTime tempDate;
-                    //    tempDate = Convert.ToDateTime(reader[0].ToString());
-                    //}
-                    //catch
-                    //{
-                    //    error = true;
-                    //}
-
-
-                    //Check Customer ID
+                   
+                    //Check Customer ID for irregular data
                     if (VerifyCustomerId(reader[0].ToString()) == false)
 
                     {
                         error = true;
                     }
 
-                    //check productID
-
-                    //if (VerifyProductId(reader[2].ToString()) == false)
-                    //{
-                    //    error = true;
-                    //}
-
-                    //if error == false;
-                    //
-                    //check for sales
-                    //try
-                    //{
-                    //    decimal tempSales;
-                    //    tempSales = Convert.ToDecimal(reader[3].ToString());
-
-                    //}
-                    //catch
-                    //{
-                    //    error = true;
-                    //}
-
+                    
                     if (error == false)
                     {
 
@@ -839,7 +800,7 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+            //string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -852,7 +813,7 @@ namespace GITTest
                 {
                     bool error = false;
 
-                    //Check Order Date
+                    //Check Order Date column for irregular data
                     try
                     {
                         DateTime tempDate;
@@ -864,7 +825,7 @@ namespace GITTest
                     }
 
 
-                    //Check Customer ID
+                    //Check customerID column for irregular data
                     if (VerifyCustomerId(reader[1].ToString()) == false)
 
                     {
@@ -900,103 +861,117 @@ namespace GITTest
 
 
 
-            //begin to read data from the second data source
-            using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            {
-                //open the connection
-                connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
-                reader = getFact.ExecuteReader();
-                while (reader.Read())
-                {
-                    bool error = false;
+            ////begin to read data from the second data source
+            //using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            //{
+            //    //open the connection
+            //    connection.Open();
+            //    OleDbDataReader reader = null;
+            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
+            //    reader = getFact.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        bool error = false;
 
-                    //Check Order Date
-                    try
-                    {
-                        DateTime tempDate;
-                        tempDate = Convert.ToDateTime(reader[0].ToString());
-                    }
-                    catch
-                    {
-                        error = true;
-                    }
-
-
-                    //Check Customer ID
-                    if (VerifyCustomerId(reader[1].ToString()) == false)
-
-                    {
-                        error = true;
-                    }
-
-                    //check productID
-
-                    if (VerifyProductId(reader[2].ToString()) == false)
-                    {
-                        error = true;
-                    }
-
-                    //if error == false;
-                    //
-                    //check for sales
-                    try
-                    {
-                        decimal tempSales;
-                        tempSales = Convert.ToDecimal(reader[3].ToString());
-
-                    }
-                    catch
-                    {
-                        error = true;
-                    }
-
-                    //if (error == true)
-                    //{
-                    //    Fact.Add(reader.NextResult());
-                    //}
+            //        //Check Order Date
+            //        try
+            //        {
+            //            DateTime tempDate;
+            //            tempDate = Convert.ToDateTime(reader[0].ToString());
+            //        }
+            //        catch
+            //        {
+            //            error = true;
+            //        }
 
 
-                    if (error == false)
-                    {
-                        //we enlist the columns to be read
-                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+            //        //Check Customer ID for irregular data
+            //        if (VerifyCustomerId(reader[1].ToString()) == false)
 
-                        int productId = GetProductId(reader[2].ToString());
-                        int TimeId = GetDateId(reader[0].ToString());
-                        int CustomerId = GetCustomerId(reader[1].ToString());
-                        double sales = Convert.ToDouble(reader[3]);
-                        double discount = Convert.ToDouble(reader[5]);
-                        double profit = Convert.ToDouble(reader[6]);
-                        int quantity = Convert.ToInt32(reader[4]);
-                        //double value = (sales / discount - profit) / quantity;
-                        double value = sales / quantity;
+            //        {
+            //            error = true;
+            //        }
+
+            //        //check productID for irregular data
+
+            //        if (VerifyProductId(reader[2].ToString()) == false)
+            //        {
+            //            error = true;
+            //        }
+
+            //        //check for productID Match
+
+            //        //if (MatchProductId(reader[2].ToString()) == true)
+            //        //{
+            //        //    error = true;
+            //        //}
 
 
-                        // insert properties into the customer table dimension
-                        insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
-                    }
-                }
-                //display the records being inserted to the fact table
-                listBoxFactTableSource.DataSource = Fact;
-            }
+            //        //check for sales
+            //        try
+            //        {
+            //            decimal tempSales;
+            //            tempSales = Convert.ToDecimal(reader[3].ToString());
+
+            //        }
+            //        catch
+            //        {
+            //            error = true;
+            //        }
+
+                    
+            //        //if there are no errors, proceed to insert the row.
+            //        if (error == false)
+            //        {
+            //            //we enlist the columns to be read
+            //            Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+            //            int productId = GetProductId(reader[2].ToString());
+            //            int TimeId = GetDateId(reader[0].ToString());
+            //            int CustomerId = GetCustomerId(reader[1].ToString());
+            //            double sales = Convert.ToDouble(reader[3]);
+            //            double discount = Convert.ToDouble(reader[5]);
+            //            double profit = Convert.ToDouble(reader[6]);
+            //            int quantity = Convert.ToInt32(reader[4]);
+            //            //double value = (sales / discount - profit) / quantity;
+            //            double value = sales / quantity;
+
+
+            //            // insert properties into the customer table dimension
+            //            insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+            //        }
+            //    }
+            //    //display the records being inserted to the fact table
+            //    listBoxFactTableSource.DataSource = Fact;
+            //}
         }
-        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");   /* @"^\d-\d{5}$"*/   /*@"[A-Z]{2}-[0-9]\d{5}"*/
+
+        //declaring a regex variable to allow for use in validating customerID and the acceptable format in regular expression
+        private static readonly Regex customerIDCheck = new Regex(@"^\w+\-\d{5}$");   
 
         public static bool VerifyCustomerId(string customerID)
         {
+            //return value
             return customerIDCheck.IsMatch(customerID);
         }
 
 
-
+        //declaring a regex variable to allow for use in validating productID and the acceptable format in regular expression
         private static readonly Regex productIDCheck = new Regex(@"^\w+\-\w+\-\d{8}$");  
 
         public static bool VerifyProductId(string productID)
         {
+            //return value
             return productIDCheck.IsMatch(productID);
         }
+
+        ////declaring a regex variable to allow for use in matching productID to exlude
+        //private static readonly Regex productIDMatch = new Regex(@"^\[OFF-EN-10001539]$");
+
+        //public static bool MatchProductId(string productID)
+        //{
+        //    return productIDMatch.IsMatch(productID);
+        //}
 
 
 
