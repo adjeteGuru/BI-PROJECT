@@ -816,7 +816,7 @@ namespace GITTest
                     {
 
                         //we enlist the columns to be read
-                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                        Fact.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
 
                         int productId = GetProductId(reader[2].ToString());
                         int TimeId = GetDateId(reader[0].ToString());
