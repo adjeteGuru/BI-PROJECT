@@ -999,7 +999,20 @@ namespace GITTest
             //Ideally this range would come from your database or elsewhere to allow the user to pick which dates they want to see.
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
             //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
-            List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+            //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
+            string selectedDate = Convert.ToDateTime(dateTimePicker.Text).ToString();
+            string[] splitedDate = selectedDate.Split(' ');
+
+            string[] arrayDate = splitedDate[0].Split('/');
+            int year = Convert.ToInt32(arrayDate[0]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[2]);
+
+            DateTime dateTime = new DateTime(year, month, day);
+
+            string dbDate = dateTime.ToString("M/dd/yyyy");
+
+            List<string> datelist = new List<string>(new string[] { dateTime.ToString("M/dd/yyyy"), dateTime.AddDays(1).ToString("M/dd/yyyy"), dateTime.AddDays(2).ToString("M/dd/yyyy"), dateTime.AddDays(3).ToString("M/dd/yyyy"), dateTime.AddDays(4).ToString("M/dd/yyyy"), dateTime.AddDays(5).ToString("M/dd/yyyy"), dateTime.AddDays(6).ToString("M/dd/yyyy") });
 
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
             //I am using a dictionary as I can then manually set my own "key" so rather than it being accessed through [0], [1] ect, i can access it via the date.
@@ -1100,20 +1113,7 @@ namespace GITTest
             //A good idea could be to create an empty list and then add in the week of dates you need? Up to you!
             //List<string> datelist = new List<string>(new string[] { "01/06/2014", "01/07/2014", "01/08/2014", "01/09/2014", "01/10/2014", "01/11/2014", "01/12/2014" });
 
-            string selectedDate = Convert.ToDateTime(dateTimePicker.Text).ToString();
-            string[] splitedDate = selectedDate.Split(' ');
-
-            string[] arrayDate = splitedDate[0].Split('/');
-            int year = Convert.ToInt32(arrayDate[0]);
-            int month = Convert.ToInt32(arrayDate[1]);
-            int day = Convert.ToInt32(arrayDate[2]);
-
-            DateTime dateTime = new DateTime(year, month, day);
-
-            string dbDate = dateTime.ToString("M/dd/yyyy");
-
-            List<string> datelist2 = new List<string>(new string[] { dateTime.ToString("M/dd/yyyy"), dateTime.AddDays(1).ToString("M/dd/yyyy"), dateTime.AddDays(2).ToString("M/dd/yyyy"), dateTime.AddDays(3).ToString("M/dd/yyyy"), dateTime.AddDays(4).ToString("M/dd/yyyy"), dateTime.AddDays(5).ToString("M/dd/yyyy"), dateTime.AddDays(6).ToString("M/dd/yyyy") });
-
+            
             List<string> productType = new List<string>(new string[] { "Office Supplies", "Furniture", "Technology" });
 
             //I need somewhere to hold the information pulled from the database! This is an empty dictionary.
@@ -1126,7 +1126,7 @@ namespace GITTest
 
 
             //run this code once for each date in my list - in my case 7 times
-            foreach (string date in datelist2)
+            foreach (string date in datelist)
             {
 
                 using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
@@ -1185,7 +1185,7 @@ namespace GITTest
             {
                 double gain = 0;
 
-                foreach (string date in datelist2)
+                foreach (string date in datelist)
                 {
                     using (SqlConnection myConnection = new SqlConnection(connectionStringDestination))
                     {
