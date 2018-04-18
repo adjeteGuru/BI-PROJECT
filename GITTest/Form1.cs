@@ -354,29 +354,7 @@ namespace GITTest
                 //Open the SqlConnection
                 myConnection.Open();
 
-                //YOU MISSED TO REAJUST THIS LINE OF CODE 'select id from customer where firstName=@firstName
-                //SqlCommand command = new SqlCommand("SELECT id FROM Customer WHERE firstName=@name", myConnection);
-
-                /*no idea what this is doing
-                //the following code uses an SqlCommand based on the SqlConnection
-                SqlCommand command = new SqlCommand("SELECT productId FROM FactTable WHERE productId=@productId", myConnection);
-
-                //'ADDITIONAL COMMAND QUERY MISSING' which is MAKING THE TEST NOT TO GO FORWARD @ WENHONG
-                command.Parameters.Add(new SqlParameter("productId", productId));
-
-                //Create a variable and assign it to false by defult
-                bool exists = false;
-
                 
-
-                //Run the command & read the results
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    //if there are rows, it means the customer exsists so change the exsists variable
-                    if (reader.HasRows) exists = true;
-                }
-
-                */
 
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO FactTable (productId, timeId, customerId, value, discount, profit, quantity)" +
                         " VALUES (@productId, @timeId, @customerId, @value, @discount, @profit, @quantity)", myConnection);
@@ -659,7 +637,7 @@ namespace GITTest
                 while (reader.Read())
                 {
 
-                    Products.Add(reader[0].ToString() + ", " + reader[1].ToString() + ", " + reader[2].ToString() + ", " + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString());
+                    Products.Add(reader[0].ToString().TrimEnd() + ", " + reader[1].ToString().TrimEnd() + ", " + reader[2].ToString().TrimEnd() + ", " + reader[3].ToString().TrimEnd() + ", " + reader[4].ToString().TrimEnd() + ", " + reader[5].ToString().TrimEnd());
 
                     string category = reader[4].ToString();
                     string subcategory = reader[5].ToString();
@@ -800,7 +778,7 @@ namespace GITTest
             //listBoxCustomer.Items.Clear();
             //create the database connection string
             string connectionString = Properties.Settings.Default.Data_set_1ConnectionString;
-            //string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
+            string connectionString2 = Properties.Settings.Default.Dataset2ConnectionString;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -813,7 +791,7 @@ namespace GITTest
                 {
                     bool error = false;
 
-                    //Check Order Date column for irregular data
+                    //Check Order Date column for incorrect date format
                     try
                     {
                         DateTime tempDate;
@@ -825,7 +803,7 @@ namespace GITTest
                     }
 
 
-                    //Check customerID column for irregular data
+                    //Check customerID column for incorrect customerID format
                     if (VerifyCustomerId(reader[1].ToString()) == false)
 
                     {
@@ -833,7 +811,7 @@ namespace GITTest
                     }
 
 
-
+                    //go ahead to insert only when there are no errors
                     if (error == false)
                     {
 
@@ -861,89 +839,91 @@ namespace GITTest
 
 
 
-            ////begin to read data from the second data source
-            //using (OleDbConnection connection = new OleDbConnection(connectionString2))
-            //{
-            //    //open the connection
-            //    connection.Open();
-            //    OleDbDataReader reader = null;
-            //    OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
-            //    reader = getFact.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        bool error = false;
+            //begin to read data from the second data source
+            using (OleDbConnection connection = new OleDbConnection(connectionString2))
+            {
+                //open the connection
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand getFact = new OleDbCommand("SELECT [Order Date], [Customer ID], [Product ID], Sales, Quantity, Discount, Profit FROM [Student Sample 2 - Sheet1]", connection);
+                reader = getFact.ExecuteReader();
+                while (reader.Read())
+                {
+                    bool error = false;
 
-            //        //Check Order Date
-            //        try
-            //        {
-            //            DateTime tempDate;
-            //            tempDate = Convert.ToDateTime(reader[0].ToString());
-            //        }
-            //        catch
-            //        {
-            //            error = true;
-            //        }
-
-
-            //        //Check Customer ID for irregular data
-            //        if (VerifyCustomerId(reader[1].ToString()) == false)
-
-            //        {
-            //            error = true;
-            //        }
-
-            //        //check productID for irregular data
-
-            //        if (VerifyProductId(reader[2].ToString()) == false)
-            //        {
-            //            error = true;
-            //        }
-
-            //        //check for productID Match
-
-            //        //if (MatchProductId(reader[2].ToString()) == true)
-            //        //{
-            //        //    error = true;
-            //        //}
+                    //Check Order Date for incorrect date format
+                    try
+                    {
+                        DateTime tempDate;
+                        tempDate = Convert.ToDateTime(reader[0].ToString());
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
 
 
-            //        //check for sales
-            //        try
-            //        {
-            //            decimal tempSales;
-            //            tempSales = Convert.ToDecimal(reader[3].ToString());
+                    //Check Customer ID for incorrect customerID format
+                    if (VerifyCustomerId(reader[1].ToString()) == false)
 
-            //        }
-            //        catch
-            //        {
-            //            error = true;
-            //        }
+                    {
+                        error = true;
+                    }
+
+                    //check productID for incorrect productID format
+
+                    if (VerifyProductId(reader[2].ToString()) == false)
+                    {
+                        error = true;
+                    }
 
                     
-            //        //if there are no errors, proceed to insert the row.
-            //        if (error == false)
-            //        {
-            //            //we enlist the columns to be read
-            //            Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+                    //check for sales
+                    try
+                    {
+                        decimal tempSales;
+                        tempSales = Convert.ToDecimal(reader[3].ToString());
 
-            //            int productId = GetProductId(reader[2].ToString());
-            //            int TimeId = GetDateId(reader[0].ToString());
-            //            int CustomerId = GetCustomerId(reader[1].ToString());
-            //            double sales = Convert.ToDouble(reader[3]);
-            //            double discount = Convert.ToDouble(reader[5]);
-            //            double profit = Convert.ToDouble(reader[6]);
-            //            int quantity = Convert.ToInt32(reader[4]);
-            //            //double value = (sales / discount - profit) / quantity;
-            //            double value = sales / quantity;
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
 
 
-            //            // insert properties into the customer table dimension
-            //            insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
-            //        }
-            //    }
-            //    //display the records being inserted to the fact table
-            //    listBoxFactTableSource.DataSource = Fact;
-            //}
+                    //if there are no errors, proceed to insert the row.
+                    if (error == false)
+                    {
+                        //we enlist the columns to be read
+                        Fact.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + ", " + reader[4].ToString() + ", " + reader[5].ToString() + ", " + reader[6].ToString());
+
+                        int productId = GetProductId(reader[2].ToString());
+                        int TimeId = GetDateId(reader[0].ToString());
+                        int CustomerId = GetCustomerId(reader[1].ToString());
+                        double sales = Convert.ToDouble(reader[3]);
+                        double discount = Convert.ToDouble(reader[5]);
+                        double profit = Convert.ToDouble(reader[6]);
+                        int quantity = Convert.ToInt32(reader[4]);
+                        //double value = (sales / discount - profit) / quantity;
+                        double value = sales / quantity;
+
+                        //check to ensure all 3 foreign keys have valid values
+                        if (productId > 0 & CustomerId > 0 & TimeId > 0)
+                        {
+                            // insert properties into the customer table dimension
+                            insertFactTableDimension(productId, TimeId, CustomerId, value, discount, profit, quantity);
+                        }
+                        else
+                        {
+               
+                            error = true;
+                           
+                        }
+                    }
+                }
+                //display the records being inserted to the fact table
+                listBoxFactTableSource.DataSource = Fact;
+            }
         }
 
         //declaring a regex variable to allow for use in validating customerID and the acceptable format in regular expression
@@ -964,15 +944,6 @@ namespace GITTest
             //return value
             return productIDCheck.IsMatch(productID);
         }
-
-        ////declaring a regex variable to allow for use in matching productID to exlude
-        //private static readonly Regex productIDMatch = new Regex(@"^\[OFF-EN-10001539]$");
-
-        //public static bool MatchProductId(string productID)
-        //{
-        //    return productIDMatch.IsMatch(productID);
-        //}
-
 
 
         private void btnLoadDataSaleRegion_Click(object sender, EventArgs e)
