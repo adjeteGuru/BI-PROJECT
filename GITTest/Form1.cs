@@ -92,7 +92,7 @@ namespace GITTest
         }
 
         //Get Product ID
-        private int GetProductId(string product)
+        private int GetProductId(string productcode)
 
         {
 
@@ -113,7 +113,7 @@ namespace GITTest
 
                 SqlCommand command = new SqlCommand("SELECT Id FROM Product Where productcode = @productcode", myConnection);
 
-                command.Parameters.Add(new SqlParameter("productcode", product));
+                command.Parameters.Add(new SqlParameter("productcode", productcode));
 
 
                 //Run the command & read the results 
@@ -142,7 +142,7 @@ namespace GITTest
         }
 
         //Get Customer Id
-        private int GetCustomerId(string Customer)
+        private int GetCustomerId(string CustomerID)
         {
             //Create a connection to the MDF file
             string connectionStringDestination = Properties.Settings.Default.DestinationDatabaseConnectionString;
@@ -154,7 +154,7 @@ namespace GITTest
                 myConnection.Open();
                 // The following code uses an SqlCommand based on the SqlConnection.
                 SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE CustomerID = @CustomerID", myConnection);
-                command.Parameters.Add(new SqlParameter("CustomerID", Customer));
+                command.Parameters.Add(new SqlParameter("CustomerID", CustomerID));
 
                 //Run the command & read the results
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -466,6 +466,54 @@ namespace GITTest
                 reader = getCustomer.ExecuteReader();
                 while (reader.Read())
                 {
+
+                    bool error = false;
+
+                    //Check Order Date
+                    //try
+                    //{
+                    //    DateTime tempDate;
+                    //    tempDate = Convert.ToDateTime(reader[0].ToString());
+                    //}
+                    //catch
+                    //{
+                    //    error = true;
+                    //}
+
+
+                    //Check Customer ID
+                    if (VerifyCustomerId(reader[0].ToString()) == false)
+
+                    {
+                        error = true;
+                    }
+
+                    //check productID
+
+                    //if (VerifyProductId(reader[2].ToString()) == false)
+                    //{
+                    //    error = true;
+                    //}
+
+                    //if error == false;
+                    //
+                    //check for sales
+                    //try
+                    //{
+                    //    decimal tempSales;
+                    //    tempSales = Convert.ToDecimal(reader[3].ToString());
+
+                    //}
+                    //catch
+                    //{
+                    //    error = true;
+                    //}
+
+                    if (error == false)
+                    {
+
+                    
+
                     //we enlist the columns to be read
                     Customer.Add(reader[0].ToString() + "," + reader[1].ToString() + "," + reader[2].ToString() + "," + reader[3].ToString() + "," + reader[4].ToString() + "," + reader[5].ToString() + "," + reader[6].ToString());
 
@@ -483,6 +531,8 @@ namespace GITTest
 
                     // insert properties into the customer table dimension
                     insertCustomerDimension(CustomerID, firstName, lastName, country, city, state, postalCode, region);
+
+                    }
                 }
             }
             
@@ -902,9 +952,9 @@ namespace GITTest
                         error = true;
                     }
 
-                    //if (error == true )
+                    //if (error == true)
                     //{
-                    //    Fact.Add(reader.);
+                    //    Fact.Add(reader.NextResult());
                     //}
 
 
@@ -941,7 +991,7 @@ namespace GITTest
 
 
 
-        private static readonly Regex productIDCheck = new Regex(@"^\w+\w+\-\d{8}$");  
+        private static readonly Regex productIDCheck = new Regex(@"^\w+\-\w+\-\d{8}$");  
 
         public static bool VerifyProductId(string productID)
         {
