@@ -507,6 +507,7 @@ namespace GITTest
                 }
 
             }
+            //display list on textbox
             listBoxCustomerFromDbNamed.DataSource = DestinationCustomersNamed;
         }
 
@@ -1169,14 +1170,7 @@ namespace GITTest
                         chart6.Series[0].XValueMember = "Key";
                         chart6.Series[0].YValueMembers = "Value";
                         chart6.DataBind();
-
-                        ////or a pie chart                      
-                        //pieChart.DataSource = salesCount;
-                        //pieChart.Series[0].XValueMember = "Key";
-                        //pieChart.Series[0].YValueMembers = "Value";
-                        //pieChart.DataBind();
-
-
+                    
                     }
                 }
 
@@ -1231,23 +1225,7 @@ namespace GITTest
 
             }
         }
-    
-
-
-        private void btnQuantityWeekly_Click_1(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnSalesProductType_Click_1(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void buttonProfit_Click(object sender, EventArgs e)
         {
@@ -1293,26 +1271,7 @@ namespace GITTest
                     //the following code uses an SqlCommand base on the SqlConnection
                     SqlCommand command = new SqlCommand("SELECT profit FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
                     command.Parameters.Add(new SqlParameter("date", date));
-                    //SqlCommand command2 = new SqlCommand("SELECT COUNT(*) AS numberOfRecord  FROM FactTable JOIN Time ON FactTable.timeId = Time.id WHERE Time.date = @date;", myConnection);
-                    //command2.Parameters.Add(new SqlParameter("date", date));
-
-                    //List<int> numberOfRecord = new List<int>();
-                    //using (SqlDataReader reader2 = command2.ExecuteReader())
-                    //{
-                    //    if(reader2.HasRows)
-                    //    {
-                    //        while(reader2.Read())
-                    //        {
-                    //            numberOfRecord.Add(Convert.ToInt32(reader2["numberOfRecord"].ToString()));
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        numberOfRecord.Add(0);
-                    //    }
-
-                    //}
-
+                    
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         //if there are rows, it means there were sales
@@ -1322,18 +1281,8 @@ namespace GITTest
                             while (reader.Read())
                             {
 
-                                //this line adds a dictionary item with the key of the date, and the value being the sales number
-                                //I could access this after by doing: int numberOfSales = salesCount["06/01/2014"]; - try it and write it to the console to test!
-
                                 gain = Convert.ToDouble(reader[0].ToString()) + gain;
-                                //int n = 0;
-                                //double gain = 0;
-                                //for (int i = 0; i < numberOfRecord[n]; i++)
-                                //{
-                                //    
-                                //}
-
-                                //n++;
+                                
                             }
                             salesCount.Add(date, gain);
                         }
@@ -1350,19 +1299,13 @@ namespace GITTest
                         chart6.Series[0].YValueMembers = "Value";
                         chart6.DataBind();
 
-                        ////or a pie chart                      
-                        //pieChart.DataSource = salesCount;
-                        //pieChart.Series[0].XValueMember = "Key";
-                        //pieChart.Series[0].YValueMembers = "Value";
-                        //pieChart.DataBind();
-
-
+                       
                     }
                 }
 
 
             }
-
+            //loop through all categories in product type
             foreach (string category in productType)
             {
                 double gain = 0;
