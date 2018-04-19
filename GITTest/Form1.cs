@@ -916,8 +916,10 @@ namespace GITTest
                         else
                         {
 
-                            error = true;
-
+                            //error = true;
+                            bool invalidRowSkipped = (error = true);
+                            Console.WriteLine("Invalid Rows Skipped: " + invalidRowSkipped);
+                            
                         }
                     }
                 }
