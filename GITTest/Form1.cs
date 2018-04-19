@@ -372,7 +372,6 @@ namespace GITTest
                 int recordsAffected = insertCommand.ExecuteNonQuery();
                 Console.WriteLine("build Fact Table Records affected: " + recordsAffected);
 
-
             }
         }
 
